@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import { Minus, Plus } from "lucide-react"
 
 import { Container } from "@/components/Container"
@@ -34,13 +35,9 @@ const EXPANDED_DETAILS: Record<string, { subtitle: string; text: string }> = {
 }
 
 export function Products() {
-  // STRICT SINGLE ACCORDION STATE:
-  // Stores the index of the single currently open card (0..5), or null if all cards are closed.
-  const [activeCardIndex, setActiveCardIndex] = React.useState<number | null>(null)
-
-  const handleToggleCard = (index: number) => {
-    setActiveCardIndex((currentIndex) => (currentIndex === index ? null : index))
-  }
+  // Radix UI Single Accordion Root value state
+  // Initial state is empty string "" (all cards start 100% collapsed on page load)
+  const [activeValue, setActiveValue] = React.useState<string>("")
 
   return (
     <section id="product" className="relative py-24 md:py-28">
@@ -57,79 +54,66 @@ export function Products() {
           sub="Our current focus is building an intuitive MVP that helps commuters discover routes, compare transport options, and estimate travel costs."
         />
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <AccordionPrimitive.Root
+          type="single"
+          collapsible
+          value={activeValue}
+          onValueChange={setActiveValue}
+          className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {PRODUCTS.map((p, index) => {
             const Icon = p.icon
-            // STRICT EQUALITY: Only the card matching activeCardIndex is open
-            const isExpanded = activeCardIndex === index
+            const itemValue = `item-${index}`
+            const isOpen = activeValue === itemValue
             const details = EXPANDED_DETAILS[p.title]
 
             return (
               <Reveal key={p.title} delay={(index % 2) * 90}>
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => handleToggleCard(index)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault()
-                      handleToggleCard(index)
-                    }
-                  }}
-                  className="group relative flex h-full cursor-pointer select-none flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
+                <AccordionPrimitive.Item
+                  value={itemValue}
+                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
                 >
-                  <div>
-                    {/* Header with icon & Plus/Minus indicator */}
-                    <div className="flex items-start justify-between">
-                      <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
-                        <Icon className="size-6" />
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-all group-hover:bg-white/30"
-                      >
-                        {isExpanded ? (
-                          <Minus className="size-5 transition-transform duration-200" />
-                        ) : (
-                          <Plus className="size-5 transition-transform duration-200" />
-                        )}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-6 font-display text-xl font-bold text-white">
-                      {p.title}
-                    </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-white/90">
-                      {p.text}
-                    </p>
-
-                    {/* Smooth 300ms Accordion Content Expansion */}
-                    <div
-                      className={`grid transition-all duration-300 ease-in-out ${
-                        isExpanded
-                          ? "grid-rows-[1fr] opacity-100 mt-4 pt-4 border-t border-white/25"
-                          : "grid-rows-[0fr] opacity-0"
-                      }`}
-                    >
-                      <div className="overflow-hidden">
-                        {details && (
-                          <div className="space-y-2 text-sm leading-relaxed text-white">
-                            <p className="font-bold text-white text-sm">
-                              {details.subtitle}
-                            </p>
-                            <p className="text-white/90 text-xs leading-relaxed">
-                              {details.text}
-                            </p>
-                          </div>
-                        )}
+                  <AccordionPrimitive.Header asChild>
+                    <AccordionPrimitive.Trigger className="w-full text-left outline-none cursor-pointer select-none">
+                      <div className="flex items-start justify-between">
+                        <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
+                          <Icon className="size-6" />
+                        </span>
+                        <span className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-all group-hover:bg-white/30">
+                          {isOpen ? (
+                            <Minus className="size-5 transition-transform duration-200" />
+                          ) : (
+                            <Plus className="size-5 transition-transform duration-200" />
+                          )}
+                        </span>
                       </div>
-                    </div>
-                  </div>
-                </div>
+
+                      <h3 className="mt-6 font-display text-xl font-bold text-white">
+                        {p.title}
+                      </h3>
+                      <p className="mt-2.5 text-sm leading-relaxed text-white/90">
+                        {p.text}
+                      </p>
+                    </AccordionPrimitive.Trigger>
+                  </AccordionPrimitive.Header>
+
+                  <AccordionPrimitive.Content className="overflow-hidden transition-all duration-300 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                    {details && (
+                      <div className="mt-4 border-t border-white/25 pt-4 space-y-2 text-sm leading-relaxed text-white">
+                        <p className="font-bold text-white text-sm">
+                          {details.subtitle}
+                        </p>
+                        <p className="text-white/90 text-xs leading-relaxed">
+                          {details.text}
+                        </p>
+                      </div>
+                    )}
+                  </AccordionPrimitive.Content>
+                </AccordionPrimitive.Item>
               </Reveal>
             )
           })}
-        </div>
+        </AccordionPrimitive.Root>
       </Container>
     </section>
   )
