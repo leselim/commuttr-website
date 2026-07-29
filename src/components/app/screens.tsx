@@ -1,233 +1,159 @@
 import {
-  Bell,
+  ArrowLeft,
+  ArrowRightLeft,
   BusFront,
-  CalendarDays,
-  Car,
-  Clock,
+  ChevronRight,
   Footprints,
   MapPin,
-  Navigation,
+  RefreshCw,
   SlidersHorizontal,
+  Star,
   TrainFront,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { AppTabBar } from "./PhoneMockup"
 
-/* ---------------- Shared UI Components ---------------- */
+/* ---------------- 1. Journey Screen: Route Options ---------------- */
 
-function Avatar({ initials }: { initials: string }) {
-  return (
-    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#1c1d22] text-[11px] font-bold text-white ring-1 ring-white/15">
-      {initials}
-    </span>
-  )
-}
-
-function RouteMap() {
-  return (
-    <svg viewBox="0 0 300 150" className="h-full w-full">
-      <rect width="300" height="150" fill="#101013" />
-      {/* City grid blocks */}
-      <g fill="rgba(255,255,255,0.035)">
-        <rect x="14" y="16" width="52" height="34" rx="4" />
-        <rect x="80" y="10" width="46" height="30" rx="4" />
-        <rect x="150" y="18" width="60" height="26" rx="4" />
-        <rect x="228" y="12" width="52" height="40" rx="4" />
-        <rect x="20" y="96" width="58" height="40" rx="4" />
-        <rect x="120" y="104" width="60" height="34" rx="4" />
-        <rect x="214" y="98" width="66" height="42" rx="4" />
-      </g>
-      {/* Road network */}
-      <g stroke="rgba(255,255,255,0.06)" strokeWidth="1">
-        <line x1="0" y1="70" x2="300" y2="66" />
-        <line x1="108" y1="0" x2="112" y2="150" />
-        <line x1="205" y1="0" x2="208" y2="150" />
-      </g>
-      {/* Active route polyline */}
-      <path
-        d="M40 118 C 90 118, 96 60, 150 58 S 236 40, 264 30"
-        fill="none"
-        stroke="rgba(246,61,6,0.25)"
-        strokeWidth="8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M40 118 C 90 118, 96 60, 150 58 S 236 40, 264 30"
-        fill="none"
-        stroke="#f63d06"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-      {/* Mid stop / transit transfer */}
-      <circle cx="150" cy="58" r="4.5" fill="#0a0a0b" stroke="#f63d06" strokeWidth="2.5" />
-      {/* Origin node */}
-      <circle cx="40" cy="118" r="6" fill="#0a0a0b" stroke="#fff" strokeWidth="3" />
-      {/* Destination pin */}
-      <g transform="translate(264 30)">
-        <circle r="9" fill="#f63d06" />
-        <circle r="3" fill="#fff" />
-      </g>
-    </svg>
-  )
-}
-
-/* ---------------- 1. Journey Planner Screen ---------------- */
-
-const ROUTES = [
+const ROUTE_OPTIONS = [
   {
     icon: BusFront,
-    mode: "MyCiTi T01 Express",
+    iconBg: "bg-[#f63d06]",
+    title: "MyCiTi T01 Express",
     times: "07:15 AM ➔ 07:57 AM",
-    duration: "42 min",
-    details: "Direct Route · 300m walking",
-    fare: "R 24.50",
-    tag: "RECOMMENDED",
-    status: "On time",
+    details: "52 min · 1 transfer · Civic Station",
+    price: "R 16.00",
+    status: "IN TRANSIT",
+    statusColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
     highlight: true,
   },
   {
-    icon: TrainFront,
-    mode: "Metrorail Line 1",
-    times: "07:20 AM ➔ 08:12 AM",
-    duration: "52 min",
-    details: "1 transfer · Civic Station",
-    fare: "R 16.00",
-    tag: "ECO OPTION",
-    status: "On time",
+    icon: BusFront,
+    iconBg: "bg-[#e11d48]",
+    title: "MyCiTi D01",
+    times: "07:22 AM ➔ 08:08 AM",
+    details: "46 min · 0 transfers · Civic Station",
+    price: "R 16.00",
+    status: "DELAYED",
+    statusColor: "text-amber-400 bg-amber-500/10 border-amber-500/20",
     highlight: false,
   },
   {
-    icon: Car,
-    mode: "Minibus Taxi Feeder",
-    times: "07:10 AM ➔ 07:48 AM",
-    duration: "38 min",
-    details: "Express Feeder · Rank Bay 2",
-    fare: "R 28.00",
-    tag: "FASTEST",
-    status: "On time",
+    icon: TrainFront,
+    iconBg: "bg-emerald-600",
+    title: "Metrorail",
+    times: "07:18 AM ➔ 08:05 AM",
+    details: "47 min · 1 transfer · Cape Town",
+    price: "R 14.00",
+    status: "ON TIME",
+    statusColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+    highlight: false,
+  },
+  {
+    icon: Footprints,
+    iconBg: "bg-indigo-600",
+    title: "Walk + MyCiTi",
+    times: "07:20 AM ➔ 08:12 AM",
+    details: "52 min · 1 transfer · Civic Station",
+    price: "R 16.00",
+    status: "ON TIME",
+    statusColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
     highlight: false,
   },
 ]
 
 export function JourneyScreen() {
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col px-4 pt-2.5">
-        {/* User Header */}
-        <header className="flex items-center justify-between gap-2 py-1">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <Avatar initials="LM" />
-            <div className="leading-tight min-w-0">
-              <p className="text-[10px] font-medium text-mist">Plan a route</p>
-              <p className="text-[12.5px] font-bold text-white truncate">Leseli Morakile</p>
-            </div>
-          </div>
-          <button className="relative flex size-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white transition-colors hover:bg-white/[0.08]">
-            <Bell className="size-3.5" />
-            <span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-[#f63d06]" />
+    <div className="flex flex-1 flex-col bg-[#0c0d10] text-white">
+      <div className="flex flex-1 flex-col px-3.5 pt-2">
+        {/* Top Header */}
+        <header className="flex items-center justify-between py-1">
+          <button className="flex size-7 items-center justify-center rounded-full text-mist transition-colors hover:text-white">
+            <ArrowLeft className="size-4" />
+          </button>
+          <h2 className="text-[13px] font-bold tracking-tight text-white">Route options</h2>
+          <button className="flex size-7 items-center justify-center rounded-full text-mist transition-colors hover:text-white">
+            <Star className="size-4" />
           </button>
         </header>
 
-        {/* Origin & Destination Card */}
-        <div className="mt-2.5 rounded-2xl border border-white/[0.08] bg-[#121316] p-3 shadow-sm">
-          <div className="flex items-center gap-2.5">
-            <span className="flex size-4 shrink-0 items-center justify-center">
-              <span className="size-2 rounded-full bg-[#f63d06]" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[9px] font-medium uppercase tracking-wider text-mist">From</p>
-              <p className="truncate text-[12px] font-semibold text-white">Khayelitsha Central</p>
+        {/* Origin / Destination Search Card */}
+        <div className="mt-2 rounded-xl border border-white/[0.08] bg-[#14151a] p-2.5 shadow-sm">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex flex-1 flex-col gap-2 min-w-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="size-2 shrink-0 rounded-full bg-[#f63d06]" />
+                <span className="truncate text-[11.5px] font-medium text-white">Current location</span>
+              </div>
+              <div className="flex items-center gap-2 min-w-0">
+                <MapPin className="size-3.5 shrink-0 text-[#f63d06]" />
+                <span className="truncate text-[11.5px] font-medium text-white">Cape Town Civic Centre</span>
+              </div>
             </div>
+            <button className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold text-mist hover:bg-white/[0.08] hover:text-white">
+              Edit
+            </button>
           </div>
 
-          <div className="my-1 ml-[7px] h-2.5 border-l border-dashed border-white/25" />
-
-          <div className="flex items-center gap-2.5">
-            <span className="flex size-4 shrink-0 items-center justify-center">
-              <MapPin className="size-3.5 text-[#f63d06]" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[9px] font-medium uppercase tracking-wider text-mist">To</p>
-              <p className="truncate text-[12px] font-semibold text-white">Cape Town CBD (Civic)</p>
-            </div>
+          <div className="mt-2.5 flex items-center justify-between border-t border-white/[0.06] pt-2 text-[10.5px]">
+            <button className="flex items-center gap-1 font-semibold text-mist">
+              Depart now <span className="text-[9px]">▾</span>
+            </button>
+            <button className="flex items-center gap-1 font-semibold text-mist">
+              <SlidersHorizontal className="size-3 text-[#f63d06]" /> Filter
+            </button>
           </div>
         </div>
 
-        {/* Mode Filter Chips */}
-        <div className="mt-2.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[10.5px]">
-          <span className="flex items-center gap-1 rounded-full bg-white px-3 py-1 font-bold text-black shadow-sm shrink-0">
-            All Modes
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-medium text-mist shrink-0">
-            <BusFront className="size-3 text-[#f63d06]" /> Bus
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-medium text-mist shrink-0">
-            <TrainFront className="size-3 text-[#f63d06]" /> Train
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-medium text-mist shrink-0">
-            <Car className="size-3 text-[#f63d06]" /> Taxi
-          </span>
-        </div>
+        {/* Section Title */}
+        <p className="mt-2.5 text-[10.5px] font-bold uppercase tracking-wider text-[#f63d06]">
+          Recommended
+        </p>
 
-        {/* Section Header */}
-        <div className="mt-3 flex items-center justify-between">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-mist">
-            3 Available Routes
-          </p>
-          <span className="flex items-center gap-1 text-[10px] font-semibold text-[#f63d06]">
-            <SlidersHorizontal className="size-3" /> Filter
-          </span>
-        </div>
-
-        {/* Redesigned Trip Cards */}
-        <div className="mt-2 space-y-2.5">
-          {ROUTES.map((r) => {
+        {/* Route Options Cards */}
+        <div className="mt-1.5 space-y-2">
+          {ROUTE_OPTIONS.map((r) => {
             const Icon = r.icon
             return (
               <div
-                key={r.mode}
+                key={r.title}
                 className={cn(
-                  "rounded-2xl border p-3 transition-colors",
+                  "flex items-center justify-between rounded-xl border p-2.5 transition-colors",
                   r.highlight
                     ? "border-[#f63d06]/40 bg-[#f63d06]/[0.08]"
-                    : "border-white/[0.08] bg-[#121316]"
+                    : "border-white/[0.06] bg-[#14151a]"
                 )}
               >
-                {/* Top Row: Icon, Mode, Tag & Live Status */}
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[#f63d06]">
-                      <Icon className="size-3.5" />
-                    </span>
-                    <p className="truncate text-[12px] font-bold text-white">{r.mode}</p>
-                  </div>
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    {r.highlight && (
-                      <span className="rounded-full bg-[#f63d06]/20 border border-[#f63d06]/30 px-2 py-0.5 text-[8.5px] font-bold uppercase tracking-wider text-[#f63d06]">
-                        {r.tag}
-                      </span>
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                  <span
+                    className={cn(
+                      "flex size-8 shrink-0 items-center justify-center rounded-lg text-white shadow-sm",
+                      r.iconBg
                     )}
-                    <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[8.5px] font-semibold text-emerald-400">
-                      <span className="size-1 rounded-full bg-emerald-400" />
-                      {r.status}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Middle Row: Key Time & Fare Pill */}
-                <div className="mt-2.5 flex items-center justify-between border-t border-white/[0.06] pt-2">
-                  <div>
-                    <p className="text-[12.5px] font-bold text-white">{r.times}</p>
-                    <div className="mt-0.5 flex items-center gap-1 text-[10px] font-medium text-mist">
-                      <Clock className="size-3 shrink-0 text-[#f63d06]" />
-                      <span className="truncate">{r.duration} · {r.details}</span>
+                  >
+                    <Icon className="size-4" />
+                  </span>
+                  <div className="min-w-0 flex-1 leading-tight">
+                    <div className="flex items-center gap-1.5">
+                      <p className="truncate text-[12px] font-bold text-white">{r.title}</p>
+                      <span
+                        className={cn(
+                          "rounded border px-1.5 py-0.2 text-[8px] font-bold uppercase tracking-wider shrink-0",
+                          r.statusColor
+                        )}
+                      >
+                        {r.status}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-[11px] font-semibold text-white">{r.times}</p>
+                    <div className="mt-0.5 flex items-center justify-between text-[9.5px] text-mist">
+                      <span className="truncate">{r.details}</span>
+                      <span className="font-bold text-white pl-1 shrink-0">{r.price}</span>
                     </div>
                   </div>
-                  <span className="rounded-lg bg-white/[0.06] border border-white/10 px-2.5 py-1 text-[11px] font-bold text-white shrink-0">
-                    {r.fare}
-                  </span>
                 </div>
+                <ChevronRight className="size-4 shrink-0 text-mist/60 ml-1.5" />
               </div>
             )
           })}
@@ -238,214 +164,249 @@ export function JourneyScreen() {
   )
 }
 
-/* ---------------- 2. Live Navigation Screen ---------------- */
+/* ---------------- 2. Navigation Screen: Route Details ---------------- */
 
 export function NavigationScreen() {
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col px-4 pt-2.5">
-        {/* Navigation Header */}
-        <header className="flex items-center justify-between gap-3 py-1">
-          <p className="truncate text-[12.5px] font-bold tracking-tight text-white">
-            Live Navigation
-          </p>
-          <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[9.5px] font-semibold text-emerald-400">
-            <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Live Tracking
-          </span>
+    <div className="flex flex-1 flex-col bg-[#0c0d10] text-white">
+      <div className="flex flex-1 flex-col px-3.5 pt-2">
+        {/* Top Header */}
+        <header className="flex items-center justify-between py-1">
+          <button className="flex size-7 items-center justify-center rounded-full text-mist transition-colors hover:text-white">
+            <ArrowLeft className="size-4" />
+          </button>
+          <h2 className="text-[13px] font-bold tracking-tight text-white">Route details</h2>
+          <button className="flex size-7 items-center justify-center rounded-full text-mist transition-colors hover:text-white">
+            <Star className="size-4" />
+          </button>
         </header>
 
-        {/* Live map header block */}
-        <div className="relative mt-2.5 overflow-hidden rounded-2xl border border-white/[0.08]">
-          <div className="h-[125px] w-full">
-            <RouteMap />
-          </div>
-          <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between rounded-xl border border-white/10 bg-carbon/90 px-3 py-2 backdrop-blur-md">
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-wider text-mist">Estimated Arrival</p>
-              <p className="text-[12.5px] font-bold text-white">07:57 AM <span className="text-[10px] font-normal text-[#f63d06]">(18m remaining)</span></p>
-            </div>
-            <span className="flex size-8 items-center justify-center rounded-lg bg-[#f63d06] text-white shadow-sm">
-              <Navigation className="size-4" />
+        {/* Summary Card */}
+        <div className="mt-2 rounded-xl border border-white/[0.08] bg-[#14151a] p-2.5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <span className="rounded-md bg-[#f63d06] px-2 py-0.5 text-[10px] font-bold text-white">
+              MyCiTi T01 Express
+            </span>
+            <span className="rounded border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[8px] font-bold text-emerald-400 uppercase tracking-wider">
+              IN TRANSIT
             </span>
           </div>
+
+          <p className="mt-2 text-[14px] font-bold text-white">07:15 AM ➔ 07:57 AM</p>
+          <div className="mt-1 flex items-center justify-between text-[10px] text-mist">
+            <span>52 min · 1 transfer · Civic Station</span>
+            <span className="font-bold text-white">R 16.00</span>
+          </div>
         </div>
 
-        {/* Active route legs timeline */}
-        <p className="mt-3 text-[10px] font-bold uppercase tracking-wider text-mist">
-          Active Trip Steps
-        </p>
+        {/* Timeline Stepper */}
+        <div className="relative mt-3 flex-1 px-1">
+          {/* Vertical Connecting Line */}
+          <div
+            aria-hidden
+            className="absolute left-[17px] top-4 bottom-4 w-0.5 bg-white/15"
+          />
 
-        <div className="mt-2 space-y-2.5">
-          {/* Leg 1: Active Bus Leg */}
-          <div className="rounded-2xl border border-[#f63d06]/40 bg-[#181112] p-3 shadow-sm">
-            <div className="flex items-start gap-3">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#f63d06] text-white shadow-sm">
-                <BusFront className="size-3.5" />
+          {/* Stepper Nodes */}
+          <div className="space-y-4">
+            {/* Step 1: Start Walk */}
+            <div className="relative flex items-start gap-3">
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#f63d06] text-white shadow-sm ring-4 ring-[#0c0d10]">
+                <Footprints className="size-3" />
               </span>
-              <div className="min-w-0 flex-1 leading-tight">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-[12px] font-bold text-white truncate">MyCiTi T01 Express</p>
-                  <span className="rounded-full bg-[#f63d06]/20 border border-[#f63d06]/30 px-2 py-0.5 text-[8.5px] font-bold uppercase tracking-wider text-[#f63d06] shrink-0">
-                    IN TRANSIT
-                  </span>
+              <div className="min-w-0 flex-1 pt-0.5 leading-tight">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-[#f63d06]">07:15</span>
+                  <p className="text-[11.5px] font-bold text-white">Current location</p>
                 </div>
-                <p className="mt-1 text-[10.5px] text-mist truncate">
-                  Platform 3 · Civic Centre Station
-                </p>
+                <p className="mt-0.5 text-[10px] text-mist">Walk 600 m (7 min)</p>
+              </div>
+            </div>
+
+            {/* Step 2: Bus Boarding Station Card */}
+            <div className="relative flex items-start gap-3">
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#f63d06] text-white shadow-sm ring-4 ring-[#0c0d10]">
+                <BusFront className="size-3" />
+              </span>
+              <div className="min-w-0 flex-1 pt-0.5 leading-tight">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-[#f63d06]">07:22</span>
+                  <p className="text-[11.5px] font-bold text-white">Civic Centre Station</p>
+                </div>
                 
-                {/* Step progress bar */}
-                <div className="mt-2.5 flex items-center justify-between gap-2 border-t border-white/[0.08] pt-2">
-                  <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
-                    <div className="h-full w-3/4 rounded-full bg-[#f63d06]" />
+                {/* Station Leg Detail Card */}
+                <div className="mt-1.5 rounded-lg border border-white/[0.08] bg-[#14151a] p-2">
+                  <div className="flex items-center justify-between">
+                    <span className="rounded bg-[#f63d06]/20 px-1.5 py-0.5 text-[9.5px] font-bold text-[#f63d06]">
+                      MyCiTi T01 Express
+                    </span>
+                    <span className="text-[8.5px] font-bold text-emerald-400 uppercase">IN TRANSIT</span>
                   </div>
-                  <span className="text-[9.5px] font-semibold text-mist shrink-0">4 stops left</span>
+                  <p className="mt-1 text-[9.5px] text-mist">Via St George&rsquo;s Mall · Final Step</p>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Leg 2: Redesigned Walking Leg */}
-          <div className="rounded-2xl border border-white/[0.08] bg-[#121316] p-3 shadow-sm">
-            <div className="flex items-start gap-3">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
-                <Footprints className="size-3.5" />
+            {/* Step 3: Transfer Station */}
+            <div className="relative flex items-start gap-3">
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-white/20 bg-[#14151a] text-white ring-4 ring-[#0c0d10]">
+                <ArrowRightLeft className="size-3" />
               </span>
-              <div className="min-w-0 flex-1 leading-tight">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-[12px] font-bold text-white truncate">
-                    Walk to Destination
-                  </p>
-                  <span className="rounded-lg bg-white/[0.06] border border-white/10 px-2 py-0.5 text-[10px] font-bold text-white shrink-0">
-                    300m · 4 min
-                  </span>
+              <div className="min-w-0 flex-1 pt-0.5 leading-tight">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-mist">07:45</span>
+                  <p className="text-[11.5px] font-semibold text-white">Civic Station</p>
                 </div>
-                <p className="mt-1 text-[10.5px] font-medium text-mist truncate">
-                  Via St George&rsquo;s Mall · Final Step
-                </p>
+                <p className="mt-0.5 text-[10px] text-mist">Transfer 4 min</p>
+              </div>
+            </div>
+
+            {/* Step 4: Final Destination Pin */}
+            <div className="relative flex items-start gap-3">
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#f63d06] text-white shadow-sm ring-4 ring-[#0c0d10]">
+                <MapPin className="size-3" />
+              </span>
+              <div className="min-w-0 flex-1 pt-0.5 leading-tight">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-[#f63d06]">07:57</span>
+                  <p className="text-[11.5px] font-bold text-white">Cape Town Civic Centre</p>
+                </div>
+                <p className="mt-0.5 text-[10px] text-mist">Final destination</p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Start Navigation CTA */}
+        <button className="mt-2.5 w-full rounded-xl bg-[#f63d06] py-2.5 text-center text-[12px] font-bold text-white shadow-md transition-colors hover:bg-[#f63d06]/90">
+          Start navigation
+        </button>
       </div>
       <AppTabBar active={2} />
     </div>
   )
 }
 
-/* ---------------- 3. Station Departure Schedules Screen ---------------- */
+/* ---------------- 3. Schedules Screen: Station Board ---------------- */
 
-const SCHEDULES = [
+const STATION_DEPARTURES = [
   {
-    modeIcon: BusFront,
+    icon: BusFront,
+    iconBg: "bg-[#f63d06]",
     route: "MyCiTi T01 Express",
-    dest: "Waterfront Civic",
-    time: "In 2 min",
-    departs: "07:14 AM",
-    platform: "Platform 1",
-    status: "On Time",
-    load: "Seats free",
-    highlight: true,
+    dest: "Table View · Platform D",
+    status: "IN TRANSIT",
+    statusColor: "text-emerald-400",
+    time: "2 min",
   },
   {
-    modeIcon: BusFront,
-    route: "Golden Arrow 104",
-    dest: "Bellville Station",
-    time: "In 7 min",
-    departs: "07:19 AM",
-    platform: "Bay 4",
-    status: "On Time",
-    load: "Medium load",
-    highlight: false,
+    icon: BusFront,
+    iconBg: "bg-[#e11d48]",
+    route: "MyCiTi D01",
+    dest: "Woodstock · Platform C",
+    status: "DELAYED",
+    statusColor: "text-amber-400",
+    time: "8 min",
   },
   {
-    modeIcon: TrainFront,
-    route: "Southern Line 01",
-    dest: "Simon's Town",
-    time: "In 13 min",
-    departs: "07:25 AM",
-    platform: "Platform 6",
-    status: "On Time",
-    load: "Seats free",
-    highlight: false,
+    icon: TrainFront,
+    iconBg: "bg-emerald-600",
+    route: "Metrorail",
+    dest: "Bellville · Platform A",
+    status: "ON TIME",
+    statusColor: "text-emerald-400",
+    time: "12 min",
   },
   {
-    modeIcon: BusFront,
-    route: "MyCiTi 101 Feeder",
-    dest: "Camps Bay",
-    time: "In 20 min",
-    departs: "07:32 AM",
-    platform: "Platform 2",
-    status: "On Time",
-    load: "Seats free",
-    highlight: false,
+    icon: BusFront,
+    iconBg: "bg-amber-600",
+    route: "Golden Arrow 106",
+    dest: "Sea Point · Platform B",
+    status: "ON TIME",
+    statusColor: "text-emerald-400",
+    time: "15 min",
   },
 ]
 
 export function SchedulesScreen() {
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col px-4 pt-2.5">
-        {/* Header */}
-        <header className="flex items-center justify-between gap-2 py-1">
-          <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-medium text-mist">Real-Time Station Board</p>
-            <p className="text-[12.5px] font-bold text-white truncate">Cape Town Civic Centre ▾</p>
-          </div>
-          <span className="flex shrink-0 items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[9.5px] font-semibold text-mist">
-            <CalendarDays className="size-3 text-[#f63d06]" /> Live Board
-          </span>
+    <div className="flex flex-1 flex-col bg-[#0c0d10] text-white">
+      <div className="flex flex-1 flex-col px-3.5 pt-2">
+        {/* Top Header */}
+        <header className="flex items-center justify-between py-1">
+          <button className="flex size-7 items-center justify-center rounded-full text-mist transition-colors hover:text-white">
+            <ArrowLeft className="size-4" />
+          </button>
+          <h2 className="text-[13px] font-bold tracking-tight text-white">Station board</h2>
+          <button className="flex size-7 items-center justify-center rounded-full text-mist transition-colors hover:text-white">
+            <RefreshCw className="size-3.5" />
+          </button>
         </header>
 
-        {/* Live departure ticker card */}
-        <div className="mt-2.5 rounded-xl border border-[#f63d06]/20 bg-[#f63d06]/10 px-3 py-2 text-[11px]">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-white min-w-0">
-              <span className="size-2 shrink-0 rounded-full bg-[#f63d06] animate-ping" />
-              <span className="font-bold text-[11.5px] truncate">Transit Network Active</span>
-            </div>
-            <span className="text-[9.5px] font-medium text-mist shrink-0">Updated 10s ago</span>
-          </div>
+        {/* Station Title Header */}
+        <div className="mt-2 leading-tight">
+          <p className="text-[10px] font-semibold text-mist">Real-Time Station Board</p>
+          <h3 className="text-[14px] font-bold text-white">Cape Town Civic Centre</h3>
+          <p className="mt-0.5 text-[9.5px] text-mist/70">Updated just now</p>
         </div>
 
-        {/* Departure Board List */}
-        <p className="mt-3 text-[10px] font-bold uppercase tracking-wider text-mist">
-          Upcoming Departures
-        </p>
+        {/* Mode Filter Pills */}
+        <div className="mt-2.5 flex items-center gap-1.5 text-[10px]">
+          <span className="rounded-lg bg-[#f63d06] px-3 py-1 font-bold text-white shadow-sm">
+            All
+          </span>
+          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
+            MyCiTi
+          </span>
+          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
+            Metrorail
+          </span>
+          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
+            Golden Arrow
+          </span>
+        </div>
 
-        <div className="mt-2 space-y-2.5">
-          {SCHEDULES.map((s) => {
-            const Icon = s.modeIcon
+        {/* Departure Board Items */}
+        <div className="mt-3 space-y-2">
+          {STATION_DEPARTURES.map((s) => {
+            const Icon = s.icon
             return (
               <div
                 key={s.route}
-                className={cn(
-                  "flex items-center justify-between rounded-2xl border p-3 transition-colors",
-                  s.highlight
-                    ? "border-[#f63d06]/40 bg-[#f63d06]/[0.08]"
-                    : "border-white/[0.06] bg-[#121316]"
-                )}
+                className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-[#14151a] p-2.5"
               >
-                <div className="flex items-center gap-3 min-w-0 flex-1">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[#f63d06]">
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                  <span
+                    className={cn(
+                      "flex size-8 shrink-0 items-center justify-center rounded-lg text-white shadow-sm",
+                      s.iconBg
+                    )}
+                  >
                     <Icon className="size-4" />
                   </span>
-                  <div className="flex-1 leading-tight min-w-0">
-                    <p className="truncate text-[12px] font-bold text-white">{s.route}</p>
-                    <p className="mt-0.5 truncate text-[10.5px] text-mist">
-                      ➔ {s.dest} · {s.platform}
-                    </p>
+                  <div className="min-w-0 flex-1 leading-tight">
+                    <div className="flex items-center justify-between gap-1">
+                      <p className="truncate text-[12px] font-bold text-white">{s.route}</p>
+                      <span className={cn("text-[8.5px] font-bold uppercase tracking-wider shrink-0", s.statusColor)}>
+                        {s.status}
+                      </span>
+                    </div>
+                    <p className="mt-1 truncate text-[10px] text-mist">{s.dest}</p>
                   </div>
                 </div>
 
-                <div className="text-right leading-tight pl-2 shrink-0">
-                  <span className="text-[12px] font-bold text-[#f63d06]">{s.time}</span>
-                  <p className="mt-0.5 text-[9.5px] font-semibold text-emerald-400">{s.departs}</p>
+                <div className="pl-3 text-right shrink-0">
+                  <span className="text-[12.5px] font-bold text-white">{s.time}</span>
                 </div>
               </div>
             )
           })}
         </div>
+
+        {/* View Full Timetable Link */}
+        <button className="mt-3 flex items-center justify-center gap-1 text-[10.5px] font-semibold text-mist hover:text-white">
+          View full timetable <ChevronRight className="size-3" />
+        </button>
       </div>
       <AppTabBar active={3} />
     </div>
