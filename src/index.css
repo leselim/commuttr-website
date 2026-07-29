@@ -33,7 +33,7 @@
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
   --border: rgba(255, 255, 255, 0.09);
-  --radius: 1.15rem;
+  --radius: 1.5rem;
 }
 
 @theme inline {

@@ -32,8 +32,8 @@ export function AppShowcase() {
       <Container>
         <SectionHeading
           align="center"
-          index="03"
-          eyebrow="See the app"
+          index="04"
+          eyebrow="Journey Experience"
           title="The commuter experience, redesigned."
           sub="A first look at the Commuttr app centered entirely on intelligent journey planning, live trip navigation, and real-time transit timetables."
         />

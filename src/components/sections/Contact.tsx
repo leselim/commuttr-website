@@ -42,7 +42,10 @@ export function Contact() {
             {/* Pitch */}
             <div className="relative p-8 md:p-12">
               <div className="relative">
-                <span className="eyebrow text-signal">Partner with Commuttr</span>
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-medium text-signal">10</span>
+                  <span className="eyebrow text-mist">Join the Waitlist & Partner with Us</span>
+                </div>
                 <h2 className="display mt-4 text-3xl font-bold text-white md:text-4xl">
                   Let&rsquo;s build the future of mobility together.
                 </h2>
