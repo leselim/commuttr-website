@@ -219,9 +219,10 @@ export function JourneyScreen() {
                 <div className="mt-2.5 flex items-center justify-between border-t border-white/[0.06] pt-2">
                   <div>
                     <p className="text-[12.5px] font-bold text-white">{r.times}</p>
-                    <p className="mt-0.5 flex items-center gap-1 text-[10px] text-mist">
-                      <Clock className="size-3 text-mist/80" /> {r.duration} · {r.details}
-                    </p>
+                    <div className="mt-0.5 flex items-center gap-1 text-[10px] font-medium text-mist">
+                      <Clock className="size-3 shrink-0 text-[#f63d06]" />
+                      <span className="truncate">{r.duration} · {r.details}</span>
+                    </div>
                   </div>
                   <span className="rounded-lg bg-white/[0.06] border border-white/10 px-2.5 py-1 text-[11px] font-bold text-white shrink-0">
                     {r.fare}
