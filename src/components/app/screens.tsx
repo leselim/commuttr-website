@@ -78,9 +78,9 @@ const ROUTES = [
   {
     icon: BusFront,
     mode: "MyCiTi T01 Express",
-    times: "07:15 ➔ 07:57 AM",
+    times: "07:15 AM ➔ 07:57 AM",
     duration: "42 min",
-    details: "Direct · 300m walk",
+    details: "Direct Route · 300m walking",
     fare: "R 24.50",
     tag: "RECOMMENDED",
     status: "On time",
@@ -89,7 +89,7 @@ const ROUTES = [
   {
     icon: TrainFront,
     mode: "Metrorail Line 1",
-    times: "07:20 ➔ 08:12 AM",
+    times: "07:20 AM ➔ 08:12 AM",
     duration: "52 min",
     details: "1 transfer · Civic Station",
     fare: "R 16.00",
@@ -99,10 +99,10 @@ const ROUTES = [
   },
   {
     icon: Car,
-    mode: "Minibus Taxi + Feeder",
-    times: "07:10 ➔ 07:48 AM",
+    mode: "Minibus Taxi Feeder",
+    times: "07:10 AM ➔ 07:48 AM",
     duration: "38 min",
-    details: "Express · Taxi Rank Bay 2",
+    details: "Express Feeder · Rank Bay 2",
     fare: "R 28.00",
     tag: "FASTEST",
     status: "On time",
@@ -113,7 +113,7 @@ const ROUTES = [
 export function JourneyScreen() {
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col px-3.5 pt-2">
+      <div className="flex flex-1 flex-col px-4 pt-2.5">
         {/* User Header */}
         <header className="flex items-center justify-between gap-2 py-1">
           <div className="flex items-center gap-2.5 min-w-0">
@@ -130,13 +130,13 @@ export function JourneyScreen() {
         </header>
 
         {/* Origin & Destination Card */}
-        <div className="mt-2 rounded-2xl border border-white/[0.08] bg-[#121316] p-3 shadow-sm">
+        <div className="mt-2.5 rounded-2xl border border-white/[0.08] bg-[#121316] p-3 shadow-sm">
           <div className="flex items-center gap-2.5">
             <span className="flex size-4 shrink-0 items-center justify-center">
               <span className="size-2 rounded-full bg-[#f63d06]" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-[9.5px] font-medium uppercase tracking-wider text-mist">From</p>
+              <p className="text-[9px] font-medium uppercase tracking-wider text-mist">From</p>
               <p className="truncate text-[12px] font-semibold text-white">Khayelitsha Central</p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export function JourneyScreen() {
               <MapPin className="size-3.5 text-[#f63d06]" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-[9.5px] font-medium uppercase tracking-wider text-mist">To</p>
+              <p className="text-[9px] font-medium uppercase tracking-wider text-mist">To</p>
               <p className="truncate text-[12px] font-semibold text-white">Cape Town CBD (Civic)</p>
             </div>
           </div>
@@ -173,7 +173,7 @@ export function JourneyScreen() {
         {/* Section Header */}
         <div className="mt-3 flex items-center justify-between">
           <p className="text-[10px] font-bold uppercase tracking-wider text-mist">
-            3 Routes Available
+            3 Available Routes
           </p>
           <span className="flex items-center gap-1 text-[10px] font-semibold text-[#f63d06]">
             <SlidersHorizontal className="size-3" /> Filter
@@ -181,7 +181,7 @@ export function JourneyScreen() {
         </div>
 
         {/* Redesigned Trip Cards */}
-        <div className="mt-2 space-y-2">
+        <div className="mt-2 space-y-2.5">
           {ROUTES.map((r) => {
             const Icon = r.icon
             return (
@@ -194,7 +194,7 @@ export function JourneyScreen() {
                     : "border-white/[0.08] bg-[#121316]"
                 )}
               >
-                {/* Top Badge Row */}
+                {/* Top Row: Icon, Mode, Tag & Live Status */}
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[#f63d06]">
@@ -215,19 +215,17 @@ export function JourneyScreen() {
                   </div>
                 </div>
 
-                {/* Departure / Arrival Times */}
-                <div className="mt-2.5 flex items-baseline justify-between border-t border-white/[0.06] pt-2">
+                {/* Middle Row: Key Time & Fare Pill */}
+                <div className="mt-2.5 flex items-center justify-between border-t border-white/[0.06] pt-2">
                   <div>
-                    <p className="text-[13px] font-bold text-white">{r.times}</p>
-                    <p className="mt-0.5 text-[10px] text-mist flex items-center gap-1">
-                      <Clock className="size-3" /> {r.duration} · {r.details}
+                    <p className="text-[12.5px] font-bold text-white">{r.times}</p>
+                    <p className="mt-0.5 flex items-center gap-1 text-[10px] text-mist">
+                      <Clock className="size-3 text-mist/80" /> {r.duration} · {r.details}
                     </p>
                   </div>
-                  <div className="text-right">
-                    <span className="rounded-lg bg-white/[0.06] border border-white/10 px-2.5 py-1 text-[11px] font-bold text-white">
-                      {r.fare}
-                    </span>
-                  </div>
+                  <span className="rounded-lg bg-white/[0.06] border border-white/10 px-2.5 py-1 text-[11px] font-bold text-white shrink-0">
+                    {r.fare}
+                  </span>
                 </div>
               </div>
             )
@@ -244,7 +242,7 @@ export function JourneyScreen() {
 export function NavigationScreen() {
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col px-3.5 pt-2">
+      <div className="flex flex-1 flex-col px-4 pt-2.5">
         {/* Navigation Header */}
         <header className="flex items-center justify-between gap-3 py-1">
           <p className="truncate text-[12.5px] font-bold tracking-tight text-white">
@@ -257,7 +255,7 @@ export function NavigationScreen() {
         </header>
 
         {/* Live map header block */}
-        <div className="relative mt-2 overflow-hidden rounded-2xl border border-white/[0.08]">
+        <div className="relative mt-2.5 overflow-hidden rounded-2xl border border-white/[0.08]">
           <div className="h-[125px] w-full">
             <RouteMap />
           </div>
@@ -392,7 +390,7 @@ const SCHEDULES = [
 export function SchedulesScreen() {
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col px-3.5 pt-2">
+      <div className="flex flex-1 flex-col px-4 pt-2.5">
         {/* Header */}
         <header className="flex items-center justify-between gap-2 py-1">
           <div className="min-w-0 flex-1">
@@ -405,7 +403,7 @@ export function SchedulesScreen() {
         </header>
 
         {/* Live departure ticker card */}
-        <div className="mt-2 rounded-xl border border-[#f63d06]/20 bg-[#f63d06]/10 px-3 py-2 text-[11px]">
+        <div className="mt-2.5 rounded-xl border border-[#f63d06]/20 bg-[#f63d06]/10 px-3 py-2 text-[11px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-white min-w-0">
               <span className="size-2 shrink-0 rounded-full bg-[#f63d06] animate-ping" />
@@ -420,7 +418,7 @@ export function SchedulesScreen() {
           Upcoming Departures
         </p>
 
-        <div className="mt-2 space-y-2">
+        <div className="mt-2 space-y-2.5">
           {SCHEDULES.map((s) => {
             const Icon = s.modeIcon
             return (
