@@ -275,23 +275,17 @@ export function NavigationScreen() {
           Active Trip Steps
         </p>
 
-        <div className="relative mt-2 space-y-2.5">
-          {/* Vertical connecting line */}
-          <div
-            aria-hidden
-            className="absolute left-[15px] top-4 bottom-4 w-0.5 border-l border-dashed border-white/20"
-          />
-
+        <div className="mt-2 space-y-2.5">
           {/* Leg 1: Active Bus Leg */}
-          <div className="relative z-10 rounded-2xl border border-[#f63d06]/40 bg-[#f63d06]/[0.08] p-3 shadow-sm">
+          <div className="rounded-2xl border border-[#f63d06]/40 bg-[#181112] p-3 shadow-sm">
             <div className="flex items-start gap-3">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#f63d06] text-white shadow-sm ring-2 ring-ink">
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#f63d06] text-white shadow-sm">
                 <BusFront className="size-3.5" />
               </span>
               <div className="min-w-0 flex-1 leading-tight">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-[12px] font-bold text-white truncate">MyCiTi T01 Express</p>
-                  <span className="rounded bg-[#f63d06]/20 border border-[#f63d06]/30 px-1.5 py-0.5 text-[8.5px] font-bold uppercase tracking-wider text-[#f63d06] shrink-0">
+                  <span className="rounded-full bg-[#f63d06]/20 border border-[#f63d06]/30 px-2 py-0.5 text-[8.5px] font-bold uppercase tracking-wider text-[#f63d06] shrink-0">
                     IN TRANSIT
                   </span>
                 </div>
@@ -311,9 +305,9 @@ export function NavigationScreen() {
           </div>
 
           {/* Leg 2: Redesigned Walking Leg */}
-          <div className="relative z-10 rounded-2xl border border-white/[0.08] bg-[#121316] p-3">
+          <div className="rounded-2xl border border-white/[0.08] bg-[#121316] p-3 shadow-sm">
             <div className="flex items-start gap-3">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/10 text-white ring-2 ring-ink">
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
                 <Footprints className="size-3.5" />
               </span>
               <div className="min-w-0 flex-1 leading-tight">
@@ -326,7 +320,7 @@ export function NavigationScreen() {
                   </span>
                 </div>
                 <p className="mt-1 text-[10.5px] font-medium text-mist truncate">
-                  Via St George&rsquo;s Mall · Final Leg
+                  Via St George&rsquo;s Mall · Final Step
                 </p>
               </div>
             </div>
