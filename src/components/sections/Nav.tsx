@@ -48,7 +48,7 @@ export function Nav() {
             <a href="#contact">Partner with us</a>
           </Button>
           <Button size="sm" asChild>
-            <a href="#contact">Get early access</a>
+            <a href="#contact">Join Waitlist</a>
           </Button>
         </div>
 
@@ -77,7 +77,7 @@ export function Nav() {
             ))}
             <Button className="mt-2 w-full" asChild>
               <a href="#contact" onClick={() => setOpen(false)}>
-                Get early access
+                Join Waitlist
               </a>
             </Button>
           </nav>

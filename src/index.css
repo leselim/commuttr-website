@@ -33,8 +33,7 @@
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
   --border: rgba(255, 255, 255, 0.09);
-  --input: rgba(255, 255, 255, 0.12);
-  --radius: 0rem;
+  --radius: 1.15rem;
 }
 
 @theme inline {
@@ -83,10 +82,6 @@
 }
 
 @layer base {
-  *:not(.phone-mockup):not(.phone-mockup *) {
-    border-color: var(--border);
-    border-radius: 0 !important;
-  }
   * {
     border-color: var(--border);
   }

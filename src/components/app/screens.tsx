@@ -25,7 +25,7 @@ const ROUTE_OPTIONS = [
     details: "52 min · 1 transfer · Civic Station",
     price: "R 16.00",
     status: "IN TRANSIT",
-    statusColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+    statusColor: "text-emerald-400",
     highlight: true,
   },
   {
@@ -36,7 +36,7 @@ const ROUTE_OPTIONS = [
     details: "46 min · 0 transfers · Civic Station",
     price: "R 16.00",
     status: "DELAYED",
-    statusColor: "text-amber-400 bg-amber-500/10 border-amber-500/20",
+    statusColor: "text-amber-400",
     highlight: false,
   },
   {
@@ -47,7 +47,7 @@ const ROUTE_OPTIONS = [
     details: "47 min · 1 transfer · Cape Town",
     price: "R 14.00",
     status: "ON TIME",
-    statusColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+    statusColor: "text-emerald-400",
     highlight: false,
   },
   {
@@ -58,7 +58,7 @@ const ROUTE_OPTIONS = [
     details: "52 min · 1 transfer · Civic Station",
     price: "R 16.00",
     status: "ON TIME",
-    statusColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+    statusColor: "text-emerald-400",
     highlight: false,
   },
 ]
@@ -79,7 +79,7 @@ export function JourneyScreen() {
         </header>
 
         {/* Origin / Destination Search Card */}
-        <div className="mt-2 rounded-xl border border-white/[0.08] bg-[#14151a] p-2.5 shadow-sm">
+        <div className="mt-2 rounded-2xl border border-white/[0.08] bg-[#14151a] p-2.5 shadow-sm">
           <div className="flex items-center justify-between gap-2">
             <div className="flex flex-1 flex-col gap-2 min-w-0">
               <div className="flex items-center gap-2 min-w-0">
@@ -91,7 +91,7 @@ export function JourneyScreen() {
                 <span className="truncate text-[11.5px] font-medium text-white">Cape Town Civic Centre</span>
               </div>
             </div>
-            <button className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold text-mist hover:bg-white/[0.08] hover:text-white">
+            <button className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold text-mist hover:bg-white/[0.08] hover:text-white">
               Edit
             </button>
           </div>
@@ -119,7 +119,7 @@ export function JourneyScreen() {
               <div
                 key={r.title}
                 className={cn(
-                  "flex items-center justify-between rounded-xl border p-2.5 transition-colors",
+                  "flex items-center justify-between rounded-2xl border p-2.5 transition-colors",
                   r.highlight
                     ? "border-[#f63d06]/40 bg-[#f63d06]/[0.08]"
                     : "border-white/[0.06] bg-[#14151a]"
@@ -128,21 +128,17 @@ export function JourneyScreen() {
                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
                   <span
                     className={cn(
-                      "flex size-8 shrink-0 items-center justify-center rounded-lg text-white shadow-sm",
+                      "flex size-8 shrink-0 items-center justify-center rounded-xl text-white shadow-sm",
                       r.iconBg
                     )}
                   >
                     <Icon className="size-4" />
                   </span>
                   <div className="min-w-0 flex-1 leading-tight">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center justify-between gap-1.5">
                       <p className="truncate text-[12px] font-bold text-white">{r.title}</p>
-                      <span
-                        className={cn(
-                          "rounded border px-1.5 py-0.2 text-[8px] font-bold uppercase tracking-wider shrink-0",
-                          r.statusColor
-                        )}
-                      >
+                      {/* Text-only minimal status indicator */}
+                      <span className={cn("text-[9px] font-bold uppercase tracking-wider shrink-0", r.statusColor)}>
                         {r.status}
                       </span>
                     </div>
@@ -182,12 +178,13 @@ export function NavigationScreen() {
         </header>
 
         {/* Summary Card */}
-        <div className="mt-2 rounded-xl border border-white/[0.08] bg-[#14151a] p-2.5 shadow-sm">
+        <div className="mt-2 rounded-2xl border border-white/[0.08] bg-[#14151a] p-2.5 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="rounded-md bg-[#f63d06] px-2 py-0.5 text-[10px] font-bold text-white">
+            <span className="rounded-full bg-[#f63d06] px-2.5 py-0.5 text-[10px] font-bold text-white">
               MyCiTi T01 Express
             </span>
-            <span className="rounded border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[8px] font-bold text-emerald-400 uppercase tracking-wider">
+            {/* Text-only minimal status indicator */}
+            <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-wider">
               IN TRANSIT
             </span>
           </div>
@@ -235,12 +232,13 @@ export function NavigationScreen() {
                 </div>
                 
                 {/* Station Leg Detail Card */}
-                <div className="mt-1.5 rounded-lg border border-white/[0.08] bg-[#14151a] p-2">
+                <div className="mt-1.5 rounded-xl border border-white/[0.08] bg-[#14151a] p-2">
                   <div className="flex items-center justify-between">
-                    <span className="rounded bg-[#f63d06]/20 px-1.5 py-0.5 text-[9.5px] font-bold text-[#f63d06]">
+                    <span className="rounded-full bg-[#f63d06]/20 px-2 py-0.5 text-[9.5px] font-bold text-[#f63d06]">
                       MyCiTi T01 Express
                     </span>
-                    <span className="text-[8.5px] font-bold text-emerald-400 uppercase">IN TRANSIT</span>
+                    {/* Text-only minimal status indicator */}
+                    <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-wider">IN TRANSIT</span>
                   </div>
                   <p className="mt-1 text-[9.5px] text-mist">Via St George&rsquo;s Mall · Final Step</p>
                 </div>
@@ -278,7 +276,7 @@ export function NavigationScreen() {
         </div>
 
         {/* Start Navigation CTA */}
-        <button className="mt-2.5 w-full rounded-xl bg-[#f63d06] py-2.5 text-center text-[12px] font-bold text-white shadow-md transition-colors hover:bg-[#f63d06]/90">
+        <button className="mt-2.5 w-full rounded-full bg-[#f63d06] py-2.5 text-center text-[12px] font-bold text-white shadow-md transition-colors hover:bg-[#f63d06]/90">
           Start navigation
         </button>
       </div>
@@ -352,16 +350,16 @@ export function SchedulesScreen() {
 
         {/* Mode Filter Pills */}
         <div className="mt-2.5 flex items-center gap-1.5 text-[10px]">
-          <span className="rounded-lg bg-[#f63d06] px-3 py-1 font-bold text-white shadow-sm">
+          <span className="rounded-full bg-[#f63d06] px-3 py-1 font-bold text-white shadow-sm">
             All
           </span>
-          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
+          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
             MyCiTi
           </span>
-          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
+          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
             Metrorail
           </span>
-          <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
+          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-medium text-mist">
             Golden Arrow
           </span>
         </div>
@@ -373,12 +371,12 @@ export function SchedulesScreen() {
             return (
               <div
                 key={s.route}
-                className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-[#14151a] p-2.5"
+                className="flex items-center justify-between rounded-2xl border border-white/[0.06] bg-[#14151a] p-2.5"
               >
                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
                   <span
                     className={cn(
-                      "flex size-8 shrink-0 items-center justify-center rounded-lg text-white shadow-sm",
+                      "flex size-8 shrink-0 items-center justify-center rounded-xl text-white shadow-sm",
                       s.iconBg
                     )}
                   >
@@ -387,7 +385,8 @@ export function SchedulesScreen() {
                   <div className="min-w-0 flex-1 leading-tight">
                     <div className="flex items-center justify-between gap-1">
                       <p className="truncate text-[12px] font-bold text-white">{s.route}</p>
-                      <span className={cn("text-[8.5px] font-bold uppercase tracking-wider shrink-0", s.statusColor)}>
+                      {/* Text-only minimal status indicator */}
+                      <span className={cn("text-[9px] font-bold uppercase tracking-wider shrink-0", s.statusColor)}>
                         {s.status}
                       </span>
                     </div>
