@@ -6,53 +6,47 @@ import { SectionHeading } from "@/components/SectionHeading"
 import { Reveal } from "@/components/Reveal"
 import { PRODUCTS } from "@/data/content"
 
-const EXPANDED_DETAILS: Record<string, { subtitle: string; points: string[] }> = {
-  "Route Discovery & Planning": {
-    subtitle: "Complete itinerary intelligence before you travel:",
-    points: [
-      "Full station itineraries for MyCiTi, Metrorail & taxi ranks",
-      "Precise walking distance & transit connection guidance",
-      "Per-leg estimated fare calculations across all travel modes",
+const EXPANDED_DETAILS: Record<string, { subtitle: string; body: string[] }> = {
+  "Intelligent Journey Planning": {
+    subtitle: "Bringing every transport option together in one place.",
+    body: [
+      "Commuttr helps commuters discover the most efficient way to travel by combining taxis, buses and trains into one seamless journey planner. Instead of switching between multiple apps or relying on local knowledge, users receive a complete route recommendation from their starting point to their destination.",
+      "The planner intelligently evaluates available transport options, estimates travel times and provides the most practical journey based on real-world transit networks.",
     ],
   },
-  "Multi-Modal Option Comparison": {
-    subtitle: "Compare travel trade-offs at a single glance:",
-    points: [
-      "Fastest vs. most economical route rankings",
-      "Transfer time & interchange risk indicators",
-      "Customizable modal filters for bus, train & taxi preference",
+  "Discover Better Routes": {
+    subtitle: "Find smarter ways to travel every day.",
+    body: [
+      "Instead of showing only one route, Commuttr presents multiple journey options that balance travel time, convenience and affordability. Users can explore alternative routes, compare transfers and choose the option that best suits their schedule.",
+      "The platform is designed to reduce uncertainty and make public transport easier to navigate, especially for first-time commuters or those travelling to unfamiliar destinations.",
     ],
   },
-  "Real-Time Transit Timetables": {
-    subtitle: "Live station board data directly on your phone:",
-    points: [
-      "Real-time countdown timetables for major urban stations",
-      "Platform & boarding bay location assignments",
-      "Live vehicle occupancy & seat availability estimates",
+  "Compare Transport Options": {
+    subtitle: "Choose the journey that works best for you.",
+    body: [
+      "Every commuter has different priorities. Some want the fastest route, while others want the lowest fare or the fewest transfers.",
+      "Commuttr compares available transport options side by side, allowing commuters to evaluate estimated travel time, transport modes, number of transfers and overall journey convenience before making a decision.",
     ],
   },
-  "Step-by-Step Trip Navigation": {
-    subtitle: "Guided turn-by-turn journey execution:",
-    points: [
-      "Live step progress tracking with upcoming stop alerts",
-      "Station transfer guidance at major transit hubs",
-      "Dynamic estimated arrival time (ETA) countdowns",
+  "Fare Estimation": {
+    subtitle: "Know your travel costs before you leave.",
+    body: [
+      "Unexpected transport costs can disrupt daily budgets. Commuttr provides estimated fares before a journey begins, helping commuters understand how much they are likely to spend.",
+      "As the platform grows, fare estimates will become increasingly accurate across multiple transport operators, giving users greater confidence when planning their daily travel.",
     ],
   },
-  "Multi-Modal Transport Coverage": {
-    subtitle: "Comprehensive South African mobility integration:",
-    points: [
-      "MyCiTi BRT express & feeder route network",
-      "Metrorail passenger line timetable schedules",
-      "Minibus taxi rank locations & primary feeder corridors",
+  "Transit Information": {
+    subtitle: "Reliable transport information when you need it most.",
+    body: [
+      "Commuttr brings together essential transport information into a single experience, helping commuters access station details, service availability and journey updates without searching multiple sources.",
+      "The goal is to reduce uncertainty and give commuters greater confidence throughout every stage of their journey.",
     ],
   },
-  "Commuter Insights & Guidance": {
-    subtitle: "Proactive travel alerts & route confidence:",
-    points: [
-      "Real-time network delay & service alert notifications",
-      "Automatic alternative route rerouting suggestions",
-      "Peak-hour commuting pattern & travel time insights",
+  "Saved Journeys": {
+    subtitle: "Your regular trips, always ready.",
+    body: [
+      "Many commuters travel the same routes every day. Commuttr allows users to save frequently travelled journeys for quick access, making daily planning faster and more convenient.",
+      "With saved journeys, commuters can revisit their preferred routes instantly without repeatedly entering the same destinations.",
     ],
   },
 }
@@ -89,17 +83,17 @@ export function Products() {
               <Reveal key={p.title} delay={(i % 2) * 90}>
                 <div
                   onClick={() => toggleExpand(p.title)}
-                  className="group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl"
+                  className="group relative flex h-full cursor-pointer select-none flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
                 >
                   <div>
-                    {/* Header with single Plus / Minus toggle icon */}
+                    {/* Header with icon & Plus/Minus indicator */}
                     <div className="flex items-start justify-between">
                       <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
                         <Icon className="size-6" />
                       </span>
                       <span
                         aria-label={isExpanded ? "Collapse details" : "Expand details"}
-                        className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-transform active:scale-90 group-hover:bg-white/30"
+                        className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-all active:scale-95 group-hover:bg-white/30"
                       >
                         {isExpanded ? (
                           <Minus className="size-5 transition-transform duration-200" />
@@ -116,35 +110,29 @@ export function Products() {
                       {p.text}
                     </p>
 
-                    {/* Smooth Accordion Content */}
+                    {/* Smooth Accordion Content Expansion */}
                     <div
                       className={`grid transition-all duration-300 ease-in-out ${
-                        isExpanded ? "grid-rows-[1fr] opacity-100 mt-4 pt-4 border-t border-white/20" : "grid-rows-[0fr] opacity-0"
+                        isExpanded
+                          ? "grid-rows-[1fr] opacity-100 mt-5 pt-5 border-t border-white/25"
+                          : "grid-rows-[0fr] opacity-0"
                       }`}
                     >
                       <div className="overflow-hidden">
                         {details && (
-                          <div className="space-y-2 text-xs leading-relaxed text-white/95">
-                            <p className="font-bold text-white uppercase tracking-wider text-[10px]">
+                          <div className="space-y-3 text-sm leading-relaxed text-white">
+                            <p className="font-bold text-white text-base">
                               {details.subtitle}
                             </p>
-                            <ul className="space-y-1.5 pt-1">
-                              {details.points.map((pt) => (
-                                <li key={pt} className="flex items-start gap-1.5">
-                                  <span className="mt-1 size-1 shrink-0 rounded-full bg-white" />
-                                  <span>{pt}</span>
-                                </li>
-                              ))}
-                            </ul>
+                            {details.body.map((paragraph, idx) => (
+                              <p key={idx} className="text-white/90 text-sm leading-relaxed">
+                                {paragraph}
+                              </p>
+                            ))}
                           </div>
                         )}
                       </div>
                     </div>
-                  </div>
-
-                  {/* Clean bottom text indicator without duplicate plus icon */}
-                  <div className="mt-6 flex items-center text-xs font-bold uppercase tracking-wider text-white/80 group-hover:text-white">
-                    <span>{isExpanded ? "Show Less" : "Click to Explore Feature Details"}</span>
                   </div>
                 </div>
               </Reveal>
