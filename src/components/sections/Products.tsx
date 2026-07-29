@@ -6,48 +6,30 @@ import { SectionHeading } from "@/components/SectionHeading"
 import { Reveal } from "@/components/Reveal"
 import { PRODUCTS } from "@/data/content"
 
-const EXPANDED_DETAILS: Record<string, { subtitle: string; body: string[] }> = {
+const EXPANDED_DETAILS: Record<string, { subtitle: string; text: string }> = {
   "Intelligent Journey Planning": {
     subtitle: "Bringing every transport option together in one place.",
-    body: [
-      "Commuttr helps commuters discover the most efficient way to travel by combining taxis, buses and trains into one seamless journey planner. Instead of switching between multiple apps or relying on local knowledge, users receive a complete route recommendation from their starting point to their destination.",
-      "The planner intelligently evaluates available transport options, estimates travel times and provides the most practical journey based on real-world transit networks.",
-    ],
+    text: "Commuttr combines minibus taxis, buses, and trains into a unified journey planner. Users receive optimal end-to-end route recommendations from origin to destination without switching between multiple apps.",
   },
   "Discover Better Routes": {
     subtitle: "Find smarter ways to travel every day.",
-    body: [
-      "Instead of showing only one route, Commuttr presents multiple journey options that balance travel time, convenience and affordability. Users can explore alternative routes, compare transfers and choose the option that best suits their schedule.",
-      "The platform is designed to reduce uncertainty and make public transport easier to navigate, especially for first-time commuters or those travelling to unfamiliar destinations.",
-    ],
+    text: "Explore multiple route alternatives that balance travel time, convenience, and affordability. Commuttr simplifies public transit, helping both daily commuters and first-time travelers move with total confidence.",
   },
   "Compare Transport Options": {
     subtitle: "Choose the journey that works best for you.",
-    body: [
-      "Every commuter has different priorities. Some want the fastest route, while others want the lowest fare or the fewest transfers.",
-      "Commuttr compares available transport options side by side, allowing commuters to evaluate estimated travel time, transport modes, number of transfers and overall journey convenience before making a decision.",
-    ],
+    text: "Compare travel times, transit modes, and transfer requirements side-by-side. Whether speed, cost, or convenience matters most, evaluate all options before departing.",
   },
   "Fare Estimation": {
     subtitle: "Know your travel costs before you leave.",
-    body: [
-      "Unexpected transport costs can disrupt daily budgets. Commuttr provides estimated fares before a journey begins, helping commuters understand how much they are likely to spend.",
-      "As the platform grows, fare estimates will become increasingly accurate across multiple transport operators, giving users greater confidence when planning their daily travel.",
-    ],
+    text: "Access upfront estimated fares across transport operators before starting your trip. Plan your daily travel budget effortlessly and avoid unexpected transport expenses.",
   },
   "Transit Information": {
     subtitle: "Reliable transport information when you need it most.",
-    body: [
-      "Commuttr brings together essential transport information into a single experience, helping commuters access station details, service availability and journey updates without searching multiple sources.",
-      "The goal is to reduce uncertainty and give commuters greater confidence throughout every stage of their journey.",
-    ],
+    text: "Access essential schedules, station details, and route updates in a single unified view. Eliminate transit uncertainty with clear, centralized information.",
   },
   "Saved Journeys": {
     subtitle: "Your regular trips, always ready.",
-    body: [
-      "Many commuters travel the same routes every day. Commuttr allows users to save frequently travelled journeys for quick access, making daily planning faster and more convenient.",
-      "With saved journeys, commuters can revisit their preferred routes instantly without repeatedly entering the same destinations.",
-    ],
+    text: "Save your daily commute and frequent routes for instant access. Revisit preferred travel options with a single tap, eliminating repetitive destination lookups.",
   },
 }
 
@@ -110,25 +92,23 @@ export function Products() {
                       {p.text}
                     </p>
 
-                    {/* Smooth Accordion Content Expansion */}
+                    {/* Fast 300ms Accordion Content Expansion */}
                     <div
                       className={`grid transition-all duration-300 ease-in-out ${
                         isExpanded
-                          ? "grid-rows-[1fr] opacity-100 mt-5 pt-5 border-t border-white/25"
+                          ? "grid-rows-[1fr] opacity-100 mt-4 pt-4 border-t border-white/25"
                           : "grid-rows-[0fr] opacity-0"
                       }`}
                     >
                       <div className="overflow-hidden">
                         {details && (
-                          <div className="space-y-3 text-sm leading-relaxed text-white">
-                            <p className="font-bold text-white text-base">
+                          <div className="space-y-2 text-sm leading-relaxed text-white">
+                            <p className="font-bold text-white text-sm">
                               {details.subtitle}
                             </p>
-                            {details.body.map((paragraph, idx) => (
-                              <p key={idx} className="text-white/90 text-sm leading-relaxed">
-                                {paragraph}
-                              </p>
-                            ))}
+                            <p className="text-white/90 text-xs leading-relaxed">
+                              {details.text}
+                            </p>
                           </div>
                         )}
                       </div>
