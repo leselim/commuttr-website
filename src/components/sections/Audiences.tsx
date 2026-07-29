@@ -7,7 +7,7 @@ import { AUDIENCES } from "@/data/content"
 
 export function Audiences() {
   return (
-    <section id="who" className="relative bg-carbon/40 py-24 md:py-28">
+    <section id="who" className="relative py-24 md:py-28">
       <Container>
         <SectionHeading
           index="06"
@@ -21,20 +21,20 @@ export function Audiences() {
             const Icon = a.icon
             return (
               <Reveal key={a.title} delay={i * 90}>
-                <div className="flex h-full flex-col rounded-2xl border border-white/[0.07] bg-carbon p-7">
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.08] text-[#f63d06]">
+                <div className="flex h-full flex-col rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
+                  <span className="flex size-11 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
                     <Icon className="size-5" />
                   </span>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-white">
+                  <h3 className="mt-5 font-display text-lg font-bold text-white">
                     {a.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-sm leading-relaxed text-white/90">
                     {a.text}
                   </p>
-                  <ul className="mt-5 space-y-2.5 border-t border-white/[0.07] pt-5">
+                  <ul className="mt-5 space-y-2.5 border-t border-white/20 pt-5">
                     {a.points.map((point) => (
-                      <li key={point} className="flex items-center gap-2.5 text-sm text-white/90">
-                        <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#f63d06]/15 text-[#f63d06]">
+                      <li key={point} className="flex items-center gap-2.5 text-sm font-medium text-white">
+                        <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-white">
                           <Check className="size-3" strokeWidth={3} />
                         </span>
                         {point}

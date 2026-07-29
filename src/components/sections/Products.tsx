@@ -26,17 +26,17 @@ export function Products() {
             const Icon = p.icon
             return (
               <Reveal key={p.title} delay={(i % 2) * 90}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-carbon p-7 transition-colors duration-300 hover:border-[#f63d06]/50">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
                   <div className="flex items-start justify-between">
-                    <span className="flex size-12 items-center justify-center rounded-xl bg-[#f63d06] text-white">
+                    <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
                       <Icon className="size-6" />
                     </span>
-                    <ArrowUpRight className="size-5 text-mist transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-[#f63d06]" />
+                    <ArrowUpRight className="size-5 text-white/80 transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
                   </div>
-                  <h3 className="mt-6 font-display text-xl font-semibold text-white">
+                  <h3 className="mt-6 font-display text-xl font-bold text-white">
                     {p.title}
                   </h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2.5 text-sm leading-relaxed text-white/90">
                     {p.text}
                   </p>
                 </div>

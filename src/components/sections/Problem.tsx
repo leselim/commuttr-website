@@ -19,14 +19,14 @@ export function Problem() {
             const Icon = p.icon
             return (
               <Reveal key={p.title} delay={i * 80}>
-                <div className="h-full rounded-2xl border border-white/[0.07] bg-carbon p-6 transition-colors duration-300 hover:border-[#f63d06]/40">
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.08] text-[#f63d06]">
+                <div className="h-full rounded-2xl border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
+                  <span className="flex size-11 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
                     <Icon className="size-5" />
                   </span>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-white">
+                  <h3 className="mt-5 font-display text-lg font-bold text-white">
                     {p.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-sm leading-relaxed text-white/90">
                     {p.text}
                   </p>
                 </div>

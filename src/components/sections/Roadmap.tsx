@@ -20,7 +20,7 @@ export function Roadmap() {
           {/* vertical rail */}
           <div
             aria-hidden
-            className="absolute bottom-4 left-[19px] top-4 w-px bg-[#f63d06]/30"
+            className="absolute bottom-4 left-[19px] top-4 w-px bg-[#f63d06]/40"
           />
           <div className="space-y-5">
             {PHASES.map((p, i) => {
@@ -30,32 +30,32 @@ export function Roadmap() {
                   <div className="relative pl-14">
                     <span
                       className={cn(
-                        "absolute left-0 top-1 flex size-10 items-center justify-center rounded-full text-sm font-bold ring-4 ring-ink",
+                        "absolute left-0 top-1 flex size-10 items-center justify-center rounded-full text-sm font-bold shadow-md ring-4 ring-ink",
                         current
                           ? "bg-[#f63d06] text-white"
-                          : "border border-white/12 bg-surface text-mist"
+                          : "border border-white/20 bg-white/20 text-white"
                       )}
                     >
                       {i + 1}
                     </span>
                     <div
                       className={cn(
-                        "rounded-2xl border p-6 transition-colors",
+                        "rounded-2xl border p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-0.5",
                         current
-                          ? "border-signal/30 bg-signal/[0.05]"
-                          : "border-white/[0.07] bg-carbon"
+                          ? "border-[#f63d06] bg-[#f63d06]"
+                          : "border-[#f63d06]/80 bg-[#f63d06]/90"
                       )}
                     >
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className="eyebrow text-mist">{p.tag}</span>
-                        <Badge variant={current ? "signal" : "outline"}>
+                        <span className="text-xs font-bold uppercase tracking-wider text-white/80">{p.tag}</span>
+                        <Badge variant="outline" className="border-white/30 bg-white/20 text-white font-bold">
                           {p.status}
                         </Badge>
                       </div>
-                      <h3 className="mt-3 font-display text-xl font-semibold text-white">
+                      <h3 className="mt-3 font-display text-xl font-bold text-white">
                         {p.title}
                       </h3>
-                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/90">
                         {p.text}
                       </p>
                     </div>
