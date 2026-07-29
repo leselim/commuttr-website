@@ -1,10 +1,9 @@
 import type { ReactNode } from "react"
-import { ArrowRight, BadgeCheck, CheckCircle2, Sparkles } from "lucide-react"
+import { ArrowRight, BadgeCheck, MapPin, Navigation } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { PhoneMockup } from "@/components/app/PhoneMockup"
-import { WalletScreen } from "@/components/app/screens"
+import { JourneyScreen } from "@/components/app/screens"
 
 function FloatingChip({
   className,
@@ -35,50 +34,43 @@ function FloatingChip({
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pb-16 pt-28 md:pb-24 md:pt-36">
-      {/* Ambient background */}
+      {/* Background grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 grid-mesh opacity-70 [mask-image:radial-gradient(ellipse_at_top,black,transparent_75%)]" />
-        <div className="absolute -right-40 -top-40 size-[36rem] rounded-full bg-signal/20 blur-[120px]" />
-        <div className="absolute -left-40 top-40 size-[28rem] rounded-full bg-signal/10 blur-[120px]" />
+        <div className="absolute inset-0 grid-mesh opacity-40 [mask-image:radial-gradient(ellipse_at_top,black,transparent_75%)]" />
       </div>
 
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-14 px-6 md:px-8 lg:grid-cols-[1.05fr_0.95fr]">
         {/* Copy */}
         <div className="max-w-xl">
-          <Badge variant="signal">
-            <Sparkles className="size-3.5" /> Building South Africa&rsquo;s mobility ecosystem
-          </Badge>
-
-          <h1 className="display mt-6 text-[2.6rem] font-bold leading-[1.03] text-white sm:text-6xl">
-            Move, pay and plan{" "}
-            <span className="text-signal-gradient">every journey</span> in one
-            app.
+          <h1 className="display text-[2.6rem] font-bold leading-[1.03] text-white sm:text-6xl">
+            Journey planning built for{" "}
+            <span className="text-[#f63d06]">South African</span> commuters.
           </h1>
 
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Commuttr turns cash-dependent, fragmented public transport into a
-            secure digital experience, a mobility wallet, tap-to-pay fares, and
-            smart journey planning for every South African commuter.
+            Commuttr helps commuters discover routes, compare transport options, estimate
+            fares, and navigate public transport with confidence. We&rsquo;re starting with
+            intelligent journey planning, with a long-term vision of building a more
+            connected digital mobility experience for South Africa.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button size="lg" asChild>
               <a href="#contact">
-                Get early access <ArrowRight className="size-4" />
+                Join the Waitlist <ArrowRight className="size-4" />
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="#contact">Partner with us</a>
+              <a href="#how">See How It Works</a>
             </Button>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-mist">
             <span className="flex items-center gap-2">
-              <BadgeCheck className="size-4 text-signal" /> FOYA Founder of the Year
-              finalist 2024
+              <BadgeCheck className="size-4 text-[#f63d06]" /> Intelligent Journey Planning MVP
             </span>
             <span className="flex items-center gap-2">
-              <BadgeCheck className="size-4 text-signal" /> UN Women Top 10 · 2024
+              <BadgeCheck className="size-4 text-[#f63d06]" /> Multi-Modal Transport Coverage
             </span>
           </div>
         </div>
@@ -87,20 +79,20 @@ export function Hero() {
         <div className="relative mx-auto w-[300px] max-w-full">
           <div className="animate-float">
             <PhoneMockup>
-              <WalletScreen />
+              <JourneyScreen />
             </PhoneMockup>
           </div>
           <FloatingChip
             className="top-32 right-full mr-4 animate-float [animation-delay:-2s]"
-            icon={<CheckCircle2 className="size-4" />}
-            title="Fare paid"
-            sub="MyCiTi · −R 13.50"
+            icon={<MapPin className="size-4" />}
+            title="Fastest route found"
+            sub="Khayelitsha ➔ CBD · 42 min"
           />
           <FloatingChip
             className="bottom-32 left-full ml-4 animate-float [animation-delay:-4s]"
-            icon={<ArrowRight className="size-4 -rotate-45" />}
-            title="Top-up received"
-            sub="+R 200.00"
+            icon={<Navigation className="size-4" />}
+            title="Live trip tracking"
+            sub="MyCiTi T01 · Departs 07:15"
           />
         </div>
       </div>

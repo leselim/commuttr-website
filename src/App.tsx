@@ -4,11 +4,11 @@ import { Problem } from "@/components/sections/Problem"
 import { Products } from "@/components/sections/Products"
 import { AppShowcase } from "@/components/sections/AppShowcase"
 import { HowItWorks } from "@/components/sections/HowItWorks"
+import { Principles } from "@/components/sections/Principles"
 import { Audiences } from "@/components/sections/Audiences"
 import { Roadmap } from "@/components/sections/Roadmap"
 import { Ecosystem } from "@/components/sections/Ecosystem"
 import { Team } from "@/components/sections/Team"
-import { Recognition } from "@/components/sections/Recognition"
 import { Faq } from "@/components/sections/Faq"
 import { Contact } from "@/components/sections/Contact"
 import { Footer } from "@/components/sections/Footer"
@@ -23,11 +23,11 @@ export default function App() {
         <Products />
         <AppShowcase />
         <HowItWorks />
+        <Principles />
         <Audiences />
         <Roadmap />
         <Ecosystem />
         <Team />
-        <Recognition />
         <Faq />
         <Contact />
       </main>

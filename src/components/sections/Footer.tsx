@@ -9,10 +9,10 @@ const COLUMNS = [
   {
     heading: "Product",
     links: [
-      { label: "Mobility wallet", href: "#product" },
+      { label: "Journey planner", href: "#product" },
       { label: "See the app", href: "#app" },
       { label: "How it works", href: "#how" },
-      { label: "Roadmap", href: "#roadmap" },
+      { label: "Coming soon", href: "#coming-soon" },
     ],
   },
   {
@@ -34,8 +34,8 @@ export function Footer() {
           <div className="max-w-xs">
             <Wordmark className="text-2xl" />
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              The unified digital mobility ecosystem — helping South Africans
-              move, pay and access public transport with confidence.
+              Helping South Africans discover, plan and navigate public transport
+              with confidence.
             </p>
           </div>
 

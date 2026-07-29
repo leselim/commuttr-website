@@ -11,16 +11,16 @@ export function Roadmap() {
       <Container>
         <SectionHeading
           index="06"
-          eyebrow="Methodology & validation"
+          eyebrow="Methodology & Validation"
           title="A deliberate path to scale."
-          sub="We build products that solve real problems validating assumptions and refining the MVP with purpose before scaling."
+          sub="We build products that solve real problems, validating assumptions and refining the MVP with purpose before scaling."
         />
 
         <div className="relative mt-14 pl-2">
           {/* vertical rail */}
           <div
             aria-hidden
-            className="absolute bottom-4 left-[19px] top-4 w-px bg-gradient-to-b from-signal/50 via-white/12 to-transparent"
+            className="absolute bottom-4 left-[19px] top-4 w-px bg-[#f63d06]/30"
           />
           <div className="space-y-5">
             {PHASES.map((p, i) => {
@@ -30,9 +30,9 @@ export function Roadmap() {
                   <div className="relative pl-14">
                     <span
                       className={cn(
-                        "absolute left-0 top-1 flex size-10 items-center justify-center rounded-full font-mono text-sm font-bold ring-4 ring-ink",
+                        "absolute left-0 top-1 flex size-10 items-center justify-center rounded-full text-sm font-bold ring-4 ring-ink",
                         current
-                          ? "signal-gradient text-primary-foreground shadow-[0_8px_24px_-8px_rgba(255,69,0,0.8)]"
+                          ? "bg-[#f63d06] text-white"
                           : "border border-white/12 bg-surface text-mist"
                       )}
                     >

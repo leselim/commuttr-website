@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ArrowRight, BadgeCheck, CheckCircle2, Mail, MapPin, Send } from "lucide-react"
+import { ArrowRight, CheckCircle2, Mail, MapPin, Send } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -41,10 +41,6 @@ export function Contact() {
           <div className="grid lg:grid-cols-2">
             {/* Pitch */}
             <div className="relative p-8 md:p-12">
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -left-20 -top-20 -z-0 size-64 rounded-full bg-signal/15 blur-[90px]"
-              />
               <div className="relative">
                 <span className="eyebrow text-signal">Partner with Commuttr</span>
                 <h2 className="display mt-4 text-3xl font-bold text-white md:text-4xl">
@@ -72,11 +68,6 @@ export function Contact() {
                     </span>
                     {CONTACT.hq}
                   </div>
-                </div>
-
-                <div className="mt-8 flex items-center gap-2 text-xs text-mist">
-                  <BadgeCheck className="size-4 text-signal" />
-                  FOYA finalist &amp; UN Women Top 10 founder · 2024
                 </div>
               </div>
             </div>

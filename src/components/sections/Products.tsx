@@ -16,26 +16,22 @@ export function Products() {
       <Container>
         <SectionHeading
           index="02"
-          eyebrow="Our services & products"
-          title="One platform for the whole journey."
-          sub="Delivered in phases starting with an MVP that validates the core, then expanding into a broader mobility ecosystem."
+          eyebrow="What We're Building Today"
+          title="Intelligent journey planning for South Africa."
+          sub="Our current focus is building an intuitive MVP that helps commuters discover routes, compare transport options, and estimate travel costs."
         />
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p, i) => {
             const Icon = p.icon
             return (
               <Reveal key={p.title} delay={(i % 2) * 90}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-carbon p-7 transition-colors duration-300 hover:border-signal/40">
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-signal/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
-                  />
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-carbon p-7 transition-colors duration-300 hover:border-[#f63d06]/50">
                   <div className="flex items-start justify-between">
-                    <span className="flex size-12 items-center justify-center rounded-xl signal-gradient text-primary-foreground shadow-[0_10px_30px_-12px_rgba(255,69,0,0.8)]">
+                    <span className="flex size-12 items-center justify-center rounded-xl bg-[#f63d06] text-white">
                       <Icon className="size-6" />
                     </span>
-                    <ArrowUpRight className="size-5 text-mist transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-signal" />
+                    <ArrowUpRight className="size-5 text-mist transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-[#f63d06]" />
                   </div>
                   <h3 className="mt-6 font-display text-xl font-semibold text-white">
                     {p.title}

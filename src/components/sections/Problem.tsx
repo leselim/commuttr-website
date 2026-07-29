@@ -10,22 +10,17 @@ export function Problem() {
         <SectionHeading
           index="01"
           eyebrow="The commuter problem"
-          title={
-            <>
-              Public transport still runs on cash and it&rsquo;s costing
-              everyone.
-            </>
-          }
-          sub="Millions of South Africans rely on public transport every day, yet the system stays fragmented, cash-dependent and disconnected, creating security risks and an inconsistent experience."
+          title="Public transport is fragmented, unpredictable, and disconnected."
+          sub="Millions of South Africans rely on public transport every day, yet commuters struggle to find reliable routes, compare options, estimate fares, and make confident travel decisions."
         />
 
-        <div className="mt-14 grid gap-4 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PROBLEMS.map((p, i) => {
             const Icon = p.icon
             return (
               <Reveal key={p.title} delay={i * 80}>
-                <div className="h-full rounded-2xl border border-white/[0.07] bg-carbon p-6 transition-colors duration-300 hover:border-white/15">
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-signal/10 text-signal ring-1 ring-signal/20">
+                <div className="h-full rounded-2xl border border-white/[0.07] bg-carbon p-6 transition-colors duration-300 hover:border-[#f63d06]/40">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.08] text-[#f63d06]">
                     <Icon className="size-5" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-semibold text-white">

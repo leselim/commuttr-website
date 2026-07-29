@@ -4,85 +4,97 @@ import {
   Building2,
   BusFront,
   GraduationCap,
-  Landmark,
+  Layers,
   MapPinned,
   Network,
   Route,
-  ScanLine,
   ShieldAlert,
   ShieldCheck,
-  Store,
   UserRound,
-  UsersRound,
-  Wallet,
 } from "lucide-react"
 
 export type Feature = { icon: LucideIcon; title: string; text: string }
 
 export const NAV_LINKS = [
   { label: "Problem", href: "#problem" },
-  { label: "Product", href: "#product" },
+  { label: "What we build", href: "#product" },
   { label: "How it works", href: "#how" },
-  { label: "Ecosystem", href: "#ecosystem" },
+  { label: "Methodology", href: "#roadmap" },
+  { label: "Audience", href: "#who" },
   { label: "Team", href: "#team" },
 ] as const
 
 export const PROBLEMS: Feature[] = [
   {
-    icon: Banknote,
-    title: "Cash-dependent",
-    text: "Fares still rely on physical cash, making them slow to collect, risky to carry and difficult to track or budget for.",
-  },
-  {
     icon: Network,
-    title: "Fragmented",
-    text: "Taxis, buses and trains operate in disconnected silos, with no single place to plan, pay, or see what a trip costs.",
+    title: "Fragmented Information",
+    text: "Routes and transport information are spread across multiple disconnected sources.",
   },
   {
     icon: ShieldAlert,
-    title: "Insecure",
-    text: "Cash handling creates security risks for commuters and operators alike, and leaves riders with no digital record.",
+    title: "Journey Uncertainty",
+    text: "Commuters often don't know the fastest, safest, or most reliable option before leaving.",
+  },
+  {
+    icon: Route,
+    title: "Poor Visibility",
+    text: "Travel times, estimated fares and multi-modal transfers are difficult to compare.",
+  },
+  {
+    icon: BusFront,
+    title: "Outdated Commuter Experience",
+    text: "Public transport still lacks modern journey planning tools designed around commuters.",
   },
 ]
 
 export const PRODUCTS: Feature[] = [
   {
-    icon: Wallet,
-    title: "Digital mobility wallet",
-    text: "A secure mobile wallet to store funds digitally and get ready to pay for transport without relying on physical cash.",
-  },
-  {
-    icon: ScanLine,
-    title: "Cashless transport payments",
-    text: "QR and contactless payments that simplify fare collection and cut the operational load of handling cash.",
-  },
-  {
     icon: Route,
-    title: "Journey planning & transit intelligence",
-    text: "Integrated transport information to discover routes, estimate travel costs, and make more informed decisions.",
+    title: "Intelligent Journey Planning",
+    text: "Compare routes across taxis, buses and trains in one unified view.",
   },
   {
-    icon: UsersRound,
-    title: "Managed wallet features",
-    text: "Tools for employers, parents and organisations to allocate transport funds, monitor spending, and support mobility.",
+    icon: MapPinned,
+    title: "Discover Better Routes",
+    text: "Find the best way to reach your destination with multi-modal directions.",
+  },
+  {
+    icon: Network,
+    title: "Compare Transport Options",
+    text: "Evaluate travel times, transit modes, and transfers side-by-side.",
+  },
+  {
+    icon: Banknote,
+    title: "Fare Estimation",
+    text: "Estimate travel costs and budget your commute before you leave home.",
+  },
+  {
+    icon: Layers,
+    title: "Transit Information",
+    text: "Access reliable transport schedules and route data in one place.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Saved Journeys",
+    text: "Quickly access frequently travelled routes for smarter, faster travel decisions.",
   },
 ]
 
 export const STEPS: Feature[] = [
   {
-    icon: Wallet,
-    title: "Top up your wallet",
-    text: "Load funds into your secure Commuttr wallet from your bank or card, so everything is ready before you reach the rank or station.",
-  },
-  {
-    icon: ScanLine,
-    title: "Tap or scan to pay",
-    text: "Pay your fare with a QR code or contactless tap. No fumbling for change, and every trip is recorded automatically.",
-  },
-  {
     icon: MapPinned,
-    title: "Plan every journey",
-    text: "See routes, estimated costs and departure times across operators, then travel with your whole trip in one app.",
+    title: "1. Enter your destination",
+    text: "Type where you want to go to instantly discover available transport routes.",
+  },
+  {
+    icon: Route,
+    title: "2. Compare options & fares",
+    text: "Compare travel times, routes, and estimated fares across buses, trains, and taxis.",
+  },
+  {
+    icon: BusFront,
+    title: "3. Travel with confidence",
+    text: "Choose the best journey for your commute and navigate public transport effortlessly.",
   },
 ]
 
@@ -92,20 +104,32 @@ export const AUDIENCES: Audience[] = [
   {
     icon: UserRound,
     title: "For commuters",
-    text: "Greater convenience, clearer visibility over spending, and a simpler way to pay for everyday travel.",
-    points: ["One wallet for every trip", "No cash, no loose change", "See what a journey costs first"],
+    text: "Plan everyday travel with complete clarity, accurate routes, and fare visibility.",
+    points: [
+      "Discover better routes",
+      "Compare transport options & estimated costs",
+      "Save time planning travel & travel with confidence",
+    ],
   },
   {
     icon: BusFront,
     title: "For transport operators",
-    text: "A chance to modernise fare collection, reduce cash handling, and improve day-to-day operational efficiency.",
-    points: ["Digital fare collection", "Less cash to reconcile", "Clearer ridership insight"],
+    text: "Improve route visibility, reach more commuters, and support digital transit intelligence.",
+    points: [
+      "Improve commuter access to transport information",
+      "Increase network & route visibility",
+      "Reach more commuters & support smarter mobility",
+    ],
   },
   {
     icon: Building2,
-    title: "For businesses & employers",
-    text: "Better ways to manage employee and student mobility while supporting digital financial inclusion.",
-    points: ["Allocate travel funds", "Monitor mobility spend", "Support staff & students"],
+    title: "For businesses & institutions",
+    text: "Provide employees and students with reliable transit insights and travel planning.",
+    points: [
+      "Support employee mobility planning",
+      "Support student travel & commute insights",
+      "Enable smarter travel planning & prepare for future innovation",
+    ],
   },
 ]
 
@@ -118,21 +142,21 @@ export type Phase = {
 
 export const PHASES: Phase[] = [
   {
-    tag: "Phase 1",
-    title: "Discovery, validation & MVP",
-    text: "Understanding commuter needs, validating assumptions through research and stakeholder engagement, and building the MVP that addresses real mobility challenges.",
+    tag: "Phase 1: Current Focus",
+    title: "Discovery, validation and Journey Planning MVP",
+    text: "Understand commuter needs, validate assumptions through research and stakeholder engagement, and build an intelligent journey planning platform that solves real mobility challenges.",
     status: "Current focus",
   },
   {
-    tag: "Phase 2",
-    title: "Pilot launch & market validation",
-    text: "Controlled pilots with selected users, operators and partners to validate product–market fit, measure adoption, and optimise the platform on real-world usage.",
+    tag: "Phase 2: Next",
+    title: "Pilot Launch & Market Validation",
+    text: "Launch controlled pilots, gather real commuter feedback, validate product-market fit and continuously improve the journey planning experience.",
     status: "Next",
   },
   {
-    tag: "Phase 3",
-    title: "Growth & scale",
-    text: "Expanding partnerships, growing the user base, adding mobility services, and improving continuously through user insights and data-driven decisions.",
+    tag: "Phase 3: Later",
+    title: "Growth & Scale",
+    text: "Expand partnerships, grow the user base and evolve Commuttr into a broader connected mobility platform based on validated customer needs.",
     status: "Later",
   },
 ]
@@ -140,28 +164,18 @@ export const PHASES: Phase[] = [
 export const PARTNERS: Feature[] = [
   {
     icon: BusFront,
-    title: "Transport operators",
-    text: "Modernising fare collection and improving the commuter experience through digital mobility.",
-  },
-  {
-    icon: Landmark,
-    title: "Financial & payment partners",
-    text: "Powering secure digital payments, wallet infrastructure, and financial inclusion for everyday commuters.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Employers & institutions",
-    text: "Exploring smarter mobility that simplifies employee and student transport while improving access.",
-  },
-  {
-    icon: Store,
-    title: "Merchants & local business",
-    text: "Creating future opportunities for rewards, commuter benefits, and value-added services.",
+    title: "Transport Operators",
+    text: "Helping improve commuter access to transport information.",
   },
   {
     icon: ShieldCheck,
-    title: "Government & strategic partners",
-    text: "Working towards partnerships that support innovation, digital transformation and connected mobility.",
+    title: "Government & Strategic Partners",
+    text: "Supporting innovation in connected public mobility.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Businesses & Institutions",
+    text: "Exploring smarter mobility experiences for employees and students.",
   },
 ]
 
@@ -172,55 +186,39 @@ export const TEAM: Member[] = [
     name: "Leseli Morakile",
     role: "Founder, CEO & Product Lead",
     initials: "LM",
-    bio: "Leads company vision, business strategy, product roadmap and strategic partnerships, ensuring the platform delivers meaningful value while driving growth.",
+    bio: "Leads company vision, business strategy, product roadmap and strategic partnerships, building South Africa's intelligent journey planning platform.",
   },
   {
     name: "Mukhethwa Ravele",
     role: "Founder & Backend Engineering Lead",
     initials: "MR",
-    bio: "Owns backend architecture, APIs, wallet services, payment integration and security, building a reliable, high performance, scalable cloud platform.",
+    bio: "Owns backend architecture, transit data pipelines, routing engine, and infrastructure, building a scalable, high-performance platform.",
   },
   {
     name: "Thokozani Ledwaba",
     role: "Founder & Frontend Engineering Lead",
     initials: "TL",
-    bio: "Owns the mobile and web interfaces, user experience, accessibility and responsive design to deliver an intuitive, seamless commuter experience.",
+    bio: "Owns the mobile and web interfaces, user experience, accessibility and responsive design to deliver an intuitive journey planning experience.",
   },
 ]
 
-export type Award = { icon: LucideIcon; title: string; org: string; year: string }
-
-export const AWARDS: Award[] = [
-  {
-    icon: Landmark,
-    title: "Founder of the Year Under 30 — Finalist",
-    org: "FOYA Awards · representing South Africa across Africa",
-    year: "2024",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Young Entrepreneur Award — Top 10 Winner",
-    org: "UN Women",
-    year: "2024",
-  },
-]
 
 export const FAQS = [
   {
-    q: "Is my money safe with Commuttr?",
-    a: "Security and trust are core values. Commuttr is being built as a secure, reliable and transparent platform, with wallet infrastructure and payments developed alongside financial and payment partners.",
+    q: "What is Commuttr building today?",
+    a: "Commuttr is an intelligent journey planning platform built for South African commuters. We help people discover routes, compare transport options, estimate journey costs, and navigate public transport with confidence.",
   },
   {
-    q: "Which taxis, buses and trains will it work with?",
-    a: "We're engaging transport operators and taxi associations to modernise fare collection. Coverage grows through our pilot programmes as more operators join the ecosystem.",
+    q: "Which transport options are supported?",
+    a: "Commuttr integrates route and schedule data across minibus taxis, bus networks (like MyCiTi and Golden Arrow), and Metrorail trains in one place.",
   },
   {
-    q: "When can I use the app?",
-    a: "Commuttr is in the validation and MVP phase. A controlled pilot with selected users and operators comes next, before a wider rollout. Join the early-access list to be first in line.",
+    q: "What is Commuttr's long-term vision?",
+    a: "Commuttr is starting with intelligent journey planning, with a long-term vision of building a more connected digital mobility experience for South Africa.",
   },
   {
-    q: "How do I partner with Commuttr?",
-    a: "We're actively engaging operators, payment providers, employers, merchants and government stakeholders. Reach out through the contact form and our team will be in touch.",
+    q: "How do I join the waitlist?",
+    a: "Click 'Join the Waitlist' today to be among the first commuters to test Commuttr's intelligent journey planner when we launch.",
   },
 ] as const
 

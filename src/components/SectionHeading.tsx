@@ -39,7 +39,6 @@ export function SectionHeading({
           <span className="font-mono text-sm font-medium text-signal">{index}</span>
         )}
         <span className="eyebrow text-mist">{eyebrow}</span>
-        <span className="h-px w-8 bg-white/15" aria-hidden />
       </div>
       <h2 className="display mt-4 text-3xl font-bold text-white sm:text-4xl md:text-[2.7rem]">
         {title}

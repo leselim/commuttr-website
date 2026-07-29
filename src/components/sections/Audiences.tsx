@@ -10,19 +10,19 @@ export function Audiences() {
     <section id="who" className="relative bg-carbon/40 py-24 md:py-28">
       <Container>
         <SectionHeading
-          index="05"
+          index="06"
           eyebrow="Value proposition"
           title="Built for everyone who moves the city."
-          sub="One connected ecosystem creating value for commuters, transport operators and the businesses that support them."
+          sub="Creating value for commuters, transport operators, and the institutions that support them."
         />
 
-        <div className="mt-14 grid gap-4 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
           {AUDIENCES.map((a, i) => {
             const Icon = a.icon
             return (
               <Reveal key={a.title} delay={i * 90}>
                 <div className="flex h-full flex-col rounded-2xl border border-white/[0.07] bg-carbon p-7">
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-signal/10 text-signal ring-1 ring-signal/20">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.08] text-[#f63d06]">
                     <Icon className="size-5" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-semibold text-white">
@@ -34,7 +34,7 @@ export function Audiences() {
                   <ul className="mt-5 space-y-2.5 border-t border-white/[0.07] pt-5">
                     {a.points.map((point) => (
                       <li key={point} className="flex items-center gap-2.5 text-sm text-white/90">
-                        <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-signal/15 text-signal">
+                        <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#f63d06]/15 text-[#f63d06]">
                           <Check className="size-3" strokeWidth={3} />
                         </span>
                         {point}
