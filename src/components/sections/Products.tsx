@@ -88,26 +88,25 @@ export function Products() {
             return (
               <Reveal key={p.title} delay={(i % 2) * 90}>
                 <div
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl"
+                  onClick={() => toggleExpand(p.title)}
+                  className="group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl"
                 >
                   <div>
-                    {/* Header with Plus / Minus toggle */}
+                    {/* Header with single Plus / Minus toggle icon */}
                     <div className="flex items-start justify-between">
                       <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
                         <Icon className="size-6" />
                       </span>
-                      <button
-                        onClick={() => toggleExpand(p.title)}
+                      <span
                         aria-label={isExpanded ? "Collapse details" : "Expand details"}
-                        aria-expanded={isExpanded}
-                        className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-transform active:scale-90 hover:bg-white/30"
+                        className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-transform active:scale-90 group-hover:bg-white/30"
                       >
                         {isExpanded ? (
                           <Minus className="size-5 transition-transform duration-200" />
                         ) : (
                           <Plus className="size-5 transition-transform duration-200" />
                         )}
-                      </button>
+                      </span>
                     </div>
 
                     <h3 className="mt-6 font-display text-xl font-bold text-white">
@@ -143,14 +142,10 @@ export function Products() {
                     </div>
                   </div>
 
-                  {/* Toggle CTA bar at bottom */}
-                  <button
-                    onClick={() => toggleExpand(p.title)}
-                    className="mt-6 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-white/90 hover:text-white"
-                  >
-                    <span>{isExpanded ? "Show Less" : "Explore Feature Details"}</span>
-                    <span>{isExpanded ? "−" : "+"}</span>
-                  </button>
+                  {/* Clean bottom text indicator without duplicate plus icon */}
+                  <div className="mt-6 flex items-center text-xs font-bold uppercase tracking-wider text-white/80 group-hover:text-white">
+                    <span>{isExpanded ? "Show Less" : "Click to Explore Feature Details"}</span>
+                  </div>
                 </div>
               </Reveal>
             )
