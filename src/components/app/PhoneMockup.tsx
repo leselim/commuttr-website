@@ -88,7 +88,7 @@ export function PhoneMockup({
   className?: string
 }) {
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("relative phone-mockup", className)}>
       <div className="relative mx-auto w-[300px] max-w-full rounded-[2.75rem] border border-white/15 bg-[#08080a] p-2.5 shadow-[0_24px_50px_rgba(0,0,0,0.85)] ring-1 ring-white/5">
         {/* Dynamic island */}
         <div className="absolute left-1/2 top-4 z-30 h-7 w-24 -translate-x-1/2 rounded-full bg-black ring-1 ring-white/[0.08]" />

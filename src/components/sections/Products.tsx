@@ -26,9 +26,9 @@ export function Products() {
             const Icon = p.icon
             return (
               <Reveal key={p.title} delay={(i % 2) * 90}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
+                <div className="group relative h-full overflow-hidden rounded-none border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
                   <div className="flex items-start justify-between">
-                    <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
+                    <span className="flex size-12 items-center justify-center rounded-none border border-white/30 bg-white/20 text-white">
                       <Icon className="size-6" />
                     </span>
                     <ArrowUpRight className="size-5 text-white/80 transition-all duration-300 group-hover:scale-110 group-hover:text-white" />

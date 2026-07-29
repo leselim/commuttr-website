@@ -43,9 +43,9 @@ export function Principles() {
             const Icon = p.icon
             return (
               <Reveal key={p.title} delay={i * 80}>
-                <div className="flex h-full flex-col justify-between rounded-2xl border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
+                <div className="flex h-full flex-col justify-between rounded-none border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
                   <div>
-                    <span className="flex size-11 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
+                    <span className="flex size-11 items-center justify-center rounded-none border border-white/30 bg-white/20 text-white">
                       <Icon className="size-5" />
                     </span>
                     <h3 className="mt-5 font-display text-lg font-bold text-white">
