@@ -34,10 +34,12 @@ const EXPANDED_DETAILS: Record<string, { subtitle: string; text: string }> = {
 }
 
 export function Products() {
-  const [expandedId, setExpandedId] = React.useState<string | null>(null)
+  // Single shared active accordion state controlling the entire section
+  // Initial state is null (all cards collapsed on page load)
+  const [openCardId, setOpenCardId] = React.useState<string | null>(null)
 
-  const toggleExpand = (title: string) => {
-    setExpandedId((prev) => (prev === title ? null : title))
+  const handleCardClick = (cardId: string) => {
+    setOpenCardId((currentId) => (currentId === cardId ? null : cardId))
   }
 
   return (
@@ -58,13 +60,21 @@ export function Products() {
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p, i) => {
             const Icon = p.icon
-            const isExpanded = expandedId === p.title
+            const isExpanded = openCardId === p.title
             const details = EXPANDED_DETAILS[p.title]
 
             return (
               <Reveal key={p.title} delay={(i % 2) * 90}>
                 <div
-                  onClick={() => toggleExpand(p.title)}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleCardClick(p.title)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      handleCardClick(p.title)
+                    }
+                  }}
                   className="group relative flex h-full cursor-pointer select-none flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
                 >
                   <div>
@@ -73,16 +83,22 @@ export function Products() {
                       <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
                         <Icon className="size-6" />
                       </span>
-                      <span
-                        aria-label={isExpanded ? "Collapse details" : "Expand details"}
-                        className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-all active:scale-95 group-hover:bg-white/30"
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleCardClick(p.title)
+                        }}
+                        aria-label={isExpanded ? "Collapse feature details" : "Expand feature details"}
+                        aria-expanded={isExpanded}
+                        className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-all active:scale-95 hover:bg-white/30"
                       >
                         {isExpanded ? (
                           <Minus className="size-5 transition-transform duration-200" />
                         ) : (
                           <Plus className="size-5 transition-transform duration-200" />
                         )}
-                      </span>
+                      </button>
                     </div>
 
                     <h3 className="mt-6 font-display text-xl font-bold text-white">
@@ -92,7 +108,7 @@ export function Products() {
                       {p.text}
                     </p>
 
-                    {/* Fast 300ms Accordion Content Expansion */}
+                    {/* Smooth 300ms Accordion Content Expansion */}
                     <div
                       className={`grid transition-all duration-300 ease-in-out ${
                         isExpanded
