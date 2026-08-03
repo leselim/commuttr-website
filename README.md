@@ -1,53 +1,46 @@
-# Commuttr — marketing site
+# Commuttr Website
 
-The marketing website for **Commuttr**, South Africa's unified digital mobility
-ecosystem — one app to store funds, pay fares with a tap, and plan every journey.
+Marketing website for Commuttr, South Africa's unified digital mobility ecosystem. The application lets users store funds, pay fares with a tap, and plan journeys.
 
-A dark, fintech-styled single-page site built from the corporate profile's brand
-system: near-black canvas, the vermilion `#FF4500` "signal" accent (the dot in the
-wordmark), rounded-geometric display type, and wide-tracked section numbering.
+Built as a dark, fintech styled single page site using the corporate brand system: dark canvas, vermilion accent (`#FF4500`), rounded geometric display typography, and wide section numbering.
 
-The centrepiece is a **phone mockup with a live app UI** — the mobility wallet,
-tap-to-pay (QR) and journey-planner screens are rendered as real components, not
-flat images.
+The layout features an interactive phone mockup with live app UI components for the mobility wallet, QR tap to pay, and journey planner.
 
-## Stack
+## Tech Stack
 
-- **Vite 8** + **React 19** (React Compiler) + **TypeScript**
-- **Tailwind CSS v4** (`@tailwindcss/vite`), design tokens in `src/index.css`
-- **shadcn/ui**-style primitives (Radix + cva) in `src/components/ui`
-- **lucide-react** icons
+1. Vite 8 + React 19 + TypeScript
+2. Tailwind CSS v4 with design tokens in `src/index.css`
+3. Radix UI primitives with cva in `src/components/ui`
+4. Lucide React icons
 
-## Develop
+## Quick Start
 
 ```bash
 pnpm install
-pnpm dev        # http://localhost:5173
+pnpm dev
 ```
 
-## Build
+## Production Build
 
 ```bash
-pnpm build      # tsc -b && vite build  →  dist/
-pnpm preview    # preview the production build
+pnpm build
+pnpm preview
 ```
 
-## Structure
+## Project Structure
 
 ```
 src/
-  App.tsx                     # page composition (section order)
-  index.css                   # design tokens + base styles (the "design system")
-  data/content.ts             # all copy, pulled from the corporate profile
+  App.tsx             Page layout and section composition
+  index.css           Design tokens and global styles
+  data/content.ts     Site copy from corporate profile
   components/
-    ui/                       # shadcn primitives (button, card, badge, accordion…)
-    app/                      # PhoneMockup + the three live app screens
-    brand/Wordmark.tsx        # the commuttr. wordmark
-    sections/                 # Nav, Hero, Problem, Products, AppShowcase, …, Footer
+    ui/               Base UI primitives
+    app/              Phone mockup and app screens
+    brand/            Brand assets and wordmark
+    sections/         Page sections
 ```
 
-## Content
+## Copy and Form
 
-All copy comes from *Commuttr — Corporate Profile 2026*. The contact form has no
-backend: submitting composes an email to `hellocommuttr@gmail.com` via `mailto:`,
-so nothing is sent automatically.
+Site copy is based on the Commuttr Corporate Profile 2026. The contact form links directly to `hellocommuttr@gmail.com` using mailto.
