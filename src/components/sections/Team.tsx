@@ -1,11 +1,13 @@
 import { Container } from "@/components/Container"
 import { SectionHeading } from "@/components/SectionHeading"
 import { Reveal } from "@/components/Reveal"
+import { Carousel } from "@/components/Carousel"
+import { LinkedInIcon } from "@/components/brand/SocialIcons"
 import { TEAM } from "@/data/content"
 
 export function Team() {
   return (
-    <section id="team" className="relative bg-carbon/40 py-24 md:py-28">
+    <section id="team" className="relative bg-carbon/40 py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
           index="08"
@@ -14,30 +16,61 @@ export function Team() {
           sub="Strategic business and product leadership paired with deep backend and frontend engineering, creating a foundation for secure, scalable and user centred mobility."
         />
 
-        <div className="mt-14 grid gap-4 md:grid-cols-3">
-          {TEAM.map((m, i) => (
-            <Reveal key={m.name} delay={i * 100}>
-              <div className="flex h-full flex-col rounded-2xl border border-white/[0.07] bg-carbon p-7">
-                <div className="flex items-center gap-4">
-                  <span className="flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-2 to-black font-display text-lg font-bold text-white ring-1 ring-white/10">
-                    {m.initials}
-                  </span>
+        <Reveal delay={100} className="mt-14">
+          <Carousel
+            label="Founding team"
+            slideLabels={TEAM.map((m) => m.name)}
+            gridClassName="lg:grid-cols-2 lg:gap-4"
+          >
+            {TEAM.map((m) => (
+              <div
+                key={m.name}
+                className="flex h-full flex-col gap-5 rounded-none border border-white/[0.07] bg-carbon p-7 sm:flex-row sm:items-start sm:gap-6"
+              >
+                {/* Initials sit behind the portrait, so they show through if the
+                    image ever fails to load. */}
+                <div className="relative aspect-[4/5] w-full max-w-[200px] shrink-0 self-center overflow-hidden bg-surface-2 sm:w-40 sm:self-start">
                   <span
                     aria-hidden
-                    className="h-14 w-1 rounded-full signal-gradient"
+                    className="absolute inset-0 flex items-center justify-center font-display text-3xl font-bold text-white/25"
+                  >
+                    {m.initials}
+                  </span>
+                  <img
+                    src={m.image}
+                    alt={`${m.name}, ${m.role}`}
+                    width={320}
+                    height={400}
+                    loading="lazy"
+                    decoding="async"
+                    className="relative size-full object-cover object-top"
                   />
                 </div>
-                <h3 className="mt-5 font-display text-lg font-semibold text-white">
-                  {m.name}
-                </h3>
-                <p className="mt-1 text-sm font-medium text-signal">{m.role}</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {m.bio}
-                </p>
+
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <h3 className="font-display text-lg font-semibold text-white">
+                    {m.name}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-signal">{m.role}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {m.bio}
+                  </p>
+
+                  <a
+                    href={m.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${m.name} on LinkedIn`}
+                    className="mt-4 inline-flex w-fit items-center gap-2 border border-white/15 px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:border-signal/50 hover:text-signal"
+                  >
+                    <LinkedInIcon className="size-4" />
+                    LinkedIn
+                  </a>
+                </div>
               </div>
-            </Reveal>
-          ))}
-        </div>
+            ))}
+          </Carousel>
+        </Reveal>
       </Container>
     </section>
   )

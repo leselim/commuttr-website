@@ -1,6 +1,5 @@
-import * as React from "react"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
-import { Minus, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 
 import { Container } from "@/components/Container"
 import { SectionHeading } from "@/components/SectionHeading"
@@ -35,12 +34,8 @@ const EXPANDED_DETAILS: Record<string, { subtitle: string; text: string }> = {
 }
 
 export function Products() {
-  // Radix UI Single Accordion Root value state
-  // Initial state is empty string "" (all cards start 100% collapsed on page load)
-  const [activeValue, setActiveValue] = React.useState<string>("")
-
   return (
-    <section id="product" className="relative py-24 md:py-28">
+    <section id="product" className="relative py-16 sm:py-20 md:py-28">
       {/* soft top divider glow */}
       <div
         aria-hidden
@@ -54,58 +49,55 @@ export function Products() {
           sub="Our current focus is building an intuitive MVP that helps commuters discover routes, compare transport options, and estimate travel costs."
         />
 
+        {/* Traditional stacked accordion. Radix `single` + `collapsible` gives
+            single-open behaviour natively — no external state to keep in sync. */}
         <AccordionPrimitive.Root
           type="single"
           collapsible
-          value={activeValue}
-          onValueChange={setActiveValue}
-          className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-14 border-t border-white/10"
         >
           {PRODUCTS.map((p, index) => {
             const Icon = p.icon
-            const itemValue = `item-${index}`
-            const isOpen = activeValue === itemValue
             const details = EXPANDED_DETAILS[p.title]
 
             return (
-              <Reveal key={p.title} delay={(index % 2) * 90}>
+              <Reveal key={p.title} delay={Math.min(index, 3) * 70}>
                 <AccordionPrimitive.Item
-                  value={itemValue}
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
+                  value={`item-${index}`}
+                  className="border-b border-white/10 transition-colors data-[state=open]:bg-white/[0.02]"
                 >
                   <AccordionPrimitive.Header asChild>
-                    <AccordionPrimitive.Trigger className="w-full text-left outline-none cursor-pointer select-none">
-                      <div className="flex items-start justify-between">
-                        <span className="flex size-12 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
-                          <Icon className="size-6" />
+                    <h3>
+                      <AccordionPrimitive.Trigger className="group flex w-full cursor-pointer select-none items-center gap-4 py-5 text-left outline-none sm:gap-5 sm:py-6">
+                        <span className="flex size-11 shrink-0 items-center justify-center border border-white/[0.08] bg-white/[0.04] text-[#f63d06] transition-colors group-hover:border-[#f63d06]/40 group-data-[state=open]:border-[#f63d06] group-data-[state=open]:bg-[#f63d06] group-data-[state=open]:text-white">
+                          <Icon className="size-5" />
                         </span>
-                        <span className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-all group-hover:bg-white/30">
-                          {isOpen ? (
-                            <Minus className="size-5 transition-transform duration-200" />
-                          ) : (
-                            <Plus className="size-5 transition-transform duration-200" />
-                          )}
-                        </span>
-                      </div>
 
-                      <h3 className="mt-6 font-display text-xl font-bold text-white">
-                        {p.title}
-                      </h3>
-                      <p className="mt-2.5 text-sm leading-relaxed text-white/90">
-                        {p.text}
-                      </p>
-                    </AccordionPrimitive.Trigger>
+                        <span className="min-w-0 flex-1">
+                          <span className="block font-display text-base font-bold text-white transition-colors group-hover:text-signal sm:text-lg">
+                            {p.title}
+                          </span>
+                          <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
+                            {p.text}
+                          </span>
+                        </span>
+
+                        <Plus className="size-5 shrink-0 text-mist transition-transform duration-200 group-hover:text-signal group-data-[state=open]:rotate-45" />
+                      </AccordionPrimitive.Trigger>
+                    </h3>
                   </AccordionPrimitive.Header>
 
-                  <AccordionPrimitive.Content className="overflow-hidden transition-all duration-300 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                  <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
                     {details && (
-                      <div className="mt-4 border-t border-white/25 pt-4 space-y-2 text-sm leading-relaxed text-white">
-                        <p className="font-bold text-white text-sm">
-                          {details.subtitle}
-                        </p>
-                        <p className="text-white/90 text-xs leading-relaxed">
-                          {details.text}
-                        </p>
+                      <div className="pb-6 sm:pl-16">
+                        <div className="border-l-2 border-[#f63d06] pl-4">
+                          <p className="font-display text-sm font-bold text-white">
+                            {details.subtitle}
+                          </p>
+                          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                            {details.text}
+                          </p>
+                        </div>
                       </div>
                     )}
                   </AccordionPrimitive.Content>

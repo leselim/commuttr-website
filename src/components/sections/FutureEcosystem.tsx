@@ -65,7 +65,7 @@ const FUTURE_FEATURES = [
 
 export function FutureEcosystem() {
   return (
-    <section id="coming-soon" className="relative py-24 md:py-28 bg-ink border-t border-white/[0.06]">
+    <section id="coming-soon" className="relative py-16 sm:py-20 md:py-28 bg-ink border-t border-white/[0.06]">
       <Container>
         <SectionHeading
           index="05"
@@ -80,13 +80,13 @@ export function FutureEcosystem() {
             const Icon = item.icon
             return (
               <Reveal key={item.title} delay={(i % 3) * 80}>
-                <div className="group relative flex h-full flex-col justify-between rounded-2xl border border-white/[0.08] bg-carbon p-6 transition-colors duration-300 hover:border-[#f63d06]/40">
+                <div className="group relative flex h-full flex-col justify-between rounded-none border border-white/[0.08] bg-carbon p-6 transition-colors duration-300 hover:border-[#f63d06]/40">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="flex size-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.08] text-[#f63d06]">
+                      <span className="flex size-11 items-center justify-center rounded-none bg-white/[0.04] border border-white/[0.08] text-[#f63d06]">
                         <Icon className="size-5" />
                       </span>
-                      <span className="rounded-full border border-[#f63d06]/30 bg-[#f63d06]/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#f63d06]">
+                      <span className="rounded-none border border-[#f63d06]/30 bg-[#f63d06]/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#f63d06]">
                         COMING SOON
                       </span>
                     </div>
@@ -106,9 +106,9 @@ export function FutureEcosystem() {
 
         {/* Bottom Vision Statement */}
         <Reveal delay={200} className="mt-12">
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 border-l-4 border-l-[#f63d06] bg-carbon p-6 md:p-8">
+          <div className="relative overflow-hidden rounded-none border border-white/10 border-l-4 border-l-[#f63d06] bg-carbon p-6 md:p-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#f63d06]/10 text-[#f63d06]">
+              <span className="flex size-12 shrink-0 items-center justify-center rounded-none bg-[#f63d06]/10 text-[#f63d06]">
                 <Sparkles className="size-6" />
               </span>
               <div>

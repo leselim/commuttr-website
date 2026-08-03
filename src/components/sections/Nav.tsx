@@ -17,72 +17,115 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // Close the drawer on Escape, and whenever the viewport grows into the
+  // desktop nav so the two can never be open at once.
+  React.useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false)
+    }
+    const mq = window.matchMedia("(min-width: 1024px)")
+    const onChange = () => mq.matches && setOpen(false)
+    window.addEventListener("keydown", onKey)
+    mq.addEventListener("change", onChange)
+    document.body.style.overflow = "hidden"
+    return () => {
+      window.removeEventListener("keydown", onKey)
+      mq.removeEventListener("change", onChange)
+      document.body.style.overflow = ""
+    }
+  }, [open])
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        scrolled
+        scrolled || open
           ? "border-b border-white/[0.06] bg-ink/80 backdrop-blur-xl"
           : "border-b border-transparent"
       )}
     >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:px-8">
-        <a href="#top" className="flex items-center" aria-label="Commuttr home">
-          <Wordmark className="text-[1.35rem]" />
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6 md:px-8">
+        <a
+          href="#top"
+          className="flex shrink-0 items-center py-2"
+          aria-label="Commuttr home"
+        >
+          <Wordmark className="text-[1.2rem] sm:text-[1.35rem]" />
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        {/* Desktop nav — only once there is room for every link on one line */}
+        <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-mist transition-colors hover:text-white"
+              className="whitespace-nowrap text-sm text-mist transition-colors hover:text-white"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden shrink-0 items-center gap-2 lg:flex">
           <Button variant="ghost" size="sm" asChild>
-            <a href="#contact">Partner with us</a>
+            <a href="#contact" className="whitespace-nowrap">
+              Partner with us
+            </a>
           </Button>
           <Button size="sm" asChild>
-            <a href="#contact">Join Waitlist</a>
+            <a href="#contact" className="whitespace-nowrap">
+              Join Waitlist
+            </a>
           </Button>
         </div>
 
+        {/* Mobile / tablet trigger */}
         <button
-          className="flex size-10 items-center justify-center rounded-full border border-white/10 text-white md:hidden"
+          type="button"
+          className="flex size-10 shrink-0 items-center justify-center rounded-none border border-white/10 text-white transition-colors hover:bg-white/[0.06] lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-nav"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 
-      {open && (
-        <div className="border-t border-white/[0.06] bg-ink/95 px-6 py-4 backdrop-blur-xl md:hidden">
-          <nav className="flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm text-mist hover:bg-white/[0.04] hover:text-white"
-              >
-                {link.label}
+      {/* Mobile / tablet drawer */}
+      <div
+        id="mobile-nav"
+        className={cn(
+          "overflow-hidden border-white/[0.06] bg-ink/95 backdrop-blur-xl transition-[max-height] duration-300 ease-out lg:hidden",
+          open ? "max-h-[80vh] border-t" : "max-h-0"
+        )}
+      >
+        <nav className="flex max-h-[80vh] flex-col gap-1 overflow-y-auto px-5 py-4 sm:px-6">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="rounded-none px-3 py-3 text-base text-mist transition-colors hover:bg-white/[0.04] hover:text-white"
+            >
+              {link.label}
+            </a>
+          ))}
+          <div className="mt-3 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
+            <Button variant="outline" className="w-full" asChild>
+              <a href="#contact" onClick={() => setOpen(false)}>
+                Partner with us
               </a>
-            ))}
-            <Button className="mt-2 w-full" asChild>
+            </Button>
+            <Button className="w-full" asChild>
               <a href="#contact" onClick={() => setOpen(false)}>
                 Join Waitlist
               </a>
             </Button>
-          </nav>
-        </div>
-      )}
+          </div>
+        </nav>
+      </div>
     </header>
   )
 }

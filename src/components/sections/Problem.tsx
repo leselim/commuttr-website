@@ -5,7 +5,7 @@ import { PROBLEMS } from "@/data/content"
 
 export function Problem() {
   return (
-    <section id="problem" className="relative py-24 md:py-28">
+    <section id="problem" className="relative py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
           index="01"
@@ -19,8 +19,8 @@ export function Problem() {
             const Icon = p.icon
             return (
               <Reveal key={p.title} delay={i * 80}>
-                <div className="h-full rounded-2xl border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                  <span className="flex size-11 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-white">
+                <div className="h-full rounded-none border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
+                  <span className="flex size-11 items-center justify-center rounded-none bg-white text-[#f63d06]">
                     <Icon className="size-5" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-bold text-white">

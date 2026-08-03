@@ -29,7 +29,7 @@ const PRINCIPLES = [
 
 export function Principles() {
   return (
-    <section id="principles" className="relative border-t border-white/[0.06] py-24 md:py-28">
+    <section id="principles" className="relative border-t border-white/[0.06] py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
           index="05"
@@ -45,7 +45,7 @@ export function Principles() {
               <Reveal key={p.title} delay={i * 80}>
                 <div className="flex h-full flex-col justify-between rounded-none border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
                   <div>
-                    <span className="flex size-11 items-center justify-center rounded-none border border-white/30 bg-white/20 text-white">
+                    <span className="flex size-11 items-center justify-center rounded-none bg-white text-[#f63d06]">
                       <Icon className="size-5" />
                     </span>
                     <h3 className="mt-5 font-display text-lg font-bold text-white">

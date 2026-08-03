@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-/** The Commuttr wordmark — lowercase Poppins with the signature signal dot. */
+/** The Commuttr wordmark — lowercase Arimo with the signature signal dot. */
 export function Wordmark({
   className,
   dotClassName,
@@ -11,7 +11,7 @@ export function Wordmark({
   return (
     <span
       className={cn(
-        "font-display text-xl font-extrabold lowercase tracking-tight text-white",
+        "font-display text-xl font-bold lowercase tracking-tight text-white",
         className
       )}
     >

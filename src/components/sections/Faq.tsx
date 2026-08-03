@@ -10,7 +10,7 @@ import { CONTACT, FAQS } from "@/data/content"
 
 export function Faq() {
   return (
-    <section id="faq" className="relative py-24 md:py-28">
+    <section id="faq" className="relative py-16 sm:py-20 md:py-28">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           <div>

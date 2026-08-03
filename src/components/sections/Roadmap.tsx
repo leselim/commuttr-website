@@ -2,12 +2,16 @@ import { cn } from "@/lib/utils"
 import { Container } from "@/components/Container"
 import { SectionHeading } from "@/components/SectionHeading"
 import { Reveal } from "@/components/Reveal"
-import { Badge } from "@/components/ui/badge"
 import { PHASES } from "@/data/content"
 
 export function Roadmap() {
+  const currentIndex = Math.max(
+    0,
+    PHASES.findIndex((p) => p.status === "Current focus")
+  )
+
   return (
-    <section id="roadmap" className="relative py-24 md:py-28">
+    <section id="roadmap" className="relative py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
           index="06"
@@ -16,54 +20,81 @@ export function Roadmap() {
           sub="We build products that solve real problems, validating assumptions and refining the MVP with purpose before scaling."
         />
 
-        <div className="relative mt-14 pl-2">
-          {/* vertical rail */}
-          <div
-            aria-hidden
-            className="absolute bottom-4 left-[19px] top-4 w-px bg-[#f63d06]/40"
-          />
-          <div className="space-y-5">
-            {PHASES.map((p, i) => {
-              const current = p.status === "Current focus"
-              return (
-                <Reveal key={p.tag} delay={i * 90}>
-                  <div className="relative pl-14">
+        <div className="mt-14">
+          {PHASES.map((p, i) => {
+            const done = i < currentIndex
+            const current = i === currentIndex
+            const isLast = i === PHASES.length - 1
+
+            return (
+              <Reveal key={p.tag} delay={i * 90}>
+                <div className="flex gap-5">
+                  {/* Marker + rail. The rail sits in a centred flex column under
+                      the marker, so it stays straight however tall a card grows. */}
+                  <div className="flex w-10 shrink-0 flex-col items-center">
                     <span
                       className={cn(
-                        "absolute left-0 top-1 flex size-10 items-center justify-center rounded-full text-sm font-bold shadow-md ring-4 ring-ink",
-                        current
+                        "flex size-10 shrink-0 items-center justify-center text-sm font-bold",
+                        done || current
                           ? "bg-[#f63d06] text-white"
-                          : "border border-white/20 bg-white/20 text-white"
+                          : "border border-[#f63d06]/35 bg-ink text-[#f63d06]/70"
                       )}
                     >
                       {i + 1}
                     </span>
+                    {!isLast && (
+                      <span
+                        aria-hidden
+                        className={cn(
+                          "w-px flex-1",
+                          done ? "bg-[#f63d06]" : "bg-white/10"
+                        )}
+                      />
+                    )}
+                  </div>
+
+                  <div className={cn("min-w-0 flex-1", !isLast && "pb-5")}>
                     <div
                       className={cn(
-                        "rounded-2xl border p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-0.5",
+                        "border p-6 transition-transform duration-300 hover:-translate-y-0.5",
                         current
-                          ? "border-[#f63d06] bg-[#f63d06]"
-                          : "border-[#f63d06]/80 bg-[#f63d06]/90"
+                          ? "border-[#f63d06] bg-[#f63d06] shadow-lg"
+                          : done
+                            ? "border-[#f63d06]/50 bg-[#f63d06]/15"
+                            : "border-white/[0.10] bg-carbon"
                       )}
                     >
-                      <div className="flex flex-wrap items-center gap-3">
-                        <span className="text-xs font-bold uppercase tracking-wider text-white/80">{p.tag}</span>
-                        <Badge variant="outline" className="border-white/30 bg-white/20 text-white font-bold">
-                          {p.status}
-                        </Badge>
-                      </div>
+                      <span
+                        className={cn(
+                          "flex items-center gap-2 text-xs font-bold uppercase tracking-wider",
+                          current ? "text-white/80" : "text-mist"
+                        )}
+                      >
+                        {current && (
+                          <span
+                            aria-hidden
+                            className="size-1.5 animate-pulse bg-white motion-reduce:animate-none"
+                          />
+                        )}
+                        {p.tag}
+                      </span>
                       <h3 className="mt-3 font-display text-xl font-bold text-white">
                         {p.title}
                       </h3>
-                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/90">
+                      <p
+                        className={cn(
+                          "mt-2 max-w-2xl text-sm leading-relaxed",
+                          current ? "text-white/90" : "text-mist"
+                        )}
+                      >
                         {p.text}
                       </p>
                     </div>
                   </div>
-                </Reveal>
-              )
-            })}
-          </div>
+                </div>
+              </Reveal>
+            )
+          })}
         </div>
       </Container>
     </section>

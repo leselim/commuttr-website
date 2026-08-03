@@ -5,7 +5,7 @@ import { STEPS } from "@/data/content"
 
 export function HowItWorks() {
   return (
-    <section id="how" className="relative py-24 md:py-28">
+    <section id="how" className="relative py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
           index="04"
@@ -25,7 +25,7 @@ export function HowItWorks() {
             return (
               <Reveal key={s.title} delay={i * 100}>
                 <div className="relative flex flex-col items-start">
-                  <span className="relative z-10 flex size-12 items-center justify-center rounded-full bg-[#f63d06] text-white ring-4 ring-ink">
+                  <span className="relative z-10 flex size-12 items-center justify-center rounded-none bg-[#f63d06] text-white ring-4 ring-ink">
                     <Icon className="size-5" />
                   </span>
                   <span className="eyebrow mt-5 text-[#f63d06]">Step 0{i + 1}</span>

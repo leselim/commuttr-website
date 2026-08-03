@@ -179,7 +179,16 @@ export const PARTNERS: Feature[] = [
   },
 ]
 
-export type Member = { name: string; role: string; initials: string; bio: string }
+export type Member = {
+  name: string
+  role: string
+  initials: string
+  bio: string
+  /** Cloudinary portrait. `f_auto,q_auto` serves WebP/AVIF at a sane weight
+   *  instead of the multi-MB source PNG; `w_640` caps it at 2x the rendered size. */
+  image: string
+  linkedin: string
+}
 
 export const TEAM: Member[] = [
   {
@@ -187,18 +196,18 @@ export const TEAM: Member[] = [
     role: "Founder, CEO & Product Lead",
     initials: "LM",
     bio: "Leads company vision, business strategy, product roadmap and strategic partnerships, building South Africa's intelligent journey planning platform.",
+    image:
+      "https://res.cloudinary.com/kxv83rmw/image/upload/f_auto,q_auto,w_640/v1785748126/Leseli_Team_Image_bhtdra.png",
+    linkedin: "https://www.linkedin.com/in/leseli-morakile-b71551210/",
   },
   {
     name: "Mukhethwa Ravele",
     role: "Founder & Backend Engineering Lead",
     initials: "MR",
     bio: "Owns backend architecture, transit data pipelines, routing engine, and infrastructure, building a scalable, high-performance platform.",
-  },
-  {
-    name: "Thokozani Ledwaba",
-    role: "Founder & Frontend Engineering Lead",
-    initials: "TL",
-    bio: "Owns the mobile and web interfaces, user experience, accessibility and responsive design to deliver an intuitive journey planning experience.",
+    image:
+      "https://res.cloudinary.com/kxv83rmw/image/upload/f_auto,q_auto,w_640/v1785748317/Mukhethwa_Team_Image_Three_w7kihb.png",
+    linkedin: "https://www.linkedin.com/in/mukhethwa-ravele/",
   },
 ]
 
@@ -222,7 +231,15 @@ export const FAQS = [
   },
 ] as const
 
+export const SOCIALS = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/commuttr/posts/?feedView=all" },
+  { label: "Instagram", href: "https://www.instagram.com/p/DbiYzVECBAw/" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591064297485" },
+] as const
+
 export const CONTACT = {
   email: "hellocommuttr@gmail.com",
   hq: "Cape Town, Western Cape, South Africa",
+  /** Formspree endpoint backing the contact form. Public by design. */
+  formEndpoint: "https://formspree.io/f/mqerrlvz",
 } as const

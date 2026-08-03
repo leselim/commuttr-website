@@ -7,7 +7,7 @@ import { PARTNERS } from "@/data/content"
 
 export function Ecosystem() {
   return (
-    <section id="ecosystem" className="relative border-t border-white/[0.06] py-24 md:py-28">
+    <section id="ecosystem" className="relative border-t border-white/[0.06] py-16 sm:py-20 md:py-28">
       <Container>
         {/* Vision Header */}
         <SectionHeading
@@ -21,7 +21,7 @@ export function Ecosystem() {
         <Reveal delay={100} className="mt-12">
           <div className="relative overflow-hidden rounded-none border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-xl md:p-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-none border border-white/30 bg-white/20 text-white">
+              <span className="flex size-12 shrink-0 items-center justify-center rounded-none bg-white text-[#f63d06]">
                 <Compass className="size-6" />
               </span>
               <div>
@@ -48,7 +48,7 @@ export function Ecosystem() {
                 <Reveal key={p.title} delay={(i % 3) * 80}>
                   <div className="flex h-full flex-col justify-between rounded-none border border-[#f63d06] bg-[#f63d06] p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
                     <div>
-                      <span className="flex size-11 items-center justify-center rounded-none border border-white/30 bg-white/20 text-white">
+                      <span className="flex size-11 items-center justify-center rounded-none bg-white text-[#f63d06]">
                         <Icon className="size-5" />
                       </span>
                       <h4 className="mt-5 font-display text-base font-bold text-white">

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ArrowRight, CheckCircle2, Mail, MapPin, Send } from "lucide-react"
+import { AlertCircle, CheckCircle2, Loader2, Mail, MapPin, Send } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -8,36 +8,75 @@ import { Label } from "@/components/ui/label"
 import { Container } from "@/components/Container"
 import { CONTACT } from "@/data/content"
 
+const EMPTY = { name: "", email: "", org: "", message: "" }
+
 export function Contact() {
-  const [sent, setSent] = React.useState(false)
-  const [form, setForm] = React.useState({
-    name: "",
-    email: "",
-    org: "",
-    message: "",
-  })
+  const [status, setStatus] = React.useState<
+    "idle" | "submitting" | "sent" | "error"
+  >("idle")
+  const [error, setError] = React.useState("")
+  const [form, setForm] = React.useState(EMPTY)
 
   const update =
     (key: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [key]: e.target.value }))
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const subject = encodeURIComponent(
-      `Commuttr enquiry — ${form.name || "New enquiry"}`
-    )
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nOrganisation: ${form.org}\n\n${form.message}`
-    )
-    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`
-    setSent(true)
+    // Honeypot: bots fill hidden fields, humans don't. Pretend success.
+    if (new FormData(e.currentTarget).get("_gotcha")) {
+      setStatus("sent")
+      return
+    }
+
+    setStatus("submitting")
+    setError("")
+
+    try {
+      const res = await fetch(CONTACT.formEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          organisation: form.org || "—",
+          message: form.message,
+          _subject: `Commuttr enquiry — ${form.name || "New enquiry"}`,
+        }),
+      })
+
+      if (res.ok) {
+        setForm(EMPTY)
+        setStatus("sent")
+        return
+      }
+
+      const data: { errors?: { message?: string }[] } | null = await res
+        .json()
+        .catch(() => null)
+      setError(
+        data?.errors?.map((x) => x.message).filter(Boolean).join(" ") ||
+          "That didn't go through. Please try again."
+      )
+      setStatus("error")
+    } catch {
+      setError(
+        `Couldn't reach the server. Check your connection, or email us at ${CONTACT.email}.`
+      )
+      setStatus("error")
+    }
   }
 
+  const submitting = status === "submitting"
+
   return (
-    <section id="contact" className="relative py-24 md:py-28">
+    <section id="contact" className="relative py-16 sm:py-20 md:py-28">
       <Container>
-        <div className="overflow-hidden rounded-3xl border border-white/[0.08] bg-carbon">
+        <div className="overflow-hidden rounded-none border border-white/[0.08] bg-carbon">
           <div className="grid lg:grid-cols-2">
             {/* Pitch */}
             <div className="relative p-8 md:p-12">
@@ -60,13 +99,13 @@ export function Contact() {
                     href={`mailto:${CONTACT.email}`}
                     className="flex items-center gap-3 text-sm text-white/90 transition-colors hover:text-signal"
                   >
-                    <span className="flex size-10 items-center justify-center rounded-xl bg-white/[0.04] text-signal ring-1 ring-white/10">
+                    <span className="flex size-10 items-center justify-center rounded-none bg-white/[0.04] text-signal ring-1 ring-white/10">
                       <Mail className="size-4" />
                     </span>
                     {CONTACT.email}
                   </a>
                   <div className="flex items-center gap-3 text-sm text-white/90">
-                    <span className="flex size-10 items-center justify-center rounded-xl bg-white/[0.04] text-signal ring-1 ring-white/10">
+                    <span className="flex size-10 items-center justify-center rounded-none bg-white/[0.04] text-signal ring-1 ring-white/10">
                       <MapPin className="size-4" />
                     </span>
                     {CONTACT.hq}
@@ -76,24 +115,22 @@ export function Contact() {
             </div>
 
             {/* Form */}
-            <div className="border-t border-white/[0.08] bg-ink/40 p-8 md:border-l md:border-t-0 md:p-12">
-              {sent ? (
+            <div className="border-t border-white/8 bg-ink/40 p-8 md:border-l md:border-t-0 md:p-12">
+              {status === "sent" ? (
                 <div className="flex h-full flex-col items-center justify-center py-8 text-center">
-                  <span className="flex size-14 items-center justify-center rounded-full bg-signal/12 text-signal">
-                    <CheckCircle2 className="size-7" />
-                  </span>
+                    <CheckCircle2 className="size-8 text-signal" />
                   <h3 className="mt-5 font-display text-xl font-semibold text-white">
-                    Your email is on its way
+                    Message sent
                   </h3>
                   <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                    We&rsquo;ve opened your email app with the details ready to
-                    send. Prefer to reach us directly? {CONTACT.email}
+                    Thanks for reaching out &ndash; we&rsquo;ll get back to you soon.
+                    Prefer to reach us directly? {CONTACT.email}
                   </p>
                   <Button
                     variant="outline"
                     className="mt-6"
-                    onClick={() => setSent(false)}
-                  >
+                    onClick={() => setStatus("idle")}
+                  > 
                     Send another message
                   </Button>
                 </div>
@@ -142,12 +179,44 @@ export function Contact() {
                       className="min-h-28"
                     />
                   </div>
-                  <Button type="submit" size="lg" className="w-full">
-                    Send message <Send className="size-4" />
+                  {/* Honeypot — hidden from people, catnip for bots. */}
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
+
+                  {status === "error" && (
+                    <p
+                      role="alert"
+                      className="flex items-start gap-2 border border-destructive/40 bg-destructive/10 p-3 text-sm text-white"
+                    >
+                      <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+                      {error}
+                    </p>
+                  )}
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full"
+                    disabled={submitting}
+                  >
+                    {submitting ? (
+                      <>
+                        Sending<Loader2 className="size-4 animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Send message <Send className="size-4" />
+                      </>
+                    )}
                   </Button>
-                  <p className="flex items-center justify-center gap-1.5 text-center text-xs text-mist">
-                    Opens in your email app. Nothing is sent automatically.
-                    <ArrowRight className="size-3" />
+                  <p className="text-center text-xs text-mist">
+                    We&rsquo;ll only use your details to reply to this enquiry.
                   </p>
                 </form>
               )}

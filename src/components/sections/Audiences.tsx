@@ -7,7 +7,7 @@ import { AUDIENCES } from "@/data/content"
 
 export function Audiences() {
   return (
-    <section id="who" className="relative py-24 md:py-28">
+    <section id="who" className="relative py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
           index="06"
@@ -22,7 +22,7 @@ export function Audiences() {
             return (
               <Reveal key={a.title} delay={i * 90}>
                 <div className="flex h-full flex-col rounded-none border border-[#f63d06] bg-[#f63d06] p-7 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                  <span className="flex size-11 items-center justify-center rounded-none border border-white/30 bg-white/20 text-white">
+                  <span className="flex size-11 items-center justify-center rounded-none bg-white text-[#f63d06]">
                     <Icon className="size-5" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-bold text-white">
@@ -31,13 +31,16 @@ export function Audiences() {
                   <p className="mt-2 text-sm leading-relaxed text-white/90">
                     {a.text}
                   </p>
+                  {/* Absorbs uneven intro-copy heights so every card's rule and
+                      bullet list start on the same line across the row. */}
+                  <div aria-hidden className="flex-1" />
                   <ul className="mt-5 space-y-2.5 border-t border-white/20 pt-5">
                     {a.points.map((point) => (
-                      <li key={point} className="flex items-center gap-2.5 text-sm font-medium text-white">
+                      <li key={point} className="flex items-start gap-2.5 text-sm font-medium leading-5 text-white">
                         <span className="flex size-5 shrink-0 items-center justify-center rounded-none bg-white/20 text-white">
                           <Check className="size-3" strokeWidth={3} />
                         </span>
-                        {point}
+                        <span className="min-w-0 flex-1">{point}</span>
                       </li>
                     ))}
                   </ul>
