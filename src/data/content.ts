@@ -204,7 +204,7 @@ export const TEAM: Member[] = [
     name: "Mukhethwa Ravele",
     role: "Founder & Backend Engineering Lead",
     initials: "MR",
-    bio: "Owns backend architecture, transit data pipelines, routing engine, and infrastructure, building a scalable, high-performance platform.",
+    bio: "Owns backend architecture, transit data pipelines, routing engine, and infrastructure, building a scalable, robust, and high-performance platform.",
     image:
       "https://res.cloudinary.com/kxv83rmw/image/upload/v1785755420/Mukhethwa_Team_Image_Four_ta8hu2.png",
     linkedin: "https://www.linkedin.com/in/mukhethwa-ravele/",
