@@ -10,6 +10,7 @@ import { Roadmap } from "@/components/sections/Roadmap"
 import { Ecosystem } from "@/components/sections/Ecosystem"
 import { Team } from "@/components/sections/Team"
 import { Faq } from "@/components/sections/Faq"
+import { Waitlist } from "@/components/sections/Waitlist"
 import { Contact } from "@/components/sections/Contact"
 import { Footer } from "@/components/sections/Footer"
 
@@ -29,6 +30,7 @@ export default function App() {
         <Ecosystem />
         <Team />
         <Faq />
+        <Waitlist />
         <Contact />
       </main>
       <Footer />

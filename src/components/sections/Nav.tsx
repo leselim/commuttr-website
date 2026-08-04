@@ -74,7 +74,7 @@ export function Nav() {
             </a>
           </Button>
           <Button size="sm" asChild>
-            <a href="#contact" className="whitespace-nowrap">
+            <a href="#waitlist" className="whitespace-nowrap">
               Join Waitlist
             </a>
           </Button>
@@ -119,7 +119,7 @@ export function Nav() {
               </a>
             </Button>
             <Button className="w-full" asChild>
-              <a href="#contact" onClick={() => setOpen(false)}>
+              <a href="#waitlist" onClick={() => setOpen(false)}>
                 Join Waitlist
               </a>
             </Button>

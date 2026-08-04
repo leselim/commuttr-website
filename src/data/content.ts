@@ -244,3 +244,18 @@ export const CONTACT = {
   formEndpoint:
     "https://script.google.com/macros/s/AKfycbwnmCI2y-C4rqkGtKYSEvbjZ7C7N8aoKK6Wi_TIEACebHbZaRpLXSKalH9co8b4oIgguQ/exec",
 } as const
+
+export const WAITLIST = {
+  endpoint:
+    "https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec",
+  transportModes: [
+    "Taxi",
+    "Bus",
+    "Train",
+    "Gautrain",
+    "E-hailing",
+    "Walking",
+    "Multiple",
+  ] as const,
+} as const
+
