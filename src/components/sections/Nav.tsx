@@ -36,6 +36,33 @@ export function Nav() {
     }
   }, [open])
 
+  const navigateTo = (path: string, hash: string = "") => (e: React.MouseEvent) => {
+    e.preventDefault()
+    setOpen(false)
+    const targetUrl = path + hash
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, "", targetUrl)
+      window.dispatchEvent(new Event("popstate"))
+      if (hash) {
+        setTimeout(() => {
+          const el = document.querySelector(hash)
+          if (el) el.scrollIntoView({ behavior: "smooth" })
+        }, 100)
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }
+    } else if (hash) {
+      const el = document.querySelector(hash)
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" })
+      } else {
+        window.location.hash = hash
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+  }
+
   return (
     <header
       className={cn(
@@ -47,7 +74,8 @@ export function Nav() {
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6 md:px-8">
         <a
-          href="#top"
+          href="/"
+          onClick={navigateTo("/", "")}
           className="flex shrink-0 items-center py-2"
           aria-label="Commuttr home"
         >
@@ -60,6 +88,11 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
+              onClick={(e) => {
+                if (window.location.pathname !== "/") {
+                  navigateTo("/", link.href)(e)
+                }
+              }}
               className="whitespace-nowrap text-sm text-mist transition-colors hover:text-white"
             >
               {link.label}
@@ -69,12 +102,12 @@ export function Nav() {
 
         <div className="hidden shrink-0 items-center gap-2 lg:flex">
           <Button variant="ghost" size="sm" asChild>
-            <a href="#waitlist" className="whitespace-nowrap">
+            <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")} className="whitespace-nowrap">
               Join Waitlist
             </a>
           </Button>
           <Button size="sm" asChild>
-            <a href="#contact" className="whitespace-nowrap">
+            <a href="/partner" onClick={navigateTo("/partner")} className="whitespace-nowrap">
               Partner with us
             </a>
           </Button>
@@ -106,7 +139,12 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
-              onClick={() => setOpen(false)}
+              onClick={(e) => {
+                setOpen(false)
+                if (window.location.pathname !== "/") {
+                  navigateTo("/", link.href)(e)
+                }
+              }}
               className="rounded-none px-3 py-3 text-base text-mist transition-colors hover:bg-white/[0.04] hover:text-white"
             >
               {link.label}
@@ -114,12 +152,12 @@ export function Nav() {
           ))}
           <div className="mt-3 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
             <Button variant="outline" className="w-full" asChild>
-              <a href="#waitlist" onClick={() => setOpen(false)}>
+              <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")}>
                 Join Waitlist
               </a>
             </Button>
             <Button className="w-full" asChild>
-              <a href="#contact" onClick={() => setOpen(false)}>
+              <a href="/partner" onClick={navigateTo("/partner")}>
                 Partner with us
               </a>
             </Button>

@@ -20,24 +20,46 @@ const COLUMNS = [
   {
     heading: "Product",
     links: [
-      { label: "Journey planner", href: "#product" },
-      { label: "See the app", href: "#app" },
-      { label: "How it works", href: "#how" },
-      { label: "Coming soon", href: "#coming-soon" },
+      { label: "Journey planner", href: "/#product" },
+      { label: "See the app", href: "/#app" },
+      { label: "How it works", href: "/#how" },
+      { label: "Join waitlist", href: "/#waitlist" },
     ],
   },
   {
     heading: "Company",
     links: [
-      { label: "The problem", href: "#problem" },
-      { label: "Ecosystem", href: "#ecosystem" },
-      { label: "Leadership", href: "#team" },
-      { label: "FAQ", href: "#faq" },
+      { label: "The problem", href: "/#problem" },
+      { label: "Ecosystem", href: "/#ecosystem" },
+      { label: "Leadership", href: "/#team" },
+      { label: "Partner with us", href: "/partner" },
+      { label: "FAQ", href: "/#faq" },
     ],
   },
 ]
 
 export function Footer() {
+  const handleNav = (href: string) => (e: React.MouseEvent) => {
+    if (href.startsWith("/partner")) {
+      e.preventDefault()
+      if (window.location.pathname !== "/partner") {
+        window.history.pushState({}, "", "/partner")
+        window.dispatchEvent(new Event("popstate"))
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    } else if (href.startsWith("/#")) {
+      const hash = href.replace("/", "")
+      if (window.location.pathname !== "/") {
+        e.preventDefault()
+        window.history.pushState({}, "", href)
+        window.dispatchEvent(new Event("popstate"))
+        setTimeout(() => {
+          const el = document.querySelector(hash)
+          if (el) el.scrollIntoView({ behavior: "smooth" })
+        }, 100)
+      }
+    }
+  }
   return (
     <footer className="border-t border-white/[0.08] bg-ink">
       <Container className="py-14">
@@ -77,6 +99,7 @@ export function Footer() {
                   <li key={link.href}>
                     <a
                       href={link.href}
+                      onClick={handleNav(link.href)}
                       className="inline-block py-2 text-sm text-white/80 transition-colors hover:text-signal lg:py-0"
                     >
                       {link.label}

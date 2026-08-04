@@ -1,3 +1,5 @@
+import * as React from "react"
+
 import { Nav } from "@/components/sections/Nav"
 import { Hero } from "@/components/sections/Hero"
 import { Problem } from "@/components/sections/Problem"
@@ -11,27 +13,47 @@ import { Ecosystem } from "@/components/sections/Ecosystem"
 import { Team } from "@/components/sections/Team"
 import { Faq } from "@/components/sections/Faq"
 import { Waitlist } from "@/components/sections/Waitlist"
-import { Contact } from "@/components/sections/Contact"
+import { PartnerPage } from "@/components/pages/PartnerPage"
 import { Footer } from "@/components/sections/Footer"
 
 export default function App() {
+  const [path, setPath] = React.useState(() => window.location.pathname)
+
+  React.useEffect(() => {
+    const onLocationChange = () => {
+      setPath(window.location.pathname)
+    }
+    window.addEventListener("popstate", onLocationChange)
+    return () => window.removeEventListener("popstate", onLocationChange)
+  }, [])
+
+  const isPartnerPage =
+    path === "/partner" ||
+    path === "/contact" ||
+    path === "/partner-with-us"
+
   return (
     <div className="relative min-h-screen bg-ink">
       <Nav />
       <main>
-        <Hero />
-        <Problem />
-        <Products />
-        <AppShowcase />
-        <HowItWorks />
-        <Principles />
-        <Audiences />
-        <Roadmap />
-        <Ecosystem />
-        <Team />
-        <Faq />
-        <Waitlist />
-        <Contact />
+        {isPartnerPage ? (
+          <PartnerPage />
+        ) : (
+          <>
+            <Hero />
+            <Problem />
+            <Products />
+            <AppShowcase />
+            <HowItWorks />
+            <Principles />
+            <Audiences />
+            <Roadmap />
+            <Ecosystem />
+            <Team />
+            <Faq />
+            <Waitlist />
+          </>
+        )}
       </main>
       <Footer />
     </div>
