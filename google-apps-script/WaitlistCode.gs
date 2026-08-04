@@ -88,7 +88,7 @@ function doPost(e) {
 
 function sendTeamWaitlistNotification(data) {
   var recipient = "hellocommuttr@gmail.com";
-  var subject = "🎉 New Commuttr Waitlist Signup: " + data.name;
+  var subject = "🎉 New Commuttr Waitlist Signup";
 
   var htmlBody = `
     <!DOCTYPE html>
@@ -174,7 +174,7 @@ function sendUserWaitlistConfirmation(data) {
   if (!data.email || data.email === "N/A") return;
 
   var recipient = data.email;
-  var subject = "Welcome to the Commuttr Waitlist 🎉";
+  var subject = "Welcome to the Commuttr Waitlist";
 
   var htmlBody = `
     <!DOCTYPE html>
@@ -187,6 +187,8 @@ function sendUserWaitlistConfirmation(data) {
           .header h1 { margin: 0 0 12px 0; color: #ffffff; font-size: 24px; font-weight: 700; }
           .tag { display: inline-block; color: #f63d06; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 12px; }
           p { font-size: 15px; color: #9a9aa5; line-height: 1.6; margin: 16px 0; }
+          ul { margin: 16px 0; padding-left: 20px; color: #fafafa; }
+          li { margin-bottom: 8px; font-size: 15px; }
           .highlight { color: #ffffff; font-weight: 600; }
           .footer { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 32px; padding-top: 20px; font-size: 12px; color: #9a9aa5; text-align: center; }
         </style>
@@ -194,12 +196,19 @@ function sendUserWaitlistConfirmation(data) {
       <body>
         <div class="card">
           <div class="tag">Commuttr Early Access</div>
-          <h1>You're on the list! 🎉</h1>
-          <p>Hi <span class="highlight">${escapeHtml(data.name)}</span>,</p>
-          <p>Thank you for joining the Commuttr waitlist! You're now among the first in line to experience a smarter way to navigate public transport in South Africa.</p>
-          <p>We're hard at work building our intelligent journey planner. As we prepare for beta access and pilot launches, we'll keep you updated with product progress, exclusive invitations, and launch announcements.</p>
-          <p>If you have any questions or feedback in the meantime, feel free to reply directly to this email or reach us at <a href="mailto:hellocommuttr@gmail.com" style="color: #f63d06;">hellocommuttr@gmail.com</a>.</p>
-          <p>Warm regards,<br><span class="highlight">The Commuttr Team</span></p>
+          <h1>Welcome to the Commuttr Waitlist</h1>
+          <p>Hi ${escapeHtml(data.name)},</p>
+          <p>Thank you for joining the Commuttr waitlist.</p>
+          <p>We're excited to have you on board.</p>
+          <p>You'll be among the first to receive:</p>
+          <ul>
+            <li>Product updates</li>
+            <li>Beta invitations</li>
+            <li>Launch announcements</li>
+            <li>Early access opportunities</li>
+          </ul>
+          <p>We're building a smarter way to navigate public transport in South Africa and can't wait to share what's coming.</p>
+          <p>The Commuttr Team</p>
           <div class="footer">
             Commuttr • Intelligent Public Transport Mobility for South Africa
           </div>
@@ -210,9 +219,15 @@ function sendUserWaitlistConfirmation(data) {
 
   var plainBody = 
     "Hi " + data.name + ",\n\n" +
-    "Thank you for joining the Commuttr waitlist! You're now among the first in line to experience a smarter way to navigate public transport in South Africa.\n\n" +
-    "We'll keep you updated with product progress, beta access, and launch announcements.\n\n" +
-    "Warm regards,\nThe Commuttr Team\nhellocommuttr@gmail.com";
+    "Thank you for joining the Commuttr waitlist.\n\n" +
+    "We're excited to have you on board.\n\n" +
+    "You'll be among the first to receive:\n\n" +
+    "• Product updates\n" +
+    "• Beta invitations\n" +
+    "• Launch announcements\n" +
+    "• Early access opportunities\n\n" +
+    "We're building a smarter way to navigate public transport in South Africa and can't wait to share what's coming.\n\n" +
+    "The Commuttr Team";
 
   MailApp.sendEmail({
     to: recipient,

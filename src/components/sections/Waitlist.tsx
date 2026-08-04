@@ -142,14 +142,12 @@ export function Waitlist() {
             <div className="border-t border-white/8 bg-ink/40 p-8 md:border-l md:border-t-0 md:p-12">
               {status === "sent" ? (
                 <div className="flex h-full flex-col items-center justify-center py-8 text-center">
-                  <div className="flex size-14 items-center justify-center rounded-none bg-signal/10 ring-1 ring-signal/30 text-2xl">
-                    🎉
-                  </div>
+                  <CheckCircle2 className="size-8 text-signal" />
                   <h3 className="mt-5 font-display text-xl font-semibold text-white">
                     You&rsquo;re on the list!
                   </h3>
-                  <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                    Thank you for joining the Commuttr waitlist. We&rsquo;ve also sent a confirmation email. We&rsquo;ll keep you updated with product progress, beta access and launch announcements.
+                  <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                    Thank you for joining the Commuttr waitlist. We&rsquo;ve sent a confirmation email to your inbox.
                   </p>
                   <Button
                     variant="outline"
