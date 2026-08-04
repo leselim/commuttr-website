@@ -8,10 +8,20 @@
  */
 
 function doPost(e) {
+  Logger.log("--> Incoming doPost request received.");
   try {
+    if (!e || !e.postData || !e.postData.contents) {
+      Logger.log("ERROR: Invalid request payload. Missing e.postData.contents.");
+      return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Missing payload" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var contents = e.postData.contents;
+    Logger.log("Raw post payload: " + contents);
+
     var data = JSON.parse(contents);
+    Logger.log("Successfully parsed JSON payload for: " + (data.email || "unknown"));
 
     var timestamp = new Date();
     var formattedDate = Utilities.formatDate(timestamp, Session.getScriptTimeZone(), "dd/MM/yyyy HH:mm:ss");
@@ -35,8 +45,10 @@ function doPost(e) {
       status,
       assignedTo
     ]);
+    Logger.log("--> Row successfully written to Google Sheet.");
 
-    // 2. Send Email Notification (wrapped in try-catch so email errors don't break form response)
+    // 2. Send Email Notification (wrapped in try-catch so email errors don't break response)
+    Logger.log("--> Attempting to send email notification to hellocommuttr@gmail.com...");
     try {
       sendEmailNotification({
         name: name,
@@ -45,20 +57,26 @@ function doPost(e) {
         message: message,
         timestamp: formattedDate
       });
+      Logger.log("--> Email notification successfully sent to hellocommuttr@gmail.com.");
     } catch (mailError) {
-      Logger.log("Failed to send email notification: " + mailError.toString());
+      Logger.log("CRITICAL MAIL ERROR: Failed to send email notification: " + mailError.toString());
+      Logger.log("Stack trace: " + (mailError.stack || "N/A"));
     }
 
     return ContentService.createTextOutput(JSON.stringify({ result: "success" }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
-    Logger.log("Error handling doPost: " + error.toString());
+    Logger.log("CRITICAL POST ERROR: " + error.toString());
+    Logger.log("Stack trace: " + (error.stack || "N/A"));
     return ContentService.createTextOutput(JSON.stringify({ result: "error", error: error.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
+/**
+ * Sends a styled HTML email notification for new contact submissions.
+ */
 function sendEmailNotification(data) {
   var recipient = "hellocommuttr@gmail.com";
   var subject = "🚨 New Contact Enquiry - Commuttr";
@@ -135,6 +153,27 @@ function sendEmailNotification(data) {
     body: plainBody,
     htmlBody: htmlBody
   });
+}
+
+/**
+ * Standalone test function to trigger OAuth consent and verify email delivery.
+ * Select 'testEmail' in the Google Apps Script IDE dropdown and click 'Run'.
+ */
+function testEmail() {
+  Logger.log("Starting testEmail() execution...");
+  try {
+    sendEmailNotification({
+      name: "Test User",
+      email: "hellocommuttr@gmail.com",
+      organisation: "Commuttr Test",
+      message: "This is a successful test of the Commuttr Google Apps Script email notification system.",
+      timestamp: Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "dd/MM/yyyy HH:mm:ss")
+    });
+    Logger.log("testEmail() completed successfully! Check hellocommuttr@gmail.com inbox.");
+  } catch (err) {
+    Logger.log("ERROR in testEmail(): " + err.toString());
+    throw err;
+  }
 }
 
 function escapeHtml(str) {
