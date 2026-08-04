@@ -1,5 +1,5 @@
 import * as React from "react"
-import { AlertCircle, CheckCircle2, ChevronDown, Loader2, Sparkles } from "lucide-react"
+import { AlertCircle, CheckCircle2, ChevronDown, Loader2, Rocket } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -121,7 +121,7 @@ export function Waitlist() {
 
                 <div className="mt-8 grid gap-3 sm:grid-cols-2">
                   <div className="flex items-start gap-3 rounded-none border border-white/[0.06] bg-white/[0.02] p-3 text-xs">
-                    <Sparkles className="mt-0.5 size-4 shrink-0 text-signal" />
+                    <Rocket className="mt-0.5 size-4 shrink-0 text-signal" />
                     <div>
                       <div className="font-semibold text-white">Early Beta Access</div>
                       <div className="text-mist">Test features before official rollout</div>
