@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#000000" />
-  <circle cx="218" cy="210" r="42" fill="#f63d06" />
-  <!-- Top-right arc -->
-  <path d="M 276 182 A 76 76 0 0 1 315 220" fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="butt" />
-  <!-- Main C arc -->
-  <path d="M 190 256 A 76 76 0 1 0 315 292" fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="square" />
+  <rect width="512" height="512" rx="100" fill="#0a0a0b" />
+  <g transform="translate(256, 256) scale(1.65) translate(-256, -256)">
+    <circle cx="218" cy="210" r="42" fill="#f63d06" />
+    <path d="M 276 182 A 76 76 0 0 1 315 220" fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="butt" />
+    <path d="M 190 256 A 76 76 0 1 0 315 292" fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="square" />
+  </g>
 </svg>
