@@ -240,6 +240,7 @@ export const SOCIALS = [
 export const CONTACT = {
   email: "hellocommuttr@gmail.com",
   hq: "Cape Town, Western Cape, South Africa",
-  /** Formspree endpoint backing the contact form. Public by design. */
-  formEndpoint: "https://formspree.io/f/mqerrlvz",
+  /** Google Apps Script Web App endpoint backing the contact form. */
+  formEndpoint:
+    "https://script.google.com/macros/s/AKfycbwnmCI2y-C4rqkGtKYSEvbjZ7C7N8aoKK6Wi_TIEACebHbZaRpLXSKalH9co8b4oIgguQ/exec",
 } as const

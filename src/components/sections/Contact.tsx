@@ -37,29 +37,36 @@ export function Contact() {
       const res = await fetch(CONTACT.formEndpoint, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          "Content-Type": "text/plain;charset=utf-8",
         },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          organisation: form.org || "—",
+          organisation: form.org,
           message: form.message,
-          _subject: `Commuttr enquiry — ${form.name || "New enquiry"}`,
         }),
       })
 
       if (res.ok) {
+        const data: { result?: string; status?: string; error?: string } | null =
+          await res.json().catch(() => null)
+
+        if (data?.error) {
+          setError(data.error)
+          setStatus("error")
+          return
+        }
+
         setForm(EMPTY)
         setStatus("sent")
         return
       }
 
-      const data: { errors?: { message?: string }[] } | null = await res
-        .json()
-        .catch(() => null)
+      const data: { error?: string; errors?: { message?: string }[] } | null =
+        await res.json().catch(() => null)
       setError(
-        data?.errors?.map((x) => x.message).filter(Boolean).join(" ") ||
+        data?.error ||
+          data?.errors?.map((x) => x.message).filter(Boolean).join(" ") ||
           "That didn't go through. Please try again."
       )
       setStatus("error")
