@@ -1,11 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="15" fill="#0a0a0b" />
-  <path
-    d="M40 22 A14 14 0 1 0 40 42"
-    fill="none"
-    stroke="#fafafa"
-    stroke-width="6.5"
-    stroke-linecap="round"
-  />
-  <circle cx="46" cy="45" r="5" fill="#ff4500" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#000000" />
+  <circle cx="218" cy="210" r="42" fill="#f63d06" />
+  <!-- Top-right arc -->
+  <path d="M 276 182 A 76 76 0 0 1 315 220" fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="butt" />
+  <!-- Main C arc -->
+  <path d="M 190 256 A 76 76 0 1 0 315 292" fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="square" />
 </svg>
