@@ -25,7 +25,7 @@ export function Ecosystem() {
                 <Compass className="size-6" />
               </span>
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-white/80">
+                <p className="text-xs font-bold uppercase tracking-wider text-white">
                   Our Vision
                 </p>
                 <p className="mt-1 font-display text-base font-semibold leading-relaxed text-white md:text-lg">
