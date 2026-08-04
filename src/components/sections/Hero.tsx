@@ -29,7 +29,7 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button size="lg" asChild>
-              <a href="#contact">
+              <a href="#waitlist">
                 Join the Waitlist <ArrowRight className="size-4" />
               </a>
             </Button>

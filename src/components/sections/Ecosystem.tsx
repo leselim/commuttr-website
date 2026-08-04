@@ -66,7 +66,7 @@ export function Ecosystem() {
             {/* CTA tile */}
             <Reveal delay={160}>
               <a
-                href="#contact"
+                href="/partner"
                 className="group flex h-full flex-col justify-between rounded-none border-2 border-white bg-white p-6 text-[#f63d06] shadow-xl transition-transform duration-300 hover:-translate-y-1"
               >
                 <div>
