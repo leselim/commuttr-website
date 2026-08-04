@@ -249,13 +249,12 @@ export const WAITLIST = {
   endpoint:
     "https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec",
   transportModes: [
-    "Minibus Taxi / Taxi",
-    "Bus (MyCiTi, Golden Arrow, Rea Vaya, Putco)",
-    "Train / Metrorail",
-    "Gautrain",
-    "E-hailing (Uber, Bolt, InDrive)",
+    "Taxi",
+    "Bus",
+    "Train",
+    "E-hailing",
     "Walking",
-    "Multiple Modes",
+    "Multiple",
   ] as const,
 } as const
 
