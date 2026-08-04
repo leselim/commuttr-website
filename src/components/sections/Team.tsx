@@ -13,7 +13,7 @@ export function Team() {
           index="08"
           eyebrow="Leadership"
           title="A founding team that ships."
-          sub="Strategic business and product leadership paired with deep backend and frontend engineering, creating a foundation for secure, scalable and user centred mobility."
+          sub="Strategic leadership and product vision, paired with deep backend engineering expertise, building a secure, scalable, and commuter-first digital mobility platform."
         />
 
         <Reveal delay={100} className="mt-14">

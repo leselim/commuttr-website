@@ -193,18 +193,18 @@ export type Member = {
 export const TEAM: Member[] = [
   {
     name: "Leseli Morakile",
-    role: "Founder, CEO & Product Lead",
+    role: "Founder & CEO",
     initials: "LM",
-    bio: "Leads company vision, business strategy, product roadmap and strategic partnerships, building South Africa's intelligent journey planning platform.",
+    bio: "Responsible for business strategy, product vision, partnerships, branding, and company leadership.",
     image:
       "https://res.cloudinary.com/kxv83rmw/image/upload/f_auto,q_auto,w_640/v1785748126/Leseli_Team_Image_bhtdra.png",
     linkedin: "https://www.linkedin.com/in/leseli-morakile-b71551210/",
   },
   {
     name: "Mukhethwa Ravele",
-    role: "Founder & Backend Engineering Lead",
+    role: "Co-Founder & Backend Engineering Lead",
     initials: "MR",
-    bio: "Owns backend architecture, transit data pipelines, routing engine, and infrastructure, building a scalable, robust, and high-performance platform.",
+    bio: "Responsible for backend architecture, platform infrastructure, APIs, security, scalability, and technical implementation.",
     image:
       "https://res.cloudinary.com/kxv83rmw/image/upload/v1785755420/Mukhethwa_Team_Image_Four_ta8hu2.png",
     linkedin: "https://www.linkedin.com/in/mukhethwa-ravele/",
