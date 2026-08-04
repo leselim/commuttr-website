@@ -103,7 +103,7 @@ export function Nav() {
         <div className="hidden shrink-0 items-center gap-2 lg:flex">
           <Button variant="ghost" size="sm" asChild>
             <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")} className="whitespace-nowrap">
-              Join Waitlist
+              Join the Waitlist
             </a>
           </Button>
           <Button size="sm" asChild>
@@ -153,7 +153,7 @@ export function Nav() {
           <div className="mt-3 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
             <Button variant="outline" className="w-full" asChild>
               <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")}>
-                Join Waitlist
+                Join the Waitlist
               </a>
             </Button>
             <Button className="w-full" asChild>
