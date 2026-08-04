@@ -237,17 +237,22 @@ export const SOCIALS = [
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591064297485" },
 ] as const
 
+export const ENDPOINTS = {
+  contact:
+    "https://script.google.com/macros/s/AKfycbwnmCI2y-C4rqkGtKYSEvbjZ7C7N8aoKK6Wi_TIEACebHbZaRpLXSKalH9co8b4oIgguQ/exec",
+  waitlist:
+    "https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec",
+} as const
+
 export const CONTACT = {
   email: "hellocommuttr@gmail.com",
   hq: "Cape Town, Western Cape, South Africa",
   /** Google Apps Script Web App endpoint backing the contact form. */
-  formEndpoint:
-    "https://script.google.com/macros/s/AKfycbwnmCI2y-C4rqkGtKYSEvbjZ7C7N8aoKK6Wi_TIEACebHbZaRpLXSKalH9co8b4oIgguQ/exec",
+  formEndpoint: ENDPOINTS.contact,
 } as const
 
 export const WAITLIST = {
-  endpoint:
-    "https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec",
+  endpoint: ENDPOINTS.waitlist,
   transportModes: [
     "Taxi",
     "Bus",
