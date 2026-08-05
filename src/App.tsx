@@ -17,12 +17,17 @@ import { PartnerPage } from "@/components/pages/PartnerPage"
 import { PrivacyPage } from "@/components/pages/PrivacyPage"
 import { Footer } from "@/components/sections/Footer"
 
+import { trackPageView } from "@/lib/analytics"
+
 export default function App() {
   const [path, setPath] = React.useState(() => window.location.pathname)
 
   React.useEffect(() => {
+    trackPageView(window.location.pathname)
     const onLocationChange = () => {
-      setPath(window.location.pathname)
+      const currentPath = window.location.pathname
+      setPath(currentPath)
+      trackPageView(currentPath)
     }
     window.addEventListener("popstate", onLocationChange)
     return () => window.removeEventListener("popstate", onLocationChange)

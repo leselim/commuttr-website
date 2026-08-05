@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Wordmark } from "@/components/brand/Wordmark"
 import { NAV_LINKS } from "@/data/content"
+import { trackEvent } from "@/lib/analytics"
 
 export function Nav() {
   const [scrolled, setScrolled] = React.useState(false)
@@ -102,12 +103,26 @@ export function Nav() {
 
         <div className="hidden shrink-0 items-center gap-2 lg:flex">
           <Button variant="ghost" size="sm" asChild>
-            <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")} className="whitespace-nowrap">
+            <a
+              href="/#waitlist"
+              onClick={(e) => {
+                trackEvent("join_waitlist_click", { location: "desktop_nav" })
+                navigateTo("/", "#waitlist")(e)
+              }}
+              className="whitespace-nowrap"
+            >
               Join the Waitlist
             </a>
           </Button>
           <Button size="sm" asChild>
-            <a href="/partner" onClick={navigateTo("/partner")} className="whitespace-nowrap">
+            <a
+              href="/partner"
+              onClick={(e) => {
+                trackEvent("partner_click", { location: "desktop_nav" })
+                navigateTo("/partner")(e)
+              }}
+              className="whitespace-nowrap"
+            >
               Partner with us
             </a>
           </Button>
@@ -152,12 +167,24 @@ export function Nav() {
           ))}
           <div className="mt-3 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
             <Button variant="outline" className="w-full" asChild>
-              <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")}>
+              <a
+                href="/#waitlist"
+                onClick={(e) => {
+                  trackEvent("join_waitlist_click", { location: "mobile_drawer" })
+                  navigateTo("/", "#waitlist")(e)
+                }}
+              >
                 Join the Waitlist
               </a>
             </Button>
             <Button className="w-full" asChild>
-              <a href="/partner" onClick={navigateTo("/partner")}>
+              <a
+                href="/partner"
+                onClick={(e) => {
+                  trackEvent("partner_click", { location: "mobile_drawer" })
+                  navigateTo("/partner")(e)
+                }}
+              >
                 Partner with us
               </a>
             </Button>

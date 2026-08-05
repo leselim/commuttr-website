@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Container } from "@/components/Container"
 import { CONTACT } from "@/data/content"
+import { trackEvent } from "@/lib/analytics"
 
 const EMPTY = { name: "", email: "", org: "", message: "" }
 
@@ -75,6 +76,8 @@ export function Contact() {
           return
         }
 
+        trackEvent("contact_submit", { organisation: trimmedOrg })
+        trackEvent("partner_enquiry", { organisation: trimmedOrg })
         setForm(EMPTY)
         setStatus("sent")
         return

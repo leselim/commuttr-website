@@ -3,6 +3,7 @@ import { ArrowRight, BadgeCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PhoneMockup } from "@/components/app/PhoneMockup"
 import { HomeScreen } from "@/components/app/screens"
+import { trackEvent } from "@/lib/analytics"
 
 export function Hero() {
   return (
@@ -29,7 +30,10 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button size="lg" asChild>
-              <a href="#waitlist">
+              <a
+                href="#waitlist"
+                onClick={() => trackEvent("join_waitlist_click", { location: "hero" })}
+              >
                 Join the Waitlist <ArrowRight className="size-4" />
               </a>
             </Button>

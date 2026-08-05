@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Container } from "@/components/Container"
 import { WAITLIST } from "@/data/content"
+import { trackEvent } from "@/lib/analytics"
 
 const EMPTY_WAITLIST = {
   name: "",
@@ -98,6 +99,10 @@ export function Waitlist() {
           return
         }
 
+        trackEvent("waitlist_submit", {
+          city: trimmedCity,
+          transport_mode: form.transportMode,
+        })
         setForm(EMPTY_WAITLIST)
         setStatus("sent")
         return
