@@ -30,6 +30,24 @@ export function Contact() {
       return
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const trimmedName = form.name.trim()
+    const trimmedEmail = form.email.trim().toLowerCase()
+    const trimmedOrg = form.org.trim()
+    const trimmedMsg = form.message.trim()
+
+    if (!trimmedName || !trimmedEmail || !trimmedMsg) {
+      setError("Please fill out all required fields.")
+      setStatus("error")
+      return
+    }
+
+    if (!emailRegex.test(trimmedEmail)) {
+      setError("Please enter a valid email address.")
+      setStatus("error")
+      return
+    }
+
     setStatus("submitting")
     setError("")
 
@@ -40,10 +58,10 @@ export function Contact() {
           "Content-Type": "text/plain;charset=utf-8",
         },
         body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          organisation: form.org,
-          message: form.message,
+          name: trimmedName,
+          email: trimmedEmail,
+          organisation: trimmedOrg,
+          message: trimmedMsg,
         }),
       })
 
@@ -148,6 +166,7 @@ export function Contact() {
                       <Input
                         id="name"
                         required
+                        disabled={submitting}
                         value={form.name}
                         onChange={update("name")}
                         placeholder="Your name"
@@ -159,6 +178,7 @@ export function Contact() {
                         id="email"
                         type="email"
                         required
+                        disabled={submitting}
                         value={form.email}
                         onChange={update("email")}
                         placeholder="you@email.com"
@@ -169,6 +189,7 @@ export function Contact() {
                     <Label htmlFor="org">Organisation (optional)</Label>
                     <Input
                       id="org"
+                      disabled={submitting}
                       value={form.org}
                       onChange={update("org")}
                       placeholder="Company, operator or institution"
@@ -179,6 +200,7 @@ export function Contact() {
                     <Textarea
                       id="message"
                       required
+                      disabled={submitting}
                       value={form.message}
                       onChange={update("message")}
                       placeholder="Tell us about your interest in Commuttr…"

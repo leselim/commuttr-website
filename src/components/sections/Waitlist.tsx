@@ -46,6 +46,24 @@ export function Waitlist() {
       return
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const trimmedName = form.name.trim()
+    const trimmedEmail = form.email.trim().toLowerCase()
+    const trimmedCity = form.city.trim()
+    const trimmedOrg = form.organisation.trim()
+
+    if (!trimmedName || !trimmedEmail || !trimmedCity) {
+      setError("Please fill out all required fields.")
+      setStatus("error")
+      return
+    }
+
+    if (!emailRegex.test(trimmedEmail)) {
+      setError("Please enter a valid email address.")
+      setStatus("error")
+      return
+    }
+
     if (!form.consent) {
       setError("Please agree to receive product updates to join the waitlist.")
       setStatus("error")
@@ -62,10 +80,10 @@ export function Waitlist() {
           "Content-Type": "text/plain;charset=utf-8",
         },
         body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          city: form.city.trim(),
-          organisation: form.organisation.trim(),
+          name: trimmedName,
+          email: trimmedEmail,
+          city: trimmedCity,
+          organisation: trimmedOrg,
           transportMode: form.transportMode,
         }),
       })
@@ -165,6 +183,7 @@ export function Waitlist() {
                       <Input
                         id="waitlist-name"
                         required
+                        disabled={submitting}
                         value={form.name}
                         onChange={updateField("name")}
                         placeholder="e.g. Sipho Ndlovu"
@@ -176,6 +195,7 @@ export function Waitlist() {
                         id="waitlist-email"
                         type="email"
                         required
+                        disabled={submitting}
                         value={form.email}
                         onChange={updateField("email")}
                         placeholder="you@email.com"
@@ -189,6 +209,7 @@ export function Waitlist() {
                       <Input
                         id="waitlist-city"
                         required
+                        disabled={submitting}
                         value={form.city}
                         onChange={updateField("city")}
                         placeholder="e.g. Cape Town, Johannesburg"
@@ -198,6 +219,7 @@ export function Waitlist() {
                       <Label htmlFor="waitlist-org">Organisation (optional)</Label>
                       <Input
                         id="waitlist-org"
+                        disabled={submitting}
                         value={form.organisation}
                         onChange={updateField("organisation")}
                         placeholder="Company, school or operator"
@@ -210,6 +232,7 @@ export function Waitlist() {
                     <div className="relative">
                       <select
                         id="waitlist-transport"
+                        disabled={submitting}
                         value={form.transportMode}
                         onChange={updateField("transportMode")}
                         className="flex h-11 w-full appearance-none rounded-none border border-input bg-white/[0.03] px-4 pr-10 text-sm text-white transition-colors focus-visible:border-signal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/30 disabled:cursor-not-allowed disabled:opacity-50"
@@ -233,6 +256,7 @@ export function Waitlist() {
                         type="checkbox"
                         id="waitlist-consent"
                         required
+                        disabled={submitting}
                         checked={form.consent}
                         onChange={updateField("consent")}
                         className="mt-1 size-4 rounded-none border-white/20 bg-white/[0.03] text-signal focus:ring-signal focus:ring-offset-0 cursor-pointer accent-signal"
