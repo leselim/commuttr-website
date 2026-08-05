@@ -18,18 +18,18 @@ export function HowItWorks() {
           {/* connecting rail (desktop) */}
           <div
             aria-hidden
-            className="absolute inset-x-0 top-6 hidden h-px bg-border md:block"
+            className="absolute inset-x-0 top-6 hidden h-px bg-white/10 md:block"
           />
           {STEPS.map((s, i) => {
             const Icon = s.icon
             return (
               <Reveal key={s.title} delay={i * 100}>
                 <div className="relative flex flex-col items-start">
-                  <span className="relative z-10 flex size-12 items-center justify-center rounded-none bg-[#f63d06] text-white ring-4 ring-background">
+                  <span className="relative z-10 flex size-12 items-center justify-center rounded-none bg-[#f63d06] text-white ring-4 ring-ink">
                     <Icon className="size-5" />
                   </span>
                   <span className="eyebrow mt-5 text-[#f63d06]">Step 0{i + 1}</span>
-                  <h3 className="mt-2 font-display text-lg font-semibold text-foreground">
+                  <h3 className="mt-2 font-display text-lg font-semibold text-white">
                     {s.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

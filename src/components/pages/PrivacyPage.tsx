@@ -35,7 +35,7 @@ export function PrivacyPage() {
             <ShieldCheck className="size-5 text-signal" />
             <span className="eyebrow text-mist">Legal & Privacy</span>
           </div>
-          <h1 className="display mt-4 text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
+          <h1 className="display mt-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl">
             Privacy Policy
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
@@ -49,8 +49,8 @@ export function PrivacyPage() {
         {/* Policy Content */}
         <div className="mt-12 max-w-4xl space-y-8 text-sm leading-relaxed text-muted-foreground">
           {/* Section 1: Introduction */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               1. Introduction
             </h2>
             <p className="mt-3">
@@ -59,14 +59,14 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 2: Information We Collect */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               2. Information We Collect
             </h2>
             <p className="mt-3">
               We collect personal information that you voluntarily submit to us when interacting with our website, specifically when you join our Waitlist or submit an enquiry through our Contact Us page.
             </p>
-            <p className="mt-3 font-semibold text-foreground">
+            <p className="mt-3 font-semibold text-white">
               This information may include:
             </p>
             <ul className="mt-2 space-y-2 list-disc pl-5 text-mist">
@@ -80,8 +80,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 3: Why We Collect Your Information */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               3. Why We Collect Your Information
             </h2>
             <p className="mt-3">
@@ -98,8 +98,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 4: How We Store Information */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               4. How We Store Information
             </h2>
             <p className="mt-3">
@@ -108,8 +108,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 5: Sharing Information */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               5. Sharing Information
             </h2>
             <p className="mt-3">
@@ -118,8 +118,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 6: Marketing Communications */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               6. Marketing &amp; Product Communications
             </h2>
             <p className="mt-3">
@@ -128,8 +128,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 7: Data Security */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               7. Data Security
             </h2>
             <p className="mt-3">
@@ -138,8 +138,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 8: Your Rights */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               8. Your Data Rights
             </h2>
             <p className="mt-3">
@@ -157,8 +157,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 9: POPIA Compliance */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               9. POPIA Compliance (South Africa)
             </h2>
             <p className="mt-3">
@@ -167,8 +167,8 @@ export function PrivacyPage() {
           </section>
 
           {/* Section 10: Changes to this Policy */}
-          <section className="rounded-none border border-border bg-card p-6 md:p-8">
-            <h2 className="font-display text-lg font-bold text-foreground">
+          <section className="rounded-none border border-white/[0.08] bg-carbon p-6 md:p-8">
+            <h2 className="font-display text-lg font-bold text-white">
               10. Changes to This Policy
             </h2>
             <p className="mt-3">

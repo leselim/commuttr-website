@@ -40,7 +40,7 @@ export function SectionHeading({
         )}
         <span className="eyebrow text-mist">{eyebrow}</span>
       </div>
-      <h2 className="display mt-4 text-3xl font-bold text-foreground sm:text-4xl md:text-[2.7rem]">
+      <h2 className="display mt-4 text-3xl font-bold text-white sm:text-4xl md:text-[2.7rem]">
         {title}
       </h2>
       {sub && (

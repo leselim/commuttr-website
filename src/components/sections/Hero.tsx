@@ -15,7 +15,7 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-5 sm:gap-14 sm:px-6 md:px-8 lg:grid-cols-[1.05fr_0.95fr]">
         {/* Copy */}
         <div className="max-w-xl">
-          <h1 className="display text-[2.05rem] font-bold leading-[1.05] text-foreground min-[360px]:text-[2.6rem] sm:text-5xl lg:text-6xl">
+          <h1 className="display text-[2.05rem] font-bold leading-[1.05] text-white min-[360px]:text-[2.6rem] sm:text-5xl lg:text-6xl">
             Journey planning built for{" "}
             <span className="text-[#f63d06]">South African</span> commuters.
           </h1>

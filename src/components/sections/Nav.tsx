@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Wordmark } from "@/components/brand/Wordmark"
-import { ThemeToggle } from "@/components/ThemeToggle"
 import { NAV_LINKS } from "@/data/content"
 
 export function Nav() {
@@ -39,8 +38,10 @@ export function Nav() {
 
   const navigateTo = (path: string, hash: string = "") => (e: React.MouseEvent) => {
     e.preventDefault()
+    setOpen(false)
+    const targetUrl = path + hash
     if (window.location.pathname !== path) {
-      window.history.pushState({}, "", path + hash)
+      window.history.pushState({}, "", targetUrl)
       window.dispatchEvent(new Event("popstate"))
       if (hash) {
         setTimeout(() => {
@@ -55,7 +56,7 @@ export function Nav() {
       if (el) {
         el.scrollIntoView({ behavior: "smooth" })
       } else {
-        window.scrollTo({ top: 0, behavior: "smooth" })
+        window.location.hash = hash
       }
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" })
@@ -67,7 +68,7 @@ export function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         scrolled || open
-          ? "border-b border-border bg-background/80 backdrop-blur-xl"
+          ? "border-b border-white/[0.06] bg-ink/80 backdrop-blur-xl"
           : "border-b border-transparent"
       )}
     >
@@ -92,7 +93,7 @@ export function Nav() {
                   navigateTo("/", link.href)(e)
                 }
               }}
-              className="whitespace-nowrap text-sm text-mist transition-colors hover:text-foreground"
+              className="whitespace-nowrap text-sm text-mist transition-colors hover:text-white"
             >
               {link.label}
             </a>
@@ -100,7 +101,6 @@ export function Nav() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-2 lg:flex">
-          <ThemeToggle />
           <Button variant="ghost" size="sm" asChild>
             <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")} className="whitespace-nowrap">
               Join the Waitlist
@@ -114,26 +114,23 @@ export function Nav() {
         </div>
 
         {/* Mobile / tablet trigger */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <ThemeToggle />
-          <button
-            type="button"
-            className="flex size-10 shrink-0 items-center justify-center rounded-none border border-border text-foreground transition-colors hover:bg-card lg:hidden"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
-        </div>
+        <button
+          type="button"
+          className="flex size-10 shrink-0 items-center justify-center rounded-none border border-white/10 text-white transition-colors hover:bg-white/[0.06] lg:hidden"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+        >
+          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
       </div>
 
       {/* Mobile / tablet drawer */}
       <div
         id="mobile-nav"
         className={cn(
-          "overflow-hidden border-border bg-background/95 backdrop-blur-xl transition-[max-height] duration-300 ease-out lg:hidden",
+          "overflow-hidden border-white/[0.06] bg-ink/95 backdrop-blur-xl transition-[max-height] duration-300 ease-out lg:hidden",
           open ? "max-h-[80vh] border-t" : "max-h-0"
         )}
       >
@@ -148,12 +145,12 @@ export function Nav() {
                   navigateTo("/", link.href)(e)
                 }
               }}
-              className="rounded-none px-3 py-3 text-base text-mist transition-colors hover:bg-card hover:text-foreground"
+              className="rounded-none px-3 py-3 text-base text-mist transition-colors hover:bg-white/[0.04] hover:text-white"
             >
               {link.label}
             </a>
           ))}
-          <div className="mt-3 flex flex-col gap-2 border-t border-border pt-4">
+          <div className="mt-3 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
             <Button variant="outline" className="w-full" asChild>
               <a href="/#waitlist" onClick={navigateTo("/", "#waitlist")}>
                 Join the Waitlist

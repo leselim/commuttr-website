@@ -29,7 +29,7 @@ const PRINCIPLES = [
 
 export function Principles() {
   return (
-    <section id="principles" className="relative border-t border-border py-16 sm:py-20 md:py-28">
+    <section id="principles" className="relative border-t border-white/[0.06] py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
           index="05"

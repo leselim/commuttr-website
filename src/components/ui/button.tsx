@@ -12,10 +12,10 @@ const buttonVariants = cva(
         default:
           "bg-[#f63d06] text-white font-semibold hover:bg-[#e03503] hover:-translate-y-0.5 active:translate-y-0 active:bg-[#d63200] shadow-sm",
         secondary:
-          "border border-border bg-secondary text-secondary-foreground hover:bg-card",
+          "border border-white/10 bg-secondary text-secondary-foreground hover:bg-white/[0.07]",
         outline:
-          "border border-border bg-transparent text-foreground hover:border-signal/50 hover:bg-card",
-        ghost: "text-foreground/80 hover:bg-card hover:text-foreground",
+          "border border-white/15 bg-transparent text-foreground hover:border-white/30 hover:bg-white/[0.05]",
+        ghost: "text-foreground/80 hover:bg-white/[0.06] hover:text-foreground",
         link: "text-signal underline-offset-4 hover:underline",
       },
       size: {

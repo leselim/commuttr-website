@@ -6,39 +6,7 @@
 /* ------------------------------------------------------------------ */
 
 :root {
-  /* Default Light Mode tokens */
-  --ink: #f8fafc;
-  --carbon: #ffffff;
-  --surface: #f1f5f9;
-  --surface-2: #e2e8f0;
-  --signal: #f63d06;
-  --signal-glow: #f63d06;
-  --mist: #64748b;
-
-  --background: var(--ink);
-  --foreground: #0f172a;
-  --card: var(--carbon);
-  --card-foreground: #0f172a;
-  --popover: var(--carbon);
-  --popover-foreground: #0f172a;
-  --primary: #f63d06;
-  --primary-foreground: #ffffff;
-  --secondary: var(--surface);
-  --secondary-foreground: #0f172a;
-  --muted: var(--surface);
-  --muted-foreground: var(--mist);
-  --accent: var(--surface);
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #cbd5e1;
-  --ring: #f63d06;
-  --radius: 1.5rem;
-}
-
-.dark {
-  /* Dark Mode tokens (Current dark fintech aesthetic) */
+  /* Brand primitives */
   --ink: #0a0a0b;
   --carbon: #101013;
   --surface: #16171b;
@@ -47,6 +15,7 @@
   --signal-glow: #f63d06;
   --mist: #9a9aa5;
 
+  /* shadcn semantic tokens (dark-only) */
   --background: var(--ink);
   --foreground: #fafafa;
   --card: var(--carbon);
@@ -64,8 +33,7 @@
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
   --border: rgba(255, 255, 255, 0.09);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #f63d06;
+  --radius: 1.5rem;
 }
 
 @theme inline {
@@ -130,12 +98,11 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
-    transition: background-color 0.25s ease-out, color 0.25s ease-out;
   }
 
   ::selection {
     background: var(--signal);
-    color: #ffffff;
+    color: #0a0a0b;
   }
 
   :focus-visible {
@@ -154,7 +121,11 @@
 }
 
 @layer components {
-  /* Device mockup */
+  /* Device mockup.
+     The screens inside are laid out at a fixed 340px design width. Rather than
+     let them reflow and truncate on narrow viewports, the frame keeps that width
+     and the whole device scales down as one piece. The wrapper reserves the
+     scaled height via aspect-ratio, since transforms don't affect layout. */
   .phone-mockup {
     position: relative;
     width: 100%;
@@ -207,15 +178,9 @@
   /* Hairline mesh (hero-patterns style) */
   .grid-mesh {
     background-image:
-      linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-
-  .dark .grid-mesh {
-    background-image:
       linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
   }
 
   /* Scroll-reveal */
