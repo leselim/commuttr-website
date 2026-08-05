@@ -7,7 +7,7 @@ import { PARTNERS } from "@/data/content"
 
 export function Ecosystem() {
   return (
-    <section id="ecosystem" className="relative border-t border-white/[0.06] py-16 sm:py-20 md:py-28">
+    <section id="ecosystem" className="relative border-t border-border py-16 sm:py-20 md:py-28">
       <Container>
         {/* Vision Header */}
         <SectionHeading
@@ -38,7 +38,7 @@ export function Ecosystem() {
 
         {/* Partners Section */}
         <div className="mt-16">
-          <h3 className="text-xl font-bold text-white">Mobility & Ecosystem Partners</h3>
+          <h3 className="text-xl font-bold text-foreground">Mobility & Ecosystem Partners</h3>
           <p className="mt-1 text-sm text-muted-foreground">Collaborating with operators, institutions, and communities to shape connected transit.</p>
           
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">

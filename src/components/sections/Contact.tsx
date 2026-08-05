@@ -83,7 +83,7 @@ export function Contact() {
   return (
     <section id="contact" className="relative py-16 sm:py-20 md:py-28">
       <Container>
-        <div className="overflow-hidden rounded-none border border-white/[0.08] bg-carbon">
+        <div className="overflow-hidden rounded-none border border-border bg-card">
           <div className="grid lg:grid-cols-2">
             {/* Pitch */}
             <div className="relative p-8 md:p-12">
@@ -91,7 +91,7 @@ export function Contact() {
                 <div className="flex items-center gap-3">
                   <span className="eyebrow text-mist">Partner with Us</span>
                 </div>
-                <h2 className="display mt-4 text-3xl font-bold text-white md:text-4xl">
+                <h2 className="display mt-4 text-3xl font-bold text-foreground md:text-4xl">
                   Let&rsquo;s build the future of mobility together.
                 </h2>
                 <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
@@ -103,15 +103,15 @@ export function Contact() {
                 <div className="mt-8 space-y-3">
                   <a
                     href={`mailto:${CONTACT.email}`}
-                    className="flex items-center gap-3 text-sm text-white/90 transition-colors hover:text-signal"
+                    className="flex items-center gap-3 text-sm text-foreground transition-colors hover:text-signal"
                   >
-                    <span className="flex size-10 items-center justify-center rounded-none bg-white/[0.04] text-signal ring-1 ring-white/10">
+                    <span className="flex size-10 items-center justify-center rounded-none bg-background text-signal ring-1 ring-border">
                       <Mail className="size-4" />
                     </span>
                     {CONTACT.email}
                   </a>
-                  <div className="flex items-center gap-3 text-sm text-white/90">
-                    <span className="flex size-10 items-center justify-center rounded-none bg-white/[0.04] text-signal ring-1 ring-white/10">
+                  <div className="flex items-center gap-3 text-sm text-foreground">
+                    <span className="flex size-10 items-center justify-center rounded-none bg-background text-signal ring-1 ring-border">
                       <MapPin className="size-4" />
                     </span>
                     {CONTACT.hq}
@@ -121,11 +121,11 @@ export function Contact() {
             </div>
 
             {/* Form */}
-            <div className="border-t border-white/8 bg-ink/40 p-8 md:border-l md:border-t-0 md:p-12">
+            <div className="border-t border-border bg-background/40 p-8 md:border-l md:border-t-0 md:p-12">
               {status === "sent" ? (
                 <div className="flex h-full flex-col items-center justify-center py-8 text-center">
                     <CheckCircle2 className="size-8 text-signal" />
-                  <h3 className="mt-5 font-display text-xl font-semibold text-white">
+                  <h3 className="mt-5 font-display text-xl font-semibold text-foreground">
                     Message sent
                   </h3>
                   <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">

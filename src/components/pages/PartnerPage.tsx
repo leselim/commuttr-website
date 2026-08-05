@@ -19,7 +19,7 @@ export function PartnerPage() {
             window.history.pushState({}, "", "/")
             window.dispatchEvent(new Event("popstate"))
           }}
-          className="inline-flex items-center gap-2 text-sm font-medium text-mist transition-colors hover:text-white"
+          className="inline-flex items-center gap-2 text-sm font-medium text-mist transition-colors hover:text-foreground"
         >
           <ArrowLeft className="size-4 text-signal" /> Back to Commuttr Home
         </a>

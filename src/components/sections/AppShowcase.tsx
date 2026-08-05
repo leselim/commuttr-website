@@ -51,7 +51,7 @@ export function AppShowcase() {
                 className="flex flex-col items-center text-center"
               >
                 <PhoneMockup>{item.screen}</PhoneMockup>
-                <h3 className="mt-8 font-display text-lg font-semibold text-white">
+                <h3 className="mt-8 font-display text-lg font-semibold text-foreground">
                   {item.title}
                 </h3>
                 <p className="mt-1.5 max-w-[18rem] text-sm leading-relaxed text-muted-foreground">

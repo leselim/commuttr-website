@@ -69,7 +69,7 @@ export function Footer() {
     }
   }
   return (
-    <footer className="border-t border-white/[0.08] bg-ink">
+    <footer className="border-t border-border bg-background">
       <Container className="py-14">
         <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr_1.2fr]">
           <div className="max-w-xs">
@@ -89,7 +89,7 @@ export function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Commuttr on ${s.label}`}
-                      className="flex size-11 items-center justify-center text-white/70 transition-colors hover:text-signal"
+                      className="flex size-11 items-center justify-center text-mist transition-colors hover:text-signal"
                     >
                       <Icon className="size-5" />
                     </a>
@@ -108,7 +108,7 @@ export function Footer() {
                     <a
                       href={link.href}
                       onClick={handleNav(link.href)}
-                      className="inline-block py-2 text-sm text-white/80 transition-colors hover:text-signal lg:py-0"
+                      className="inline-block py-2 text-sm text-foreground/80 transition-colors hover:text-signal lg:py-0"
                     >
                       {link.label}
                     </a>
@@ -124,13 +124,13 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="flex items-center gap-2.5 py-2 text-sm break-all text-white/80 transition-colors hover:text-signal lg:py-0"
+                  className="flex items-center gap-2.5 py-2 text-sm break-all text-foreground/80 transition-colors hover:text-signal lg:py-0"
                 >
                   <Mail className="size-4 shrink-0 text-signal" />
                   {CONTACT.email}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-sm text-white/80">
+              <li className="flex items-start gap-2.5 text-sm text-foreground/80">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-signal" />
                 {CONTACT.hq}
               </li>

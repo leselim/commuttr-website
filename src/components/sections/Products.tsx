@@ -54,7 +54,7 @@ export function Products() {
         <AccordionPrimitive.Root
           type="single"
           collapsible
-          className="mt-14 border-t border-white/10"
+          className="mt-14 border-t border-border"
         >
           {PRODUCTS.map((p, index) => {
             const Icon = p.icon
@@ -64,17 +64,17 @@ export function Products() {
               <Reveal key={p.title} delay={Math.min(index, 3) * 70}>
                 <AccordionPrimitive.Item
                   value={`item-${index}`}
-                  className="border-b border-white/10 transition-colors data-[state=open]:bg-white/[0.02]"
+                  className="border-b border-border transition-colors data-[state=open]:bg-card/50"
                 >
                   <AccordionPrimitive.Header asChild>
                     <h3>
                       <AccordionPrimitive.Trigger className="group flex w-full cursor-pointer select-none items-center gap-4 py-5 text-left outline-none sm:gap-5 sm:py-6">
-                        <span className="flex size-11 shrink-0 items-center justify-center border border-white/[0.08] bg-white/[0.04] text-[#f63d06] transition-colors group-hover:border-[#f63d06]/40 group-data-[state=open]:border-[#f63d06] group-data-[state=open]:bg-[#f63d06] group-data-[state=open]:text-white">
+                        <span className="flex size-11 shrink-0 items-center justify-center border border-border bg-card text-[#f63d06] transition-colors group-hover:border-[#f63d06]/40 group-data-[state=open]:border-[#f63d06] group-data-[state=open]:bg-[#f63d06] group-data-[state=open]:text-white">
                           <Icon className="size-5" />
                         </span>
 
                         <span className="min-w-0 flex-1">
-                          <span className="block font-display text-base font-bold text-white transition-colors group-hover:text-signal sm:text-lg">
+                          <span className="block font-display text-base font-bold text-foreground transition-colors group-hover:text-signal sm:text-lg">
                             {p.title}
                           </span>
                           <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
@@ -91,7 +91,7 @@ export function Products() {
                     {details && (
                       <div className="pb-6 sm:pl-16">
                         <div className="border-l-2 border-[#f63d06] pl-4">
-                          <p className="font-display text-sm font-bold text-white">
+                          <p className="font-display text-sm font-bold text-foreground">
                             {details.subtitle}
                           </p>
                           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">

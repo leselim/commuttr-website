@@ -37,7 +37,7 @@ export function Roadmap() {
                         "flex size-10 shrink-0 items-center justify-center text-sm font-bold",
                         done || current
                           ? "bg-[#f63d06] text-white"
-                          : "border border-[#f63d06]/35 bg-ink text-[#f63d06]/70"
+                          : "border border-[#f63d06]/35 bg-background text-[#f63d06]/70"
                       )}
                     >
                       {i + 1}
@@ -47,7 +47,7 @@ export function Roadmap() {
                         aria-hidden
                         className={cn(
                           "w-px flex-1",
-                          done ? "bg-[#f63d06]" : "bg-white/10"
+                          done ? "bg-[#f63d06]" : "bg-border"
                         )}
                       />
                     )}
@@ -61,7 +61,7 @@ export function Roadmap() {
                           ? "border-[#f63d06] bg-[#f63d06] shadow-lg"
                           : done
                             ? "border-[#f63d06]/50 bg-[#f63d06]/15"
-                            : "border-white/[0.10] bg-carbon"
+                            : "border-border bg-card"
                       )}
                     >
                       <span
@@ -78,7 +78,7 @@ export function Roadmap() {
                         )}
                         {p.tag}
                       </span>
-                      <h3 className="mt-3 font-display text-xl font-bold text-white">
+                      <h3 className={cn("mt-3 font-display text-xl font-bold", current ? "text-white" : "text-foreground")}>
                         {p.title}
                       </h3>
                       <p

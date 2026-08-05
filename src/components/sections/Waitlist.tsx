@@ -98,7 +98,7 @@ export function Waitlist() {
   return (
     <section id="waitlist" className="relative py-16 sm:py-20 md:py-28">
       <Container>
-        <div className="overflow-hidden rounded-none border border-white/[0.08] bg-carbon">
+        <div className="overflow-hidden rounded-none border border-border bg-card">
           <div className="grid lg:grid-cols-2">
             {/* Pitch / Info */}
             <div className="relative p-8 md:p-12">
@@ -107,7 +107,7 @@ export function Waitlist() {
                   <span className="font-mono text-sm font-medium text-signal">11</span>
                   <span className="eyebrow text-mist">Early Access & Beta</span>
                 </div>
-                <h2 className="display mt-4 text-3xl font-bold text-white md:text-4xl">
+                <h2 className="display mt-4 text-3xl font-bold text-foreground md:text-4xl">
                   Join the Waitlist
                 </h2>
                 <div className="mt-5 space-y-4 max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -120,17 +120,17 @@ export function Waitlist() {
                 </div>
 
                 <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                  <div className="flex items-start gap-3 rounded-none border border-white/[0.06] bg-white/[0.02] p-3 text-xs">
+                  <div className="flex items-start gap-3 rounded-none border border-border bg-background/50 p-3 text-xs">
                     <Clock className="mt-0.5 size-4 shrink-0 text-signal" />
                     <div>
-                      <div className="font-semibold text-white">Early Beta Access</div>
+                      <div className="font-semibold text-foreground">Early Beta Access</div>
                       <div className="text-mist">Test features before official rollout</div>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 rounded-none border border-white/[0.06] bg-white/[0.02] p-3 text-xs">
+                  <div className="flex items-start gap-3 rounded-none border border-border bg-background/50 p-3 text-xs">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-signal" />
                     <div>
-                      <div className="font-semibold text-white">Product Updates</div>
+                      <div className="font-semibold text-foreground">Product Updates</div>
                       <div className="text-mist">Direct updates & release insights</div>
                     </div>
                   </div>
@@ -139,11 +139,11 @@ export function Waitlist() {
             </div>
 
             {/* Waitlist Form */}
-            <div className="border-t border-white/8 bg-ink/40 p-8 md:border-l md:border-t-0 md:p-12">
+            <div className="border-t border-border bg-background/40 p-8 md:border-l md:border-t-0 md:p-12">
               {status === "sent" ? (
                 <div className="flex h-full flex-col items-center justify-center py-8 text-center">
                   <CheckCircle2 className="size-8 text-signal" />
-                  <h3 className="mt-5 font-display text-xl font-semibold text-white">
+                  <h3 className="mt-5 font-display text-xl font-semibold text-foreground">
                     You&rsquo;re on the list!
                   </h3>
                   <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
@@ -212,13 +212,13 @@ export function Waitlist() {
                         id="waitlist-transport"
                         value={form.transportMode}
                         onChange={updateField("transportMode")}
-                        className="flex h-11 w-full appearance-none rounded-none border border-input bg-white/[0.03] px-4 pr-10 text-sm text-white transition-colors focus-visible:border-signal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/30 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex h-11 w-full appearance-none rounded-none border border-input bg-card px-4 pr-10 text-sm text-foreground transition-colors focus-visible:border-signal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/30 disabled:cursor-not-allowed disabled:opacity-50"
                       >
-                        <option value="" className="bg-carbon text-mist">
+                        <option value="" className="bg-card text-mist">
                           Select primary transport mode
                         </option>
                         {WAITLIST.transportModes.map((mode) => (
-                          <option key={mode} value={mode} className="bg-carbon text-white">
+                          <option key={mode} value={mode} className="bg-card text-foreground">
                             {mode}
                           </option>
                         ))}
