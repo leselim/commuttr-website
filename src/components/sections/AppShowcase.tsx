@@ -33,7 +33,7 @@ export function AppShowcase() {
       <Container>
         <SectionHeading
           align="center"
-          index="04"
+          index="03"
           eyebrow="Journey Experience"
           title="The commuter experience, redesigned."
           sub="A first look at the Commuttr app, built around three moments: planning the trip, saving your day, and riding it live."

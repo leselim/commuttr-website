@@ -10,7 +10,7 @@ export function Team() {
     <section id="team" className="relative bg-carbon/40 py-16 sm:py-20 md:py-28">
       <Container>
         <SectionHeading
-          index="08"
+          index="09"
           eyebrow="Leadership"
           title="A founding team that ships."
           sub="Strategic leadership and product vision, paired with deep backend engineering expertise, building a secure, scalable, and commuter-first digital mobility platform."

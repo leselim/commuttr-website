@@ -89,7 +89,6 @@ export function Contact() {
             <div className="relative p-8 md:p-12">
               <div className="relative">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm font-medium text-signal">11</span>
                   <span className="eyebrow text-mist">Partner with Us</span>
                 </div>
                 <h2 className="display mt-4 text-3xl font-bold text-white md:text-4xl">
