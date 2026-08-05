@@ -238,7 +238,22 @@ export function Waitlist() {
                         className="mt-1 size-4 rounded-none border-white/20 bg-white/[0.03] text-signal focus:ring-signal focus:ring-offset-0 cursor-pointer accent-signal"
                       />
                       <span className="text-xs leading-relaxed text-muted-foreground transition-colors group-hover:text-white/90">
-                        I agree to receive product updates, beta invitations and launch announcements from Commuttr.
+                        By joining the waitlist, you agree to receive product updates, beta invitations and launch announcements from Commuttr. You can unsubscribe at any time. View our{" "}
+                        <a
+                          href="/privacy"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            if (window.location.pathname !== "/privacy") {
+                              window.history.pushState({}, "", "/privacy")
+                              window.dispatchEvent(new Event("popstate"))
+                            }
+                            window.scrollTo({ top: 0, behavior: "smooth" })
+                          }}
+                          className="text-signal underline-offset-4 hover:underline font-medium"
+                        >
+                          Privacy Policy
+                        </a>
+                        .
                       </span>
                     </label>
                   </div>

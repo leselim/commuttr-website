@@ -14,6 +14,7 @@ import { Team } from "@/components/sections/Team"
 import { Faq } from "@/components/sections/Faq"
 import { Waitlist } from "@/components/sections/Waitlist"
 import { PartnerPage } from "@/components/pages/PartnerPage"
+import { PrivacyPage } from "@/components/pages/PrivacyPage"
 import { Footer } from "@/components/sections/Footer"
 
 export default function App() {
@@ -32,12 +33,18 @@ export default function App() {
     path === "/contact" ||
     path === "/partner-with-us"
 
+  const isPrivacyPage =
+    path === "/privacy" ||
+    path === "/privacy-policy"
+
   return (
     <div className="relative min-h-screen bg-ink">
       <Nav />
       <main>
         {isPartnerPage ? (
           <PartnerPage />
+        ) : isPrivacyPage ? (
+          <PrivacyPage />
         ) : (
           <>
             <Hero />

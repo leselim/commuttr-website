@@ -33,6 +33,7 @@ const COLUMNS = [
       { label: "Ecosystem", href: "/#ecosystem" },
       { label: "Leadership", href: "/#team" },
       { label: "Partner with us", href: "/partner" },
+      { label: "Privacy policy", href: "/privacy" },
       { label: "FAQ", href: "/#faq" },
     ],
   },
@@ -44,6 +45,13 @@ export function Footer() {
       e.preventDefault()
       if (window.location.pathname !== "/partner") {
         window.history.pushState({}, "", "/partner")
+        window.dispatchEvent(new Event("popstate"))
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    } else if (href.startsWith("/privacy")) {
+      e.preventDefault()
+      if (window.location.pathname !== "/privacy") {
+        window.history.pushState({}, "", "/privacy")
         window.dispatchEvent(new Event("popstate"))
       }
       window.scrollTo({ top: 0, behavior: "smooth" })

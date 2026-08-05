@@ -222,7 +222,22 @@ export function Contact() {
                     )}
                   </Button>
                   <p className="text-center text-xs text-mist">
-                    We&rsquo;ll only use your details to reply to this enquiry.
+                    We&rsquo;ll only use your information to respond to your enquiry. By submitting this form, you agree to our{" "}
+                    <a
+                      href="/privacy"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        if (window.location.pathname !== "/privacy") {
+                          window.history.pushState({}, "", "/privacy")
+                          window.dispatchEvent(new Event("popstate"))
+                        }
+                        window.scrollTo({ top: 0, behavior: "smooth" })
+                      }}
+                      className="text-signal underline-offset-4 hover:underline font-medium"
+                    >
+                      Privacy Policy
+                    </a>
+                    .
                   </p>
                 </form>
               )}
