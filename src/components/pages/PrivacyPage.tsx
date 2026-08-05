@@ -103,7 +103,7 @@ export function PrivacyPage() {
               4. How We Store Information
             </h2>
             <p className="mt-3">
-              Submitted information is securely stored using Google Workspace cloud infrastructure, currently including Google Sheets and related Google Cloud services integrated with our website backend. Access to all stored user data is strictly restricted to authorized members of the Commuttr team who require access for legitimate operational purposes.
+              Information submitted through our website is stored and managed using trusted service providers that support the operation of the Commuttr platform. Access to personal information is limited to authorised members of the Commuttr team who require it for legitimate business and operational purposes. We take reasonable technical and organisational measures to help protect the information we collect from unauthorised access, disclosure, misuse or loss.
             </p>
           </section>
 
