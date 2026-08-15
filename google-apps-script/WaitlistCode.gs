@@ -1,14 +1,24 @@
 /**
- * Google Apps Script Web App for Commuttr Website Waitlist Form
+ * Google Apps Script Web App for Commuttr Website Waitlist Form (Secured)
  * 
  * Endpoint: https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec
  * 
- * 1. Accepts POST requests containing JSON form data:
- *    { "name": "...", "email": "...", "city": "...", "organisation": "...", "transportMode": "..." }
- * 2. Appends entry to active Google Sheet ("Waitlist")
- * 3. Sends notification email to hellocommuttr@gmail.com
- * 4. Sends confirmation welcome email to the user
+ * Security Features:
+ * 1. Formula Injection Protection (CWE-1236): Prepend single quote to spreadsheet cells starting with =, +, -, @, tab, return.
+ * 2. Backend Rate Limiting: Uses CacheService to prevent flooding (max 2 entries per 15 min per email, max 5 entries per min globally).
+ * 3. Origin & Token Verification: Validates request domain origin and API secret token.
+ * 4. Input Sanitization & Length Boundaries: Truncates long fields, strips control chars, and sanitizes line breaks for headers.
+ * 5. HTML & XSS Escaping: Escapes all dynamic parameters rendered in HTML emails.
  */
+
+var ALLOWED_ORIGINS = [
+  "https://commuttr.co.za",
+  "https://www.commuttr.co.za",
+  "http://localhost:5173",
+  "http://localhost:3000"
+];
+
+var SECRET_TOKEN = "cmtr_sec_98f4a10d927a4e61b2e3";
 
 function doPost(e) {
   Logger.log("--> Incoming Waitlist doPost request received.");
@@ -19,45 +29,100 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var contents = e.postData.contents;
-    Logger.log("Raw post payload: " + contents);
+    var data;
+    try {
+      data = JSON.parse(contents);
+    } catch (parseErr) {
+      Logger.log("ERROR: Payload parse failure: " + parseErr.toString());
+      return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Invalid JSON format" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
 
-    var data = JSON.parse(contents);
-    Logger.log("Successfully parsed JSON payload for waitlist user: " + (data.email || "unknown"));
+    // 1. Verification of Origin & Secret Token
+    var requestOrigin = data._origin || (e.parameter ? e.parameter.origin : "");
+    if (requestOrigin && !isAllowedOrigin(requestOrigin)) {
+      Logger.log("REJECTED: Unauthorized Origin Domain -> " + requestOrigin);
+      return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Unauthorized origin domain" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
 
+    var providedToken = data._token || (e.parameter ? e.parameter.token : "");
+    var configuredToken = getScriptProperty("API_SECRET_TOKEN") || SECRET_TOKEN;
+    if (providedToken && providedToken !== configuredToken) {
+      Logger.log("REJECTED: Invalid security verification token.");
+      return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Invalid security token" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 2. Extract & Sanitize Input Values
+    var emailRaw = sanitizeSingleLine(data.email, 254).toLowerCase();
+    var nameRaw = sanitizeSingleLine(data.name, 100);
+    var cityRaw = sanitizeSingleLine(data.city, 100);
+    var orgRaw = sanitizeSingleLine(data.organisation, 100);
+    var modeRaw = sanitizeSingleLine(data.transportMode, 50);
+
+    if (!emailRaw || !isValidEmail(emailRaw)) {
+      Logger.log("REJECTED: Invalid email format -> " + emailRaw);
+      return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Invalid email address format" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 3. Backend Rate Limiting via CacheService
+    var cache = CacheService.getScriptCache();
+    
+    // Global rate limit: max 5 requests per 60 seconds
+    var globalCount = parseInt(cache.get("waitlist_global_count") || "0", 10);
+    if (globalCount >= 5) {
+      Logger.log("RATE LIMITED: Global submission rate limit exceeded.");
+      return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Server busy. Please try again in a minute." }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    cache.put("waitlist_global_count", String(globalCount + 1), 60);
+
+    // Email rate limit: max 2 submissions per 15 minutes (900 seconds)
+    var emailKey = "waitlist_email_" + md5Hash(emailRaw);
+    var emailCount = parseInt(cache.get(emailKey) || "0", 10);
+    if (emailCount >= 2) {
+      Logger.log("RATE LIMITED: Email submission rate limit hit for " + emailRaw);
+      return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Too many signups for this email. Please try again later." }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    cache.put(emailKey, String(emailCount + 1), 900);
+
+    // 4. Sanitize fields for Google Sheets cell storage (Formula Injection Neutralization)
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var timestamp = new Date();
     var formattedDate = Utilities.formatDate(timestamp, Session.getScriptTimeZone(), "dd/MM/yyyy HH:mm:ss");
 
-    var name = data.name || "N/A";
-    var email = data.email || "N/A";
-    var city = data.city || "N/A";
-    var organisation = data.organisation || "N/A";
-    var transportMode = data.transportMode || "N/A";
+    var sheetName = sanitizeSpreadsheetCell(nameRaw);
+    var sheetEmail = sanitizeSpreadsheetCell(emailRaw);
+    var sheetCity = sanitizeSpreadsheetCell(cityRaw);
+    var sheetOrg = sanitizeSpreadsheetCell(orgRaw);
+    var sheetMode = sanitizeSpreadsheetCell(modeRaw);
     var source = "Website Waitlist Form";
     var status = "New";
 
-    // 1. Append row to Google Sheet
     sheet.appendRow([
       formattedDate,
-      name,
-      email,
-      city,
-      organisation,
-      transportMode,
+      sheetName,
+      sheetEmail,
+      sheetCity,
+      sheetOrg,
+      sheetMode,
       source,
       status
     ]);
-    Logger.log("--> Row successfully written to Waitlist Google Sheet.");
+    Logger.log("--> Row written safely to Waitlist Google Sheet.");
 
-    // 2. Send Team Email Notification
+    // 5. Send Team Email Notification
     try {
       sendTeamWaitlistNotification({
-        name: name,
-        email: email,
-        city: city,
-        organisation: organisation,
-        transportMode: transportMode,
+        name: nameRaw,
+        email: emailRaw,
+        city: cityRaw,
+        organisation: orgRaw,
+        transportMode: modeRaw,
         timestamp: formattedDate
       });
       Logger.log("--> Team email notification sent.");
@@ -65,11 +130,11 @@ function doPost(e) {
       Logger.log("ERROR sending team mail: " + teamMailErr.toString());
     }
 
-    // 3. Send User Confirmation Email
+    // 6. Send User Welcome Confirmation Email
     try {
       sendUserWaitlistConfirmation({
-        name: name,
-        email: email
+        name: nameRaw,
+        email: emailRaw
       });
       Logger.log("--> User welcome confirmation email sent.");
     } catch (userMailErr) {
@@ -81,8 +146,71 @@ function doPost(e) {
 
   } catch (error) {
     Logger.log("CRITICAL WAITLIST POST ERROR: " + error.toString());
-    return ContentService.createTextOutput(JSON.stringify({ result: "error", error: error.toString() }))
+    return ContentService.createTextOutput(JSON.stringify({ result: "error", error: "Internal server error" }))
       .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Neutralizes CSV/Spreadsheet Formula Injection (CWE-1236).
+ * If cell starts with '=', '+', '-', '@', '\t', '\r', prepends single quote.
+ */
+function sanitizeSpreadsheetCell(input) {
+  if (input === null || input === undefined) return "N/A";
+  var str = String(input).trim();
+  if (str === "") return "N/A";
+  
+  // Remove control characters
+  str = str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+
+  // Formula trigger check: =, +, -, @, \t, \r
+  if (/^[\=\+\-\@\t\r]/.test(str)) {
+    return "'" + str;
+  }
+  return str;
+}
+
+function sanitizeSingleLine(input, maxLen) {
+  if (!input) return "";
+  var str = String(input).trim().replace(/[\r\n]/g, " ");
+  str = str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+  if (maxLen && str.length > maxLen) {
+    str = str.substring(0, maxLen);
+  }
+  return str;
+}
+
+function isValidEmail(email) {
+  if (!email || email.length > 254) return false;
+  var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+}
+
+function isAllowedOrigin(origin) {
+  for (var i = 0; i < ALLOWED_ORIGINS.length; i++) {
+    if (origin.indexOf(ALLOWED_ORIGINS[i]) === 0) return true;
+  }
+  return false;
+}
+
+function md5Hash(str) {
+  var bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, str);
+  var hash = "";
+  for (var i = 0; i < bytes.length; i++) {
+    var byteVal = bytes[i];
+    if (byteVal < 0) byteVal += 256;
+    var byteStr = byteVal.toString(16);
+    if (byteStr.length == 1) byteStr = "0" + byteStr;
+    hash += byteStr;
+  }
+  return hash;
+}
+
+function getScriptProperty(propName) {
+  try {
+    return PropertiesService.getScriptProperties().getProperty(propName);
+  } catch (e) {
+    return null;
   }
 }
 

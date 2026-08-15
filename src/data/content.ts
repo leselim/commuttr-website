@@ -239,9 +239,23 @@ export const SOCIALS = [
 
 export const ENDPOINTS = {
   contact:
+    (import.meta.env.VITE_CONTACT_ENDPOINT as string) ||
     "https://script.google.com/macros/s/AKfycbwnmCI2y-C4rqkGtKYSEvbjZ7C7N8aoKK6Wi_TIEACebHbZaRpLXSKalH9co8b4oIgguQ/exec",
   waitlist:
+    (import.meta.env.VITE_WAITLIST_ENDPOINT as string) ||
     "https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec",
+} as const
+
+export const SECURITY_CONFIG = {
+  apiSecretToken:
+    (import.meta.env.VITE_API_SECRET_TOKEN as string) ||
+    "cmtr_sec_98f4a10d927a4e61b2e3",
+  allowedOrigins: [
+    "https://commuttr.co.za",
+    "https://www.commuttr.co.za",
+    "http://localhost:5173",
+    "http://localhost:3000",
+  ],
 } as const
 
 export const CONTACT = {

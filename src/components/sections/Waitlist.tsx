@@ -7,6 +7,13 @@ import { Label } from "@/components/ui/label"
 import { Container } from "@/components/Container"
 import { WAITLIST } from "@/data/content"
 import { trackEvent } from "@/lib/analytics"
+import {
+  buildSecurePayload,
+  checkClientRateLimit,
+  recordClientSubmission,
+  sanitizeSingleLine,
+  validateEmail,
+} from "@/lib/security"
 
 const EMPTY_WAITLIST = {
   name: "",
@@ -47,11 +54,12 @@ export function Waitlist() {
       return
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    const trimmedName = form.name.trim()
-    const trimmedEmail = form.email.trim().toLowerCase()
-    const trimmedCity = form.city.trim()
-    const trimmedOrg = form.organisation.trim()
+    // 1. Sanitize user inputs and enforce length boundaries
+    const trimmedName = sanitizeSingleLine(form.name, 100)
+    const trimmedEmail = sanitizeSingleLine(form.email, 254).toLowerCase()
+    const trimmedCity = sanitizeSingleLine(form.city, 100)
+    const trimmedOrg = sanitizeSingleLine(form.organisation, 100)
+    const sanitizedMode = sanitizeSingleLine(form.transportMode, 50)
 
     if (!trimmedName || !trimmedEmail || !trimmedCity) {
       setError("Please fill out all required fields.")
@@ -59,7 +67,7 @@ export function Waitlist() {
       return
     }
 
-    if (!emailRegex.test(trimmedEmail)) {
+    if (!validateEmail(trimmedEmail)) {
       setError("Please enter a valid email address.")
       setStatus("error")
       return
@@ -71,22 +79,34 @@ export function Waitlist() {
       return
     }
 
+    // 2. Client-side Rate Limiting Check (60s cooldown per email)
+    const rateCheck = checkClientRateLimit(`waitlist_${trimmedEmail}`, 60)
+    if (!rateCheck.allowed) {
+      setError(
+        `Too many requests. Please wait ${rateCheck.remainingSeconds}s before submitting again.`
+      )
+      setStatus("error")
+      return
+    }
+
     setStatus("submitting")
     setError("")
 
     try {
+      const payload = buildSecurePayload({
+        name: trimmedName,
+        email: trimmedEmail,
+        city: trimmedCity,
+        organisation: trimmedOrg,
+        transportMode: sanitizedMode,
+      })
+
       const res = await fetch(WAITLIST.endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "text/plain;charset=utf-8",
         },
-        body: JSON.stringify({
-          name: trimmedName,
-          email: trimmedEmail,
-          city: trimmedCity,
-          organisation: trimmedOrg,
-          transportMode: form.transportMode,
-        }),
+        body: JSON.stringify(payload),
       })
 
       if (res.ok) {
@@ -94,14 +114,17 @@ export function Waitlist() {
           await res.json().catch(() => null)
 
         if (data?.error) {
-          setError("Something went wrong while joining the waitlist. Please try again.")
+          setError(
+            data.error || "Something went wrong while joining the waitlist. Please try again."
+          )
           setStatus("error")
           return
         }
 
+        recordClientSubmission(`waitlist_${trimmedEmail}`)
         trackEvent("waitlist_submit", {
           city: trimmedCity,
-          transport_mode: form.transportMode,
+          transport_mode: sanitizedMode,
         })
         setForm(EMPTY_WAITLIST)
         setStatus("sent")

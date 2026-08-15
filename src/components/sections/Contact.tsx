@@ -8,6 +8,14 @@ import { Label } from "@/components/ui/label"
 import { Container } from "@/components/Container"
 import { CONTACT } from "@/data/content"
 import { trackEvent } from "@/lib/analytics"
+import {
+  buildSecurePayload,
+  checkClientRateLimit,
+  recordClientSubmission,
+  sanitizeInput,
+  sanitizeSingleLine,
+  validateEmail,
+} from "@/lib/security"
 
 const EMPTY = { name: "", email: "", org: "", message: "" }
 
@@ -31,11 +39,11 @@ export function Contact() {
       return
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    const trimmedName = form.name.trim()
-    const trimmedEmail = form.email.trim().toLowerCase()
-    const trimmedOrg = form.org.trim()
-    const trimmedMsg = form.message.trim()
+    // 1. Sanitize input values and enforce max lengths
+    const trimmedName = sanitizeSingleLine(form.name, 100)
+    const trimmedEmail = sanitizeSingleLine(form.email, 254).toLowerCase()
+    const trimmedOrg = sanitizeSingleLine(form.org, 100)
+    const trimmedMsg = sanitizeInput(form.message, 2000)
 
     if (!trimmedName || !trimmedEmail || !trimmedMsg) {
       setError("Please fill out all required fields.")
@@ -43,8 +51,18 @@ export function Contact() {
       return
     }
 
-    if (!emailRegex.test(trimmedEmail)) {
+    if (!validateEmail(trimmedEmail)) {
       setError("Please enter a valid email address.")
+      setStatus("error")
+      return
+    }
+
+    // 2. Client-side Rate Limiting Check (60s cooldown per email)
+    const rateCheck = checkClientRateLimit(`contact_${trimmedEmail}`, 60)
+    if (!rateCheck.allowed) {
+      setError(
+        `Too many requests. Please wait ${rateCheck.remainingSeconds}s before sending another message.`
+      )
       setStatus("error")
       return
     }
@@ -53,17 +71,19 @@ export function Contact() {
     setError("")
 
     try {
+      const payload = buildSecurePayload({
+        name: trimmedName,
+        email: trimmedEmail,
+        organisation: trimmedOrg,
+        message: trimmedMsg,
+      })
+
       const res = await fetch(CONTACT.formEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "text/plain;charset=utf-8",
         },
-        body: JSON.stringify({
-          name: trimmedName,
-          email: trimmedEmail,
-          organisation: trimmedOrg,
-          message: trimmedMsg,
-        }),
+        body: JSON.stringify(payload),
       })
 
       if (res.ok) {
@@ -76,6 +96,7 @@ export function Contact() {
           return
         }
 
+        recordClientSubmission(`contact_${trimmedEmail}`)
         trackEvent("contact_submit", { organisation: trimmedOrg })
         trackEvent("partner_enquiry", { organisation: trimmedOrg })
         setForm(EMPTY)
