@@ -34,6 +34,9 @@ jobs:
         run: npm run build
         env:
           BASE_PATH: '/commuttr-website/'
+          VITE_WAITLIST_ENDPOINT: ${{ secrets.VITE_WAITLIST_ENDPOINT || 'https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec' }}
+          VITE_CONTACT_ENDPOINT: ${{ secrets.VITE_CONTACT_ENDPOINT || 'https://script.google.com/macros/s/AKfycbwnmCI2y-C4rqkGtKYSEvbjZ7C7N8aoKK6Wi_TIEACebHbZaRpLXSKalH9co8b4oIgguQ/exec' }}
+          VITE_API_SECRET_TOKEN: ${{ secrets.VITE_API_SECRET_TOKEN || 'cmtr_sec_98f4a10d927a4e61b2e3' }}
 
       - name: Create 404.html for SPA routing
         run: cp dist/index.html dist/404.html

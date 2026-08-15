@@ -1,7 +1,7 @@
 /**
  * Google Apps Script Web App for Commuttr Website Contact Form (Secured)
  * 
- * Endpoint: https://script.google.com/macros/s/AKfycbwnmCI2y-C4rqkGtKYSEvbjZ7C7N8aoKK6Wi_TIEACebHbZaRpLXSKalH9co8b4oIgguQ/exec
+ * Deployment: Configure Web App endpoint in environment variables (VITE_CONTACT_ENDPOINT)
  * 
  * Security Features:
  * 1. Formula Injection Protection (CWE-1236): Prepend single quote to spreadsheet cells starting with =, +, -, @, tab, return.

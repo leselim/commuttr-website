@@ -1,7 +1,7 @@
 /**
  * Google Apps Script Web App for Commuttr Website Waitlist Form (Secured)
  * 
- * Endpoint: https://script.google.com/macros/s/AKfycbwpEn0ukizh-1zOAgNWnC__jvTJj0PoR0iGubUFQH1baqIiq8FQflFrn8MMAVvXM4w/exec
+ * Deployment: Configure Web App endpoint in environment variables (VITE_WAITLIST_ENDPOINT)
  * 
  * Security Features:
  * 1. Formula Injection Protection (CWE-1236): Prepend single quote to spreadsheet cells starting with =, +, -, @, tab, return.
