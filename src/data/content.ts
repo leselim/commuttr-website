@@ -193,7 +193,7 @@ export type Member = {
 export const TEAM: Member[] = [
   {
     name: "Leseli Morakile",
-    role: "Founder & CEO",
+    role: "Co-Founder & CEO",
     initials: "LM",
     bio: "Responsible for business strategy, product vision, partnerships, branding, and company leadership.",
     image:
