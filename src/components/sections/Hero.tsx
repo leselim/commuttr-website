@@ -17,8 +17,8 @@ export function Hero() {
         {/* Copy */}
         <div className="max-w-xl">
           <h1 className="display text-[2.05rem] font-bold leading-[1.05] text-white min-[360px]:text-[2.6rem] sm:text-5xl lg:text-6xl">
-            Journey planning built for{" "}
-            <span className="text-[#f63d06]">South African</span> commuters.
+            One connected experience for{" "}
+            <span className="text-[#f63d06]">every way you move.</span>
           </h1>
 
           <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">
