@@ -106,12 +106,12 @@ export function Nav() {
             <a
               href="/#waitlist"
               onClick={(e) => {
-                trackEvent("join_waitlist_click", { location: "desktop_nav" })
+                trackEvent("try_commuttr_click", { location: "desktop_nav" })
                 navigateTo("/", "#waitlist")(e)
               }}
               className="whitespace-nowrap"
             >
-              Join the Waitlist
+              Try Commuttr
             </a>
           </Button>
           <Button size="sm" asChild>
@@ -170,11 +170,11 @@ export function Nav() {
               <a
                 href="/#waitlist"
                 onClick={(e) => {
-                  trackEvent("join_waitlist_click", { location: "mobile_drawer" })
+                  trackEvent("try_commuttr_click", { location: "mobile_drawer" })
                   navigateTo("/", "#waitlist")(e)
                 }}
               >
-                Join the Waitlist
+                Try Commuttr
               </a>
             </Button>
             <Button className="w-full" asChild>

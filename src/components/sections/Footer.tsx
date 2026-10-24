@@ -23,7 +23,7 @@ const COLUMNS = [
       { label: "Journey planner", href: "/#product" },
       { label: "See the app", href: "/#app" },
       { label: "How it works", href: "/#how" },
-      { label: "Join the waitlist", href: "/#waitlist" },
+      { label: "Try Commuttr", href: "/#waitlist" },
     ],
   },
   {

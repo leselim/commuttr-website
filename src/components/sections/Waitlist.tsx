@@ -1,146 +1,11 @@
-import * as React from "react"
-import { AlertCircle, CheckCircle2, ChevronDown, Clock, Loader2 } from "lucide-react"
+import { Apple, CheckCircle2, Clock, Globe, Smartphone } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Container } from "@/components/Container"
-import { WAITLIST } from "@/data/content"
+import { APP_LINKS } from "@/data/content"
 import { trackEvent } from "@/lib/analytics"
-import {
-  buildSecurePayload,
-  checkClientRateLimit,
-  recordClientSubmission,
-  sanitizeSingleLine,
-  validateEmail,
-} from "@/lib/security"
-
-const EMPTY_WAITLIST = {
-  name: "",
-  email: "",
-  city: "",
-  organisation: "",
-  transportMode: "",
-  consent: false,
-}
 
 export function Waitlist() {
-  const [status, setStatus] = React.useState<
-    "idle" | "submitting" | "sent" | "error"
-  >("idle")
-  const [error, setError] = React.useState("")
-  const [form, setForm] = React.useState(EMPTY_WAITLIST)
-
-  const updateField =
-    (key: keyof typeof EMPTY_WAITLIST) =>
-    (
-      e: React.ChangeEvent<
-        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-      >
-    ) => {
-      const val =
-        e.target.type === "checkbox"
-          ? (e.target as HTMLInputElement).checked
-          : e.target.value
-      setForm((f) => ({ ...f, [key]: val }))
-    }
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    // Honeypot: bots fill hidden fields, humans don't. Pretend success.
-    if (new FormData(e.currentTarget).get("_gotcha")) {
-      setStatus("sent")
-      return
-    }
-
-    // 1. Sanitize user inputs and enforce length boundaries
-    const trimmedName = sanitizeSingleLine(form.name, 100)
-    const trimmedEmail = sanitizeSingleLine(form.email, 254).toLowerCase()
-    const trimmedCity = sanitizeSingleLine(form.city, 100)
-    const trimmedOrg = sanitizeSingleLine(form.organisation, 100)
-    const sanitizedMode = sanitizeSingleLine(form.transportMode, 50)
-
-    if (!trimmedName || !trimmedEmail || !trimmedCity) {
-      setError("Please fill out all required fields.")
-      setStatus("error")
-      return
-    }
-
-    if (!validateEmail(trimmedEmail)) {
-      setError("Please enter a valid email address.")
-      setStatus("error")
-      return
-    }
-
-    if (!form.consent) {
-      setError("Please agree to receive product updates to join the waitlist.")
-      setStatus("error")
-      return
-    }
-
-    // 2. Client-side Rate Limiting Check (60s cooldown per email)
-    const rateCheck = checkClientRateLimit(`waitlist_${trimmedEmail}`, 60)
-    if (!rateCheck.allowed) {
-      setError(
-        `Too many requests. Please wait ${rateCheck.remainingSeconds}s before submitting again.`
-      )
-      setStatus("error")
-      return
-    }
-
-    setStatus("submitting")
-    setError("")
-
-    try {
-      const payload = buildSecurePayload({
-        name: trimmedName,
-        email: trimmedEmail,
-        city: trimmedCity,
-        organisation: trimmedOrg,
-        transportMode: sanitizedMode,
-      })
-
-      const res = await fetch(WAITLIST.endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      })
-
-      if (res.ok) {
-        const data: { result?: string; status?: string; error?: string } | null =
-          await res.json().catch(() => null)
-
-        if (data?.error) {
-          setError(
-            data.error || "Something went wrong while joining the waitlist. Please try again."
-          )
-          setStatus("error")
-          return
-        }
-
-        recordClientSubmission(`waitlist_${trimmedEmail}`)
-        trackEvent("waitlist_submit", {
-          city: trimmedCity,
-          transport_mode: sanitizedMode,
-        })
-        setForm(EMPTY_WAITLIST)
-        setStatus("sent")
-        return
-      }
-
-      setError("Something went wrong while joining the waitlist. Please try again.")
-      setStatus("error")
-    } catch {
-      setError("Something went wrong while joining the waitlist. Please try again.")
-      setStatus("error")
-    }
-  }
-
-  const submitting = status === "submitting"
-
   return (
     <section id="waitlist" className="relative py-16 sm:py-20 md:py-28">
       <Container>
@@ -151,17 +16,17 @@ export function Waitlist() {
               <div className="relative">
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-sm font-medium text-signal">11</span>
-                  <span className="eyebrow text-mist">Early Access & Beta</span>
+                  <span className="eyebrow text-mist">Available Now</span>
                 </div>
                 <h2 className="display mt-4 text-3xl font-bold text-white md:text-4xl">
-                  Join the Waitlist
+                  Try Commuttr today
                 </h2>
                 <div className="mt-5 space-y-4 max-w-md text-sm leading-relaxed text-muted-foreground">
                   <p>
-                    Be among the first to experience a smarter way to navigate public transport in South Africa.
+                    Commuttr is live. Plan smarter journeys across South African public transport right now, on the web, on iOS, or on Android.
                   </p>
                   <p>
-                    Join the Commuttr waitlist to receive early access, beta invitations, product updates and launch announcements.
+                    No waitlist, no waiting. Pick your platform and start planning your next trip.
                   </p>
                 </div>
 
@@ -169,185 +34,66 @@ export function Waitlist() {
                   <div className="flex items-start gap-3 rounded-none border border-white/[0.06] bg-white/[0.02] p-3 text-xs">
                     <Clock className="mt-0.5 size-4 shrink-0 text-signal" />
                     <div>
-                      <div className="font-semibold text-white">Early Beta Access</div>
-                      <div className="text-mist">Test features before official rollout</div>
+                      <div className="font-semibold text-white">Live today</div>
+                      <div className="text-mist">Plan journeys right now, no sign-up needed</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 rounded-none border border-white/[0.06] bg-white/[0.02] p-3 text-xs">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-signal" />
                     <div>
-                      <div className="font-semibold text-white">Product Updates</div>
-                      <div className="text-mist">Direct updates & release insights</div>
+                      <div className="font-semibold text-white">On every device</div>
+                      <div className="text-mist">Web, iOS beta and Android</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Waitlist Form */}
+            {/* Platform access */}
             <div className="border-t border-white/8 bg-ink/40 p-8 md:border-l md:border-t-0 md:p-12">
-              {status === "sent" ? (
-                <div className="flex h-full flex-col items-center justify-center py-8 text-center">
-                  <CheckCircle2 className="size-8 text-signal" />
-                  <h3 className="mt-5 font-display text-xl font-semibold text-white">
-                    You&rsquo;re on the list!
-                  </h3>
-                  <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                    Thank you for joining the Commuttr waitlist. We&rsquo;ve sent a confirmation email to your inbox.
-                  </p>
-                  <Button
-                    variant="outline"
-                    className="mt-6"
-                    onClick={() => setStatus("idle")}
-                  >
-                    Join with another email
+              <div className="flex h-full flex-col justify-center gap-5">
+                <div>
+                  <Button size="lg" className="w-full" asChild>
+                    <a
+                      href={APP_LINKS.web}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("app_web_click", { location: "try" })}
+                    >
+                      <Globe className="size-4" /> Try Commuttr on the Web
+                    </a>
                   </Button>
                 </div>
-              ) : (
-                <form onSubmit={onSubmit} className="space-y-4">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <Label htmlFor="waitlist-name">Full Name</Label>
-                      <Input
-                        id="waitlist-name"
-                        required
-                        disabled={submitting}
-                        value={form.name}
-                        onChange={updateField("name")}
-                        placeholder="e.g. Sipho Ndlovu"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="waitlist-email">Email Address</Label>
-                      <Input
-                        id="waitlist-email"
-                        type="email"
-                        required
-                        disabled={submitting}
-                        value={form.email}
-                        onChange={updateField("email")}
-                        placeholder="you@email.com"
-                      />
-                    </div>
-                  </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <Label htmlFor="waitlist-city">City</Label>
-                      <Input
-                        id="waitlist-city"
-                        required
-                        disabled={submitting}
-                        value={form.city}
-                        onChange={updateField("city")}
-                        placeholder="e.g. Cape Town, Johannesburg"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="waitlist-org">Organisation (optional)</Label>
-                      <Input
-                        id="waitlist-org"
-                        disabled={submitting}
-                        value={form.organisation}
-                        onChange={updateField("organisation")}
-                        placeholder="Company, school or operator"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label htmlFor="waitlist-transport">Primary Transport Mode (optional)</Label>
-                    <div className="relative">
-                      <select
-                        id="waitlist-transport"
-                        disabled={submitting}
-                        value={form.transportMode}
-                        onChange={updateField("transportMode")}
-                        className="flex h-11 w-full appearance-none rounded-none border border-input bg-white/[0.03] px-4 pr-10 text-sm text-white transition-colors focus-visible:border-signal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/30 disabled:cursor-not-allowed disabled:opacity-50"
-                      >
-                        <option value="" className="bg-carbon text-mist">
-                          Select primary transport mode
-                        </option>
-                        {WAITLIST.transportModes.map((mode) => (
-                          <option key={mode} value={mode} className="bg-carbon text-white">
-                            {mode}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-3.5 size-4 text-mist" />
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <label htmlFor="waitlist-consent" className="flex items-start gap-3 cursor-pointer group">
-                      <input
-                        type="checkbox"
-                        id="waitlist-consent"
-                        required
-                        disabled={submitting}
-                        checked={form.consent}
-                        onChange={updateField("consent")}
-                        className="mt-1 size-4 rounded-none border-white/20 bg-white/[0.03] text-signal focus:ring-signal focus:ring-offset-0 cursor-pointer accent-signal"
-                      />
-                      <span className="text-xs leading-relaxed text-muted-foreground transition-colors group-hover:text-white/90">
-                        By joining the waitlist, you agree to receive product updates, beta invitations and launch announcements from Commuttr. You can unsubscribe at any time. View our{" "}
-                        <a
-                          href="/privacy"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            if (window.location.pathname !== "/privacy") {
-                              window.history.pushState({}, "", "/privacy")
-                              window.dispatchEvent(new Event("popstate"))
-                            }
-                            window.scrollTo({ top: 0, behavior: "smooth" })
-                          }}
-                          className="text-signal underline-offset-4 hover:underline font-medium"
-                        >
-                          Privacy Policy
-                        </a>
-                        .
-                      </span>
-                    </label>
-                  </div>
-
-                  {/* Honeypot — hidden from humans, catches bots */}
-                  <input
-                    type="text"
-                    name="_gotcha"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                    className="hidden"
-                  />
-
-                  {status === "error" && (
-                    <div
-                      role="alert"
-                      className="flex items-start gap-2 border border-destructive/40 bg-destructive/10 p-3 text-sm text-white"
+                <div className="space-y-2">
+                  <Button size="lg" variant="outline" className="w-full" asChild>
+                    <a
+                      href={APP_LINKS.ios}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("app_ios_click", { location: "try" })}
                     >
-                      <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
-                      <div>{error}</div>
-                    </div>
-                  )}
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full"
-                    disabled={submitting}
-                  >
-                    {submitting ? (
-                      <>
-                        Submitting<Loader2 className="size-4 animate-spin" />
-                      </>
-                    ) : (
-                      <>
-                        Join the Waitlist
-                      </>
-                    )}
+                      <Apple className="size-4" /> Join the iOS Beta
+                    </a>
                   </Button>
-                </form>
-              )}
+                  <p className="px-1 text-xs leading-relaxed text-mist">
+                    iPhone users will need Apple&rsquo;s TestFlight app to install the beta.
+                  </p>
+                </div>
+
+                <div>
+                  <Button size="lg" variant="outline" className="w-full" asChild>
+                    <a
+                      href={APP_LINKS.android}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("app_android_click", { location: "try" })}
+                    >
+                      <Smartphone className="size-4" /> Download on Google Play
+                    </a>
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -32,9 +32,9 @@ export function Hero() {
             <Button size="lg" asChild>
               <a
                 href="#waitlist"
-                onClick={() => trackEvent("join_waitlist_click", { location: "hero" })}
+                onClick={() => trackEvent("try_commuttr_click", { location: "hero" })}
               >
-                Join the Waitlist <ArrowRight className="size-4" />
+                Try Commuttr <ArrowRight className="size-4" />
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild>

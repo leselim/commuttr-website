@@ -226,8 +226,8 @@ export const FAQS = [
     a: "Commuttr is starting with intelligent journey planning, with a long-term vision of building a more connected digital mobility experience for South Africa.",
   },
   {
-    q: "How do I join the waitlist?",
-    a: "Click 'Join the Waitlist' today to be among the first commuters to test Commuttr's intelligent journey planner when we launch.",
+    q: "How can I try Commuttr?",
+    a: "Commuttr is available now. Use the web app at app.commuttr.co.za, join the iOS beta through Apple\u2019s TestFlight, or download the Android app on Google Play. iPhone users will need Apple\u2019s TestFlight app to install the beta.",
   },
 ] as const
 
@@ -236,6 +236,13 @@ export const SOCIALS = [
   { label: "Instagram", href: "https://www.instagram.com/p/DbiYzVECBAw/" },
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591064297485" },
 ] as const
+
+export const APP_LINKS = {
+  web: "https://app.commuttr.co.za",
+  ios: "https://testflight.apple.com/join/DgWwZHmt",
+  android:
+    "https://play.google.com/store/apps/details?id=za.co.commuttr&pcampaignid=web_share",
+} as const
 
 export const ENDPOINTS = {
   contact:
